@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../entities/User";
-import { addUser, removeUser } from "../services/UserServices";
+import {
+    addUser,
+    removeUser,
+    updateUser,
+    userLogin,
+} from "../services/UserServices";
 import { Status } from "../interfaces-enums/StatusCodes";
 
 export async function createUser(req: Request, res: Response) {
@@ -11,7 +16,29 @@ export async function createUser(req: Request, res: Response) {
         if (newUser) {
             res.status(Status.Created).send(newUser);
         } else {
-            res.status(Status.Created).send("Username/email exists");
+            res.status(Status.Bad_Requesst).send("Username/email exists");
+        }
+    } catch (error: any) {
+        console.error(error.message);
+        if (ReferenceError !== null) {
+            res.status(Status.Bad_Requesst).send(error.message);
+        } else {
+            res.status(Status.Bad_Requesst).send("Something went wrong");
+        }
+    }
+}
+
+export async function loginUser(req: Request, res: Response) {
+    try {
+        const userData: UserProps = req.body.user;
+        console.log(userData);
+        const user = await userLogin(userData);
+        if (!user) {
+            res.status(Status.Bad_Requesst).send(
+                "Username/email does not exit or Password did not match"
+            );
+        } else {
+            res.status(Status.OK).send(user);
         }
     } catch (error: any) {
         console.error(error.message);
@@ -35,5 +62,22 @@ export const deleteUser = async (
         res.status(Status.OK).send(data);
     } catch (error) {
         res.status(Status.Bad_Requesst).send("Cannot delete");
+    }
+};
+
+export const updateExisUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const { user } = req.body;
+    const userId = req.header("userId") as string;
+
+    try {
+        const data = await updateUser(user, userId);
+        res.status(Status.OK).send(data);
+    } catch (error: any) {
+        console.log(error.message);
+        res.status(Status.Bad_Requesst).send("Cannot update");
     }
 };
