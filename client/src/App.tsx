@@ -1,0 +1,24 @@
+import "./App.css";
+
+function App() {
+    return (
+        <>
+            <div className="flex items-center justify-center">
+                <div>
+                    <h1 className="text-gray-500 text-2xl p-5">
+                        How was your day?
+                    </h1>
+                    <div className="">
+                        <textarea
+                            className="p-4 w-96 h-96 bg-gray-100 border border-gray-300 rounded resize-none"
+                            placeholder="Share your thoughts"
+                            maxLength={5000}
+                        />
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
+
+export default App;
