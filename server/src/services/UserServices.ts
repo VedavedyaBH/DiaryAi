@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { User } from "../entities/User";
+import bcrypt from "bcrypt";
+import { createToken } from "./JwtServices";
 
 const prisma = new PrismaClient();
 
@@ -23,6 +25,28 @@ export async function addUser(user: User): Promise<UserProps | null> {
         },
     });
     return data;
+}
+
+export async function userLogin(user: UserProps): Promise<string | boolean> {
+    let userData = user.email
+        ? await getUserObjByEmail(user.email)
+        : await getUserObjByName(user.username);
+
+    if (userData === null) {
+        return false;
+    }
+
+    const passwordMatch = await bcrypt.compare(
+        user.password,
+        userData.password
+    );
+
+    if (passwordMatch) {
+        const token = createToken(user);
+        return token;
+    }
+
+    return false;
 }
 
 export async function getUserObjById(id: string): Promise<UserProps | null> {
@@ -90,6 +114,38 @@ export async function removeUser(id: string): Promise<UserProps> {
             return data;
         } else {
             throw new Error("Cannot delete user");
+        }
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+}
+export async function updateUser(
+    user: UserProps,
+    id: string
+): Promise<UserProps> {
+    try {
+        const existingUser = await getUserObjById(id);
+
+        if (existingUser !== null) {
+            const data = await prisma.user.update({
+                where: {
+                    id: id,
+                },
+                data: {
+                    email: user.email || existingUser.email,
+                    username: user.username || existingUser.username,
+                    firstName: user.firstName || existingUser.firstName,
+                    lastName: user.lastName || existingUser.lastName,
+                    password: user.password
+                        ? await bcrypt.hash(user.password, 10)
+                        : existingUser.password,
+                    profilePicture:
+                        user.profilePicture || existingUser.profilePicture,
+                },
+            });
+            return data;
+        } else {
+            throw new Error("Cannot update user");
         }
     } catch (error: any) {
         throw new Error(error.message);
