@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { User } from "../entities/User";
 import { Request, Response, NextFunction } from "express";
 
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET || "Secret";
 
-export async function createToken(user: UserProps) {
+export async function createToken(user: User) {
     try {
         const SignUpJWT = jwt.sign({ user }, JWT_SECRET);
 
@@ -15,7 +16,11 @@ export async function createToken(user: UserProps) {
     }
 }
 
-exports.verifyJWT = (req: Request, res: Response, next: NextFunction) => {
+export async function verifyJWT(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
     try {
         const token = req.headers.authorization;
         if (!token) {
@@ -37,4 +42,4 @@ exports.verifyJWT = (req: Request, res: Response, next: NextFunction) => {
             error: error.message,
         });
     }
-};
+}
