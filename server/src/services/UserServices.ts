@@ -21,13 +21,11 @@ export async function userLogin(user: User): Promise<string | boolean> {
         );
 
         if (ispasswordMatched) {
-            const token = createToken(user);
+            const token = createToken(userData);
             return token;
         } else {
             throw new Error("Password did not match");
         }
-
-        return false;
     } catch (error: any) {
         throw new Error(error.message);
     }

@@ -8,10 +8,13 @@ const JWT_SECRET = process.env.JWT_SECRET || "Secret";
 
 export async function createToken(user: User) {
     try {
-        const SignUpJWT = jwt.sign({ user }, JWT_SECRET);
+        console.log(user);
+
+        const SignUpJWT = jwt.sign(user, JWT_SECRET);
 
         return SignUpJWT;
     } catch (error: any) {
+        console.log(error.message);
         throw new Error(error.message);
     }
 }
@@ -32,6 +35,34 @@ export async function verifyJWT(
 
         if (decodedToken) {
             next();
+        } else {
+            res.status(403).json({
+                message: "You are not authorized",
+            });
+        }
+    } catch (error: any) {
+        res.status(400).json({
+            error: error.message,
+        });
+    }
+}
+
+export async function decodeJWT(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    try {
+        const token = req.headers.authorization as string;
+        if (token === null) {
+            throw new Error("Please login");
+        }
+        const words = token.split(" ");
+        const jwtToken = words[1];
+        const decodedToken = jwt.verify(jwtToken, JWT_SECRET);
+
+        if (decodedToken) {
+            res.send(decodedToken);
         } else {
             res.status(403).json({
                 message: "You are not authorized",

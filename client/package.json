@@ -10,10 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tiptap/extension-color": "^2.2.4",
+    "@tiptap/extension-image": "^2.2.4",
+    "@tiptap/extension-list-item": "^2.2.4",
+    "@tiptap/extension-placeholder": "^2.2.4",
+    "@tiptap/extension-text-style": "^2.2.4",
+    "@tiptap/pm": "^2.2.4",
+    "@tiptap/react": "^2.2.4",
+    "@tiptap/starter-kit": "^2.2.4",
+    "axios": "^1.6.8",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "npm": "^10.5.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
