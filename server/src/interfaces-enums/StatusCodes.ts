@@ -1,9 +1,9 @@
 export enum Status {
     OK = 200,
     Created = 201,
-    Bad_Requesst = 400,
+    BadRequest = 400,
     Unauthorized = 403,
     Forbidden = 403,
-    Not_Found = 404,
-    INTERNAL_SERVER_ERROR = 500,
+    NotFound = 404,
+    Internal_Server_Error = 500,
 }

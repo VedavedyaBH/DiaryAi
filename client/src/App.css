@@ -1,8 +1,0 @@
-.tiptap p.is-empty::before {
-    color: #8a8f94;
-    content: attr(data-placeholder);
-    float: left;
-    pointer-events: none;
-    font-size:xx-large;
-    font-family:'Courier New', Courier, monospace;
-}

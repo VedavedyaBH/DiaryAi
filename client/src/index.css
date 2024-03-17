@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-4xl m-2;
+    }
+    h2 {
+        @apply text-2xl m-2;
+    }
+    pre {
+        @apply bg-slate-900 rounded-md text-white p-6
+    }
+    html {
+        scroll-behavior: smooth;
+      }
+
+  }
+
+  .tiptap {
+    > * + * {
+      margin-top: 0.75em;
+    }
+  }
+  .tiptap p.is-empty::before {
+    height: 0;
+    color: #8a8f94;
+    content: attr(data-placeholder);
+    float: left;
+    pointer-events: none;
+    font-size: xx-large; /* Default font size */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Tailwind CSS responsive font sizes */
+@media (max-width: 640px) {
+    .tiptap p.is-empty::before {
+        font-size: sm; /* Small font size on small screens */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+    .tiptap p.is-empty::before {
+        font-size: md; /* Medium font size on medium screens */
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .tiptap p.is-empty::before {
+        font-size: lg; /* Large font size on large screens */
+    }
+}
+
+/* Add more breakpoints as needed */

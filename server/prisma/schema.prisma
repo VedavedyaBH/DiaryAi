@@ -25,9 +25,12 @@ model User {
 }
 
 model Diary {
-  id        String   @id @map("_id")
-  content   String
-  img       String
-  userId    String
-  createdAt DateTime @default(now())
+  id         String   @id @map("_id")
+  title      String
+  tag        String
+  content    String
+  aiResponse String
+  img        String
+  userId     String
+  createdAt  DateTime @default(now())
 }

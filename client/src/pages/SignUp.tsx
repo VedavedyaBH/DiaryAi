@@ -3,6 +3,7 @@ import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { InputBox } from "../components/InputBox";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface User {
     username: string;
@@ -13,6 +14,7 @@ interface User {
 }
 
 export function SignUp() {
+    const navigate = useNavigate();
     const [user, setUser] = useState<User | null>(null);
     const [PasswordCheck, setPasswordCheck] = useState<string | null>("");
 
@@ -46,7 +48,7 @@ export function SignUp() {
                 const res = await axios.post(url, { user });
 
                 if (res.status === 201) {
-                    alert("User added");
+                    navigate("/login");
                 }
             }
         } catch (error: any) {
@@ -66,7 +68,7 @@ export function SignUp() {
 
     return (
         <>
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex justify-center mt-24">
                 <div className="p-6 border-2 rounded-lg w-96">
                     <form onSubmit={handleSubmit}>
                         <div>

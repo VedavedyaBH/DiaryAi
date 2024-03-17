@@ -21,9 +21,9 @@ export async function createUser(req: Request, res: Response) {
             error.message.includes("Username") ||
             error.message.includes("EmailId")
         ) {
-            res.status(Status.Bad_Requesst).send(error.message);
+            res.status(Status.BadRequest).send(error.message);
         } else {
-            res.status(Status.Bad_Requesst).send("Something went wrong");
+            res.status(Status.BadRequest).send("Something went wrong");
         }
     }
 }
@@ -41,9 +41,9 @@ export async function loginUser(req: Request, res: Response) {
             error.message.includes("Username/email") ||
             error.message.includes("Password")
         ) {
-            res.status(Status.Bad_Requesst).send(error.message);
+            res.status(Status.BadRequest).send(error.message);
         } else {
-            res.status(Status.Bad_Requesst).send("Something went wrong");
+            res.status(Status.BadRequest).send("Something went wrong");
         }
     }
 }
@@ -64,9 +64,9 @@ export const deleteUser = async (req: Request, res: Response) => {
             error.message.includes("User does not exist") ||
             error.message.includes("Cannot delete")
         ) {
-            res.status(Status.Bad_Requesst).send(error.message);
+            res.status(Status.BadRequest).send(error.message);
         }
-        res.status(Status.Bad_Requesst).send("Something went wrong");
+        res.status(Status.BadRequest).send("Something went wrong");
     }
 };
 
@@ -80,6 +80,6 @@ export const updateExisUser = async (req: Request, res: Response) => {
             res.status(Status.OK).send(data);
         }
     } catch (error: any) {
-        res.status(Status.Bad_Requesst).send("Cannot update");
+        res.status(Status.BadRequest).send("Cannot update");
     }
 };
