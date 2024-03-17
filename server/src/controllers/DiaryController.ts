@@ -11,39 +11,48 @@ export async function addToday(req: Request, res: Response) {
         if (addedToday !== null) {
             res.status(Status.Created).send(addedToday);
         } else {
-            res.status(Status.Bad_Requesst).send("Could not add");
+            res.status(Status.BadRequest).send("Could not add");
         }
     } catch (error: any) {
         console.error(error.message);
         if (ReferenceError !== null) {
-            res.status(Status.Bad_Requesst).send(error.message);
+            res.status(Status.BadRequest).send(error.message);
         } else {
-            res.status(Status.Bad_Requesst).send("Something went wrong");
+            res.status(Status.BadRequest).send("Something went wrong");
         }
     }
 }
 
 export async function getOneDay(req: Request, res: Response) {
-    const { diaryId } = req.body;
+    const { diaryId } = req.params;
     try {
+        console.log(diaryId);
         const day = await Diary.getDay(diaryId);
         day !== null
             ? res.status(Status.OK).send(day)
-            : res.status(Status.Bad_Requesst).send("could not get this day");
+            : res.status(Status.BadRequest).send("could not get this day");
     } catch (error) {
-        res.status(Status.Bad_Requesst).send("could not get this day");
+        res.status(Status.BadRequest).send("could not get this day");
     }
 }
 
 export async function getDays(req: Request, res: Response) {
-    const { userId } = req.body;
+    const { userId, limit, page } = req.query;
     try {
-        const days = await Diary.getManyDays(userId);
+        const offset =
+            (parseInt(page as string) - 1) * parseInt(limit as string);
+
+        const days = await Diary.getManyDays(
+            userId as string,
+            parseInt(limit as string),
+            offset
+        );
         days !== null
-            ? res.status(Status.OK).send(days)
-            : res.status(Status.Bad_Requesst).send("could not get this day");
+            ? res.status(Status.OK).send({ days })
+            : res.status(Status.BadRequest).send("Could not get this day");
     } catch (error) {
-        res.status(Status.Bad_Requesst).send("could not get this day");
+        console.error(error);
+        res.status(Status.Internal_Server_Error).send("Internal Server Error");
     }
 }
 
@@ -54,8 +63,8 @@ export async function deleteToday(req: Request, res: Response) {
         console.log(isDeleted);
         isDeleted
             ? res.status(Status.OK).send("deleted")
-            : res.status(Status.Bad_Requesst).send("could not delete");
+            : res.status(Status.BadRequest).send("could not delete");
     } catch (error) {
-        res.status(Status.Bad_Requesst).send("Cannot delete");
+        res.status(Status.BadRequest).send("Cannot delete");
     }
 }

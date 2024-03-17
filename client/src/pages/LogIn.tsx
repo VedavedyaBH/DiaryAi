@@ -1,6 +1,7 @@
 import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { InputBox } from "../components/InputBox";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../Context/UserContext";
@@ -12,6 +13,7 @@ interface User {
 }
 
 export function LogIn() {
+    const navigate = useNavigate();
     const { _login } = useAuth();
     const [user, setUser] = useState<User | null>(null);
 
@@ -35,9 +37,9 @@ export function LogIn() {
                 const url = "http://localhost:8080/user/v1/login";
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
-                    alert("User Logged In");
                     const token = res.data;
                     await _login({ token });
+                    navigate("/");
                 }
             }
         } catch (error: any) {
@@ -57,9 +59,9 @@ export function LogIn() {
 
     return (
         <>
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex justify-center h-screen mt-36">
                 <form onSubmit={handleSubmit}>
-                    <div className="p-6 border-2 rounded-lg w-72 ">
+                    <div className="p-6 border-2 rounded-lg w-96">
                         <div className="">
                             <Heading label={"Login to DiaryAi"}></Heading>
                         </div>

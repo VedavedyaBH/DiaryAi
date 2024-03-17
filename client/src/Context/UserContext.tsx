@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import axios from "axios";
@@ -9,16 +8,9 @@ const AuthContext = createContext<any>(undefined);
 export function AuthProvider({ children }: any) {
     const [user, setUser] = useState(localStorage.getItem("userId") || "");
     const [token, setToken] = useState(localStorage.getItem("token") || "");
-    const [content, setContent] = useState(
-        localStorage.getItem("content") || ""
-    );
-
-    // const navigate = useNavigate();
 
     const _login = async ({ token }: any) => {
         try {
-            console.log(token);
-
             const _user = await axios({
                 method: "get",
                 url: "http://localhost:8080/user/v1/user",
@@ -42,15 +34,9 @@ export function AuthProvider({ children }: any) {
             }
             if (error.response && error.response.status === 400) {
                 console.log(error.response);
-
                 console.log("input problem");
             }
         }
-    };
-
-    const _content = (contentInfo: any) => {
-        setContent(contentInfo);
-        localStorage.setItem("content", contentInfo);
     };
 
     const _logout = () => {
@@ -65,10 +51,8 @@ export function AuthProvider({ children }: any) {
     const contextValue = {
         user,
         token,
-        content,
         _login,
         _logout,
-        _content,
     };
 
     return (

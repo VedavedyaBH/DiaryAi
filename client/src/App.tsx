@@ -1,10 +1,12 @@
 import "./App.css";
-import { Button } from "./components/Button";
-import { Editor } from "./components/Editor";
+import { Editor } from "./pages/ChapterEditor";
 import { LogIn } from "./pages/LogIn";
 import { NavBar } from "./components/NavBar";
 import { SignUp } from "./pages/SignUp";
 import { AuthProvider } from "./Context/UserContext";
+import { Diaries } from "./pages/Diaries";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ChapterCard from "./pages/ChapterCard";
 
 function App() {
     const todayDate = new Date().toLocaleDateString();
@@ -12,25 +14,23 @@ function App() {
     return (
         <>
             <div>
-                {/* <NavBar></NavBar>
-
-                <Editor></Editor> */}
-                <AuthProvider>
-                    <LogIn></LogIn>
-                </AuthProvider>
-
-                {/* <div>
-                    <h1 className="text-gray-500 text-2xl p-5">
-                        How was your day?
-                    </h1>
-                    <div className="">
-                        <textarea
-                            className="p-4 w-96 h-96 bg-gray-100 border border-gray-300 rounded resize-none"
-                            placeholder="Share your thoughts"
-                            maxLength={5000}
-                        />
-                    </div>
-                </div> */}
+                <main>
+                    <AuthProvider>
+                        <BrowserRouter>
+                            <NavBar></NavBar>
+                            <Routes>
+                                <Route path="/login" element={<LogIn />} />
+                                <Route path="/signup" element={<SignUp />} />
+                                <Route path="/" element={<Diaries />} />
+                                <Route path="/today" element={<Editor />} />
+                                <Route
+                                    path="/chapter/:chapterId"
+                                    element={<ChapterCard />}
+                                />
+                            </Routes>
+                        </BrowserRouter>
+                    </AuthProvider>
+                </main>
             </div>
         </>
     );
