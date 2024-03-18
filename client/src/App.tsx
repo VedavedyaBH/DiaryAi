@@ -7,10 +7,9 @@ import { AuthProvider } from "./Context/UserContext";
 import { Diaries } from "./pages/Diaries";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ChapterCard from "./pages/ChapterCard";
+import Profile from "./pages/Profile";
 
 function App() {
-    const todayDate = new Date().toLocaleDateString();
-
     return (
         <>
             <div>
@@ -27,6 +26,7 @@ function App() {
                                     path="/chapter/:chapterId"
                                     element={<ChapterCard />}
                                 />
+                                <Route path="/user" element={<Profile />} />
                             </Routes>
                         </BrowserRouter>
                     </AuthProvider>

@@ -75,11 +75,25 @@ export const updateExisUser = async (req: Request, res: Response) => {
     const userId = req.header("userId") as string;
 
     try {
+        console.log(user, userId);
         const data = await updateUser(user, userId);
         if (data !== null) {
             res.status(Status.OK).send(data);
         }
     } catch (error: any) {
         res.status(Status.BadRequest).send("Cannot update");
+    }
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+    const { userId } = req.params;
+
+    try {
+        const userObj = await getUserObjById(userId);
+        if (userObj !== null) {
+            res.status(Status.OK).send(userObj);
+        }
+    } catch (error: any) {
+        res.status(Status.BadRequest).send("Cannot find");
     }
 };

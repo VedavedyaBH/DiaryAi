@@ -8,8 +8,8 @@ export function NavBar() {
     const { token, _logout } = useAuth();
 
     return (
-        <div className="bg-white text-gray-500 text-lg flex max-w-3xl p-5 justify-between mx-auto">
-            <div>
+        <div className="bg-white border-b text-gray-500 text-lg flex max-w-3xl p-2 justify-between mx-auto">
+            <div className="flex justify-between item-center">
                 <button
                     onClick={() => {
                         navigate("/");
@@ -19,7 +19,7 @@ export function NavBar() {
                 </button>
             </div>
             <div className="flex justify-between item-center">
-                <div className="mr-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12">
+                <div className="m-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12">
                     {token !== "" ? (
                         currentLoc.pathname === "/today" ? (
                             <button
@@ -30,13 +30,23 @@ export function NavBar() {
                                 Diary
                             </button>
                         ) : currentLoc.pathname !== "/today" ? (
-                            <button
-                                onClick={async () => {
-                                    navigate("/today");
-                                }}
-                            >
-                                Add
-                            </button>
+                            currentLoc.pathname === "/user" ? (
+                                <button
+                                    onClick={async () => {
+                                        _logout();
+                                    }}
+                                >
+                                    logout
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={async () => {
+                                        navigate("/today");
+                                    }}
+                                >
+                                    Add
+                                </button>
+                            )
                         ) : null
                     ) : currentLoc.pathname === "/signup" ? (
                         <button
@@ -57,14 +67,14 @@ export function NavBar() {
                     )}
                 </div>
                 {token !== "" ? (
-                    <div
+                    <button
                         onClick={() => {
-                            _logout();
+                            navigate("/user");
                         }}
-                        className="mr-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12"
+                        className="m-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12"
                     >
-                        Logout
-                    </div>
+                        Profile
+                    </button>
                 ) : null}
             </div>
         </div>
