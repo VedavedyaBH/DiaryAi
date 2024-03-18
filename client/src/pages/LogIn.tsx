@@ -20,12 +20,21 @@ export function LogIn() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
+        const emailCheck = formData.get("usernameOrEmail") as string;
+        const isEmail = emailCheck.includes("@") ? true : false;
+        let userFormData: User;
 
-        const userFormData: User = {
-            username: formData.get("usernameOrEmail") as string,
-            email: formData.get("email") as string,
-            password: formData.get("password") as string,
-        };
+        if (isEmail) {
+            userFormData = {
+                email: formData.get("usernameOrEmail") as string,
+                password: formData.get("password") as string,
+            };
+        } else {
+            userFormData = {
+                username: formData.get("usernameOrEmail") as string,
+                password: formData.get("password") as string,
+            };
+        }
 
         setUser(userFormData);
         await addUser();
@@ -34,12 +43,14 @@ export function LogIn() {
     async function addUser() {
         try {
             if (user !== null) {
+                console.log(user);
                 const url = "http://localhost:8080/user/v1/login";
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
                     const token = res.data;
                     await _login({ token });
                     navigate("/");
+                    window.location.reload();
                 }
             }
         } catch (error: any) {

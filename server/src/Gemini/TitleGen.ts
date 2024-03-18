@@ -12,7 +12,7 @@ export async function generateTitle(content: string) {
 
     const prompt = `Give a title for this ${content}.
     Do not respond with anthing else. Just the title.
-    Add emotions to it. Should not be very long. Include today's (India) date also.
+    Add emotions to it. Should not be very long. Include today's(request sent day) (India) date also.
     Ignore html tags like <p><h1><pre> etc`;
 
     const result = await model.generateContent(prompt);

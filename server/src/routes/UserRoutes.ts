@@ -4,6 +4,7 @@ import {
     deleteUser,
     updateExisUser,
     loginUser,
+    getUserById,
 } from "../controllers/UserController";
 import {
     addToday,
@@ -17,11 +18,12 @@ const router = express.Router();
 
 router.delete("/user/v1/user", verifyJWT, deleteUser);
 router.get("/user/v1/user", decodeJWT);
-router.put("/user/v1/user", verifyJWT, updateExisUser);
+router.get("/user/v1/:user", verifyJWT, getUserById);
+router.put("/user/v1/user/update", verifyJWT, updateExisUser);
 router.post("/user/v1/signup", createUser);
 router.post("/user/v1/login", loginUser);
 router.get("/user/v1/open/:diaryId", verifyJWT, getOneDay);
-router.get("/user/v1/:diary", verifyJWT, getDays);
+router.get("/user/v1/list/:diary", verifyJWT, getDays);
 router.delete("/user/v1/:today", verifyJWT, deleteToday);
 router.post("/user/v1/today", addToday);
 
