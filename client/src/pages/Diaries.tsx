@@ -21,7 +21,7 @@ export function Diaries() {
     const fetchChapters = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/user/v1/list/:diary`,
+                `http://localhost:8080/api/v1/diaries`,
                 {
                     params: {
                         userId: user,

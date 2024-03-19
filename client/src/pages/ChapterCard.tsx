@@ -18,7 +18,7 @@ function ChapterCard() {
     const fetchChapter = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/user/v1/open/${chapterId}`,
+                `http://localhost:8080/api/v1/diaries/${chapterId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -48,7 +48,9 @@ function ChapterCard() {
                 }}
             />
             <div>
-                <div className="bg-gray-200 text-black rounded-lg p-5 mt-10 text-xl  font-bold ">Hello there!</div>
+                <div className="bg-gray-200 text-black rounded-lg p-5 mt-10 text-xl  font-bold ">
+                    Hello there!
+                </div>
                 <div className="mt-3 text-base text-gray-700 leading-relaxed mb-4">
                     {response}
                 </div>

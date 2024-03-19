@@ -5,10 +5,9 @@ import {
     generateTitle,
     generateTags,
     generateResponse,
-} from "../Gemini/TitleGen";
-const prisma = new PrismaClient();
+} from "../gemini/TitleGen";
 
-const DEFAULT_LIMIT = 5;
+const prisma = new PrismaClient();
 
 export class Diary {
     id: string;
@@ -18,6 +17,7 @@ export class Diary {
     img: string;
     userId: string;
     aiResponse: string;
+    private: boolean;
 
     constructor(diary: Diary) {
         this.id = uuidv4();
@@ -26,10 +26,15 @@ export class Diary {
         this.tag = diary.tag;
         (this.title = diary.title),
             (this.userId = diary.userId),
-            (this.aiResponse = diary.aiResponse);
+            (this.aiResponse = diary.aiResponse),
+            (this.private = true);
     }
 
-    static async addday(diary: Diary, userId: string): Promise<Diary | null> {
+    static async addday(
+        diary: Diary,
+        userId: string,
+        priavatePost: boolean
+    ): Promise<Diary | null> {
         try {
             const data = await prisma.diary.create({
                 data: {
@@ -40,6 +45,7 @@ export class Diary {
                     content: diary.content,
                     img: diary.img,
                     userId: userId,
+                    private: priavatePost,
                 },
             });
             return data;
@@ -51,7 +57,6 @@ export class Diary {
 
     static async deleteDay(id: string): Promise<boolean> {
         try {
-            console.group(id);
             if ((await getDiaryObjById(id)) !== null) {
                 const data = await prisma.diary.delete({
                     where: {

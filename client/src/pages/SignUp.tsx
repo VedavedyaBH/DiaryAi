@@ -44,7 +44,7 @@ export function SignUp() {
     async function addUser() {
         try {
             if (user !== null) {
-                const url = "http://localhost:8080/user/v1/signup";
+                const url = "http://localhost:8080/api/v1/signup";
                 const res = await axios.post(url, { user });
 
                 if (res.status === 201) {

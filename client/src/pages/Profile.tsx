@@ -30,7 +30,7 @@ function Profile() {
     const fetchUser = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/user/v1/${user}`,
+                `http://localhost:8080/api/v1/users/profile/${user}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ function Profile() {
         try {
             console.log(updatedUserObj);
             const res = await axios.put(
-                `  http://localhost:8080/user/v1/user/update `,
+                `  http://localhost:8080/api/v1/users/profile`,
                 { user: updatedUserObj },
                 {
                     headers: {
