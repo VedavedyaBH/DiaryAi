@@ -44,7 +44,7 @@ export function LogIn() {
         try {
             if (user !== null) {
                 console.log(user);
-                const url = "http://localhost:8080/user/v1/login";
+                const url = "http://localhost:8080/api/v1/login";
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
                     const token = res.data;

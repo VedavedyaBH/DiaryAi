@@ -29,7 +29,7 @@ export function NavBar() {
                             >
                                 Diary
                             </button>
-                        ) : currentLoc.pathname !== "/today" ? (
+                        ) : currentLoc.pathname !== "/chapter/:chapterId" ? (
                             currentLoc.pathname === "/user" ? (
                                 <button
                                     onClick={async () => {

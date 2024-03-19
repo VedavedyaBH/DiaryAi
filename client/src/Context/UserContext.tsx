@@ -13,7 +13,7 @@ export function AuthProvider({ children }: any) {
         try {
             const _user = await axios({
                 method: "get",
-                url: "http://localhost:8080/user/v1/user",
+                url: "http://localhost:8080/api/v1/users/auth",
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

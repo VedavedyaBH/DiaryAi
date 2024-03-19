@@ -2,29 +2,29 @@ import express from "express";
 import {
     createUser,
     deleteUser,
-    updateExisUser,
+    updateProfile,
     loginUser,
-    getUserById,
+    getUserProfile,
 } from "../controllers/UserController";
 import {
-    addToday,
-    deleteToday,
-    getOneDay,
-    getDays,
+    addDiaryEntry,
+    deleteDiaryEntry,
+    getDiaryEntry,
+    getDiaryEntries,
 } from "../controllers/DiaryController";
 import { verifyJWT, decodeJWT } from "../services/JwtServices";
 
 const router = express.Router();
 
-router.delete("/user/v1/user", verifyJWT, deleteUser);
-router.get("/user/v1/user", decodeJWT);
-router.get("/user/v1/:user", verifyJWT, getUserById);
-router.put("/user/v1/user/update", verifyJWT, updateExisUser);
-router.post("/user/v1/signup", createUser);
-router.post("/user/v1/login", loginUser);
-router.get("/user/v1/open/:diaryId", verifyJWT, getOneDay);
-router.get("/user/v1/list/:diary", verifyJWT, getDays);
-router.delete("/user/v1/:today", verifyJWT, deleteToday);
-router.post("/user/v1/today", addToday);
+router.delete("/api/v1/users", verifyJWT, deleteUser);
+router.get("/api/v1/users/auth", decodeJWT);
+router.get("/api/v1/users/profile/:id", verifyJWT, getUserProfile);
+router.put("/api/v1/users/profile", verifyJWT, updateProfile);
+router.post("/api/v1/signup", createUser);
+router.post("/api/v1/login", loginUser);
+router.get("/api/v1/diaries/:chapterId", verifyJWT, getDiaryEntry);
+router.get("/api/v1/diaries", verifyJWT, getDiaryEntries);
+router.delete("/api/v1/diaries/:id", verifyJWT, deleteDiaryEntry);
+router.post("/api/v1/diaries", addDiaryEntry);
 
 export default router;

@@ -70,7 +70,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     }
 };
 
-export const updateExisUser = async (req: Request, res: Response) => {
+export const updateProfile = async (req: Request, res: Response) => {
     const { user } = req.body;
     const userId = req.header("userId") as string;
 
@@ -85,7 +85,7 @@ export const updateExisUser = async (req: Request, res: Response) => {
     }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserProfile = async (req: Request, res: Response) => {
     const { userId } = req.params;
 
     try {

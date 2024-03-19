@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import { Diary } from "../entities/Diary";
 import { Status } from "../interfaces-enums/StatusCodes";
 
-export async function addToday(req: Request, res: Response) {
+export async function addDiaryEntry(req: Request, res: Response) {
     try {
         const userId = req.header("userId") as string;
         const diaryData: Diary = req.body.today;
+        const privatePost: boolean = req.body.private;
         const today = new Diary(diaryData);
-        const addedToday = await Diary.addday(today, userId);
+        const addedToday = await Diary.addday(today, userId, privatePost);
         if (addedToday !== null) {
             res.status(Status.Created).send(addedToday);
         } else {
@@ -23,11 +24,10 @@ export async function addToday(req: Request, res: Response) {
     }
 }
 
-export async function getOneDay(req: Request, res: Response) {
-    const { diaryId } = req.params;
+export async function getDiaryEntry(req: Request, res: Response) {
+    const { chapterId } = req.params;
     try {
-        console.log(diaryId);
-        const day = await Diary.getDay(diaryId);
+        const day = await Diary.getDay(chapterId);
         day !== null
             ? res.status(Status.OK).send(day)
             : res.status(Status.BadRequest).send("could not get this day");
@@ -36,7 +36,7 @@ export async function getOneDay(req: Request, res: Response) {
     }
 }
 
-export async function getDays(req: Request, res: Response) {
+export async function getDiaryEntries(req: Request, res: Response) {
     const { userId, limit, page } = req.query;
     try {
         const offset =
@@ -56,7 +56,7 @@ export async function getDays(req: Request, res: Response) {
     }
 }
 
-export async function deleteToday(req: Request, res: Response) {
+export async function deleteDiaryEntry(req: Request, res: Response) {
     const diaryId = req.params.today;
     try {
         const isDeleted = await Diary.deleteDay(diaryId);
