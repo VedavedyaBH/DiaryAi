@@ -16,7 +16,7 @@ const Card = ({ chapterId, title, content, tag }: any) => {
         });
         return wrappedContent;
     };
-
+    
     const handleCardClick = () => {
         navigate(`/chapter/${chapterId}`);
     };
