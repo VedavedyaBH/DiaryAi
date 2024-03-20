@@ -5,6 +5,7 @@ import {
     updateUser,
     userLogin,
 } from "../services/UserServices";
+import { Socials } from "../entities/Socials";
 import { Status } from "../interfaces-enums/StatusCodes";
 
 export async function createUser(req: Request, res: Response) {
@@ -12,6 +13,7 @@ export async function createUser(req: Request, res: Response) {
         const userData: User = req.body.user;
         const user = new User(userData);
         const newUser = await User.addUser(user);
+        newUser ? new Socials(newUser) : null;
         if (newUser !== null) {
             res.status(Status.Created).send(newUser);
         }

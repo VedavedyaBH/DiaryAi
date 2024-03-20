@@ -12,6 +12,7 @@ import {
     getDiaryEntry,
     getDiaryEntries,
 } from "../controllers/DiaryController";
+import { follow, unfollow } from "../controllers/SocialsController";
 import { verifyJWT, decodeJWT } from "../services/JwtServices";
 
 const router = express.Router();
@@ -26,5 +27,8 @@ router.get("/api/v1/diaries/:chapterId", verifyJWT, getDiaryEntry);
 router.get("/api/v1/diaries", verifyJWT, getDiaryEntries);
 router.delete("/api/v1/diaries/:id", verifyJWT, deleteDiaryEntry);
 router.post("/api/v1/diaries", addDiaryEntry);
+
+router.post("/api/v1/socials/follow", verifyJWT, follow);
+router.delete("/api/v1/socials/follow", verifyJWT, unfollow);
 
 export default router;
