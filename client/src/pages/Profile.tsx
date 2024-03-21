@@ -18,6 +18,10 @@ function Profile() {
     const [userObj, setUserObj] = useState<any>("");
     const [changePassword, setChangePassword] = useState(false);
     const [diaries, setDiaries] = useState([]);
+    const [followers, setFollowers] = useState([]);
+    const [following, setFollowing] = useState([]);
+    const [followersCount, setFollowersCount] = useState(0);
+    const [followingCount, setFollowingCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [diariesCount, setDiariesCount] = useState(0);
 
@@ -31,9 +35,13 @@ function Profile() {
     useEffect(() => {
         fetchUser();
     }, []);
+
     useEffect(() => {
         setDiariesCount(diaries.length);
-    }, [diaries]);
+        setFollowersCount(followers.length);
+        setFollowingCount(following.length);
+    }, [diaries, followers, following]);
+
     const fetchUser = async () => {
         try {
             const res = await axios.get(
@@ -45,10 +53,11 @@ function Profile() {
                 }
             );
             const data = res.data;
-            console.log(data);
             setUserObj(data);
             setIsLoading(false);
             setDiaries(data.diaries);
+            setFollowers(data.socials.followers);
+            setFollowing(data.socials.following);
         } catch (error: any) {
             console.log(error.message);
         }
@@ -106,7 +115,11 @@ function Profile() {
                 <div className="mt-6">
                     <div className="max-w-3xl mx-auto bg-white pt-5 rounded-md">
                         <div className="text-4xl font-bold">{`Hello ${userObj.username}!`}</div>
-                        <div>Diaries {diariesCount}</div>
+                        <div className="flex justify-normal">
+                            <div className="mr-5 mt-2 text-sm p-1">Chapters {diariesCount}</div>
+                            <div className="mr-5 mt-2 text-sm p-1">Followers {followersCount}</div>
+                            <div className="mr-5 mt-2 text-sm p-1">Followers {followingCount}</div>
+                        </div>{" "}
                         <form>
                             <div className="mb-4 my-10 max-w-72">
                                 <label
