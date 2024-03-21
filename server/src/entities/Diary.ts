@@ -86,11 +86,54 @@ export class Diary {
         }
     }
 
-    static async getManyDays(userId: string, limit: number, offset: number) {
+    static async getAllChapters(userId: string, limit: number, offset: number) {
         try {
             const data = await prisma.diary.findMany({
                 where: {
                     userId: userId,
+                },
+                take: limit,
+                skip: offset,
+                orderBy: { createdAt: "desc" },
+            });
+            return data;
+        } catch (error: any) {
+            console.log(error.message);
+            return null;
+        }
+    }
+    static async getPrivateChapters(
+        userId: string,
+        limit: number,
+        offset: number
+    ) {
+        try {
+            const data = await prisma.diary.findMany({
+                where: {
+                    userId: userId,
+                    private: true,
+                },
+                take: limit,
+                skip: offset,
+                orderBy: { createdAt: "desc" },
+            });
+            return data;
+        } catch (error: any) {
+            console.log(error.message);
+            return null;
+        }
+    }
+
+    static async getPublicChapters(
+        userId: string,
+        limit: number,
+        offset: number
+    ) {
+        try {
+            const data = await prisma.diary.findMany({
+                where: {
+                    userId: userId,
+                    private: false,
                 },
                 take: limit,
                 skip: offset,

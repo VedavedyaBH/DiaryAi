@@ -46,4 +46,5 @@ model Socials {
   diaryId   String[]
   followers String[]
   following String[]
+  createdAt DateTime @default(now())
 }
