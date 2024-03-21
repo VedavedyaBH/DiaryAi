@@ -34,7 +34,7 @@ export function Editor() {
                 });
 
                 if (res.status === 201) {
-                    navigate("/");
+                    navigate("/myDiary");
                 }
             }
         } catch (error: any) {

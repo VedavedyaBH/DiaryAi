@@ -49,7 +49,7 @@ export function LogIn() {
                 if (res.status === 200) {
                     const token = res.data;
                     await _login({ token });
-                    navigate("/");
+                    navigate("/feed");
                     window.location.reload();
                 }
             }

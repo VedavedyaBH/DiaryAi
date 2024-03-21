@@ -42,7 +42,7 @@ export async function getDiaryEntries(req: Request, res: Response) {
         const offset =
             (parseInt(page as string) - 1) * parseInt(limit as string);
 
-        const days = await Diary.getManyDays(
+        const days = await Diary.getAllChapters(
             userId as string,
             parseInt(limit as string),
             offset
@@ -66,5 +66,43 @@ export async function deleteDiaryEntry(req: Request, res: Response) {
             : res.status(Status.BadRequest).send("could not delete");
     } catch (error) {
         res.status(Status.BadRequest).send("Cannot delete");
+    }
+}
+
+export async function getPrivateChapters(req: Request, res: Response) {
+    try {
+        const { userId, limit, page } = req.query;
+        const offset =
+            (parseInt(page as string) - 1) * parseInt(limit as string);
+
+        const chapters = await Diary.getPrivateChapters(
+            userId as string,
+            parseInt(limit as string),
+            offset
+        );
+        chapters
+            ? res.status(Status.OK).send(chapters)
+            : res.status(Status.BadRequest).send("Something went wrong");
+    } catch (error: any) {
+        res.status(Status.BadRequest).send("Something went wrong");
+    }
+}
+
+export async function getPublicChapters(req: Request, res: Response) {
+    try {
+        const { userId, limit, page } = req.query;
+        const offset =
+            (parseInt(page as string) - 1) * parseInt(limit as string);
+
+        const chapters = await Diary.getPublicChapters(
+            userId as string,
+            parseInt(limit as string),
+            offset
+        );
+        chapters
+            ? res.status(Status.OK).send(chapters)
+            : res.status(Status.BadRequest).send("Something went wrong");
+    } catch (error: any) {
+        res.status(Status.BadRequest).send("Something went wrong");
     }
 }

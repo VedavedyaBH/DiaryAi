@@ -16,6 +16,11 @@ function Profile() {
     const { user, token } = useAuth();
     const navigate = useNavigate();
     const [userObj, setUserObj] = useState<any>("");
+    const [changePassword, setChangePassword] = useState(false);
+    const [diaries, setDiaries] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [diariesCount, setDiariesCount] = useState(0);
+
     const [updatedUserObj, setUpdatedUserObj] = useState<User>({
         username: "",
         password: "",
@@ -26,11 +31,13 @@ function Profile() {
     useEffect(() => {
         fetchUser();
     }, []);
-
+    useEffect(() => {
+        setDiariesCount(diaries.length);
+    }, [diaries]);
     const fetchUser = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/api/v1/users/profile/${user}`,
+                `http://localhost:8080/api/v1/socials/profile/${user}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -38,7 +45,10 @@ function Profile() {
                 }
             );
             const data = res.data;
+            console.log(data);
             setUserObj(data);
+            setIsLoading(false);
+            setDiaries(data.diaries);
         } catch (error: any) {
             console.log(error.message);
         }
@@ -74,7 +84,6 @@ function Profile() {
 
     return (
         <>
-            {" "}
             {token === "" ? (
                 <div className="justify-center flex item-center mt-20 ">
                     <div className="flex justify-center items-center">
@@ -91,10 +100,13 @@ function Profile() {
                         </div>
                     </div>
                 </div>
+            ) : isLoading ? (
+                <div className="text-center">Loading...</div>
             ) : (
                 <div className="mt-6">
                     <div className="max-w-3xl mx-auto bg-white pt-5 rounded-md">
                         <div className="text-4xl font-bold">{`Hello ${userObj.username}!`}</div>
+                        <div>Diaries {diariesCount}</div>
                         <form>
                             <div className="mb-4 my-10 max-w-72">
                                 <label
@@ -103,13 +115,13 @@ function Profile() {
                                 >
                                     Username
                                 </label>
-                                <InputBox
+                                <input
                                     id="username"
                                     type="text"
                                     name="username"
                                     value={updatedUserObj.username}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:ring-blue-400"
+                                    className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
                                     placeholder={userObj.username}
                                 />
                             </div>
@@ -120,33 +132,40 @@ function Profile() {
                                 >
                                     Password
                                 </label>
-                                <InputBox
+                                <input
+                                    onClick={() => {
+                                        changePassword
+                                            ? setChangePassword(false)
+                                            : setChangePassword(true);
+                                    }}
                                     id="password"
                                     type="password"
                                     name="password"
                                     value={updatedUserObj.password}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:ring-blue-400"
+                                    className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
                                     placeholder="Enter new password"
                                 />
                             </div>
-                            <div className="mb-4 max-w-72">
-                                <label
-                                    htmlFor="reenteredPassword"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Re-Enter the Password
-                                </label>
-                                <InputBox
-                                    id="reenteredPassword"
-                                    type="password"
-                                    name="reenteredPassword"
-                                    value={updatedUserObj.reenteredPassword}
-                                    onChange={handleInputChange}
-                                    className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:ring-blue-400"
-                                    placeholder="Re-Enter the Password"
-                                />
-                            </div>
+                            {changePassword ? (
+                                <div className="mb-4 max-w-72">
+                                    <label
+                                        htmlFor="reenteredPassword"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Re-Enter the Password
+                                    </label>
+                                    <input
+                                        id="reenteredPassword"
+                                        type="password"
+                                        name="reenteredPassword"
+                                        value={updatedUserObj.reenteredPassword}
+                                        onChange={handleInputChange}
+                                        className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                        placeholder="Re-Enter the Password"
+                                    />
+                                </div>
+                            ) : null}
                             <div className="mb-4 max-w-72">
                                 <label
                                     htmlFor="email"
@@ -154,13 +173,13 @@ function Profile() {
                                 >
                                     Email
                                 </label>
-                                <InputBox
+                                <input
                                     id="email"
                                     type="email"
                                     name="email"
                                     value={updatedUserObj.email}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:ring-blue-400"
+                                    className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
                                     placeholder={userObj.email}
                                 />
                             </div>

@@ -12,7 +12,7 @@ export function NavBar() {
             <div className="flex justify-between item-center">
                 <button
                     onClick={() => {
-                        navigate("/");
+                        navigate("/feed");
                     }}
                 >
                     DiaryAI
@@ -24,7 +24,7 @@ export function NavBar() {
                         currentLoc.pathname === "/today" ? (
                             <button
                                 onClick={async () => {
-                                    navigate("/");
+                                    navigate("/myDiary");
                                 }}
                             >
                                 Diary
