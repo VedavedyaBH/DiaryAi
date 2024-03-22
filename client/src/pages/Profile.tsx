@@ -2,7 +2,6 @@ import React from "react";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { InputBox } from "../components/InputBox";
 import { useNavigate } from "react-router-dom";
 
 interface User {
@@ -74,7 +73,7 @@ function Profile() {
         try {
             console.log(updatedUserObj);
             const res = await axios.put(
-                `  http://localhost:8080/api/v1/users/profile`,
+                `http://localhost:8080/api/v1/users/profile`,
                 { user: updatedUserObj },
                 {
                     headers: {
@@ -116,9 +115,15 @@ function Profile() {
                     <div className="max-w-3xl mx-auto bg-white pt-5 rounded-md">
                         <div className="text-4xl font-bold">{`Hello ${userObj.username}!`}</div>
                         <div className="flex justify-normal">
-                            <div className="mr-5 mt-2 text-sm p-1">Chapters {diariesCount}</div>
-                            <div className="mr-5 mt-2 text-sm p-1">Followers {followersCount}</div>
-                            <div className="mr-5 mt-2 text-sm p-1">Followers {followingCount}</div>
+                            <div className="mr-5 mt-2 text-sm p-1">
+                                Chapters {diariesCount}
+                            </div>
+                            <div className="mr-5 mt-2 text-sm p-1">
+                                Followers {followersCount}
+                            </div>
+                            <div className="mr-5 mt-2 text-sm p-1">
+                                Following {followingCount}
+                            </div>
                         </div>{" "}
                         <form>
                             <div className="mb-4 my-10 max-w-72">

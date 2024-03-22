@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../Context/UserContext";
+import SearchBar from "./SearchBar";
 
 export function NavBar() {
     const navigate = useNavigate();
@@ -19,6 +20,9 @@ export function NavBar() {
                 </button>
             </div>
             <div className="flex justify-between item-center">
+                <div>
+                    <SearchBar></SearchBar>
+                </div>
                 <div className="m-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12">
                     {token !== "" ? (
                         currentLoc.pathname === "/today" ? (

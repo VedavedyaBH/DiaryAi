@@ -15,11 +15,12 @@ export class Socials extends User {
         this.diaryId = [];
         this.followers = [];
         this.following = [];
+        this.createSocialsForUser();
     }
 
     async createSocialsForUser() {
         try {
-            const newSocials = await prisma.socials.create({
+            await prisma.socials.create({
                 data: {
                     id: this.id,
                     diaryId: [],
@@ -27,6 +28,32 @@ export class Socials extends User {
                     following: [],
                 },
             });
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
+    static async updateSocialsForUser(userId: string, diaryId: string) {
+        try {
+            const existingSocials = await prisma.socials.findUnique({
+                where: {
+                    id: userId,
+                },
+            });
+
+            if (!existingSocials) {
+                throw new Error("Socials data not found for the user.");
+            }
+
+            const updatedSocials = await prisma.socials.update({
+                where: {
+                    id: userId,
+                },
+                data: {
+                    diaryId: [...existingSocials.diaryId, diaryId],
+                },
+            });
+
+            return updatedSocials;
         } catch (error: any) {
             throw new Error(error.message);
         }

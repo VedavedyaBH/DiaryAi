@@ -109,3 +109,24 @@ export async function updateUser(user: User, id: string): Promise<User> {
         throw new Error(error.message);
     }
 }
+
+export async function getUserObjByLetters(username: string): Promise<User[]> {
+    try {
+        console.log("hello from userSerc");
+        const users = await prisma.user.findMany({
+            where: {
+                username: {
+                    startsWith: username,
+                },
+            },
+            include: {
+                diaries: true,
+                socials: true,
+            },
+        });
+
+        return users;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+}

@@ -5,6 +5,7 @@ import {
     updateProfile,
     loginUser,
     getUserProfile,
+    getUserObjByUsername,
 } from "../controllers/UserController";
 import {
     addDiaryEntry,
@@ -41,5 +42,6 @@ router.post("/api/v1/socials/follow", verifyJWT, follow);
 router.delete("/api/v1/socials/follow", verifyJWT, unfollow);
 router.get("/api/v1/socials/feed", verifyJWT, getFeedForUser);
 router.get("/api/v1/socials/profile/:userId", verifyJWT, getUserSocialProfile);
+router.get("/api/v1/socials/profile/users/find", verifyJWT, getUserObjByUsername);
 
 export default router;

@@ -4,6 +4,7 @@ import {
     getUserObjById,
     updateUser,
     userLogin,
+    getUserObjByLetters,
 } from "../services/UserServices";
 import { Socials } from "../entities/Socials";
 import { Status } from "../interfaces-enums/StatusCodes";
@@ -99,3 +100,16 @@ export const getUserProfile = async (req: Request, res: Response) => {
         res.status(Status.BadRequest).send("Cannot find");
     }
 };
+
+export async function getUserObjByUsername(req: Request, res: Response) {
+    try {
+        const { query } = req.query;
+        console.log(query);
+        const users = await getUserObjByLetters(query as string);
+        users
+            ? res.status(Status.OK).send(users)
+            : res.status(Status.BadRequest).send("Something went wrong");
+    } catch (error: any) {
+        res.status(Status.BadRequest).send("Something went wrong");
+    }
+}
