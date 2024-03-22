@@ -6,6 +6,7 @@ import {
     generateTags,
     generateResponse,
 } from "../gemini/TitleGen";
+import { Socials } from "./Socials";
 
 const prisma = new PrismaClient();
 
@@ -48,6 +49,11 @@ export class Diary {
                     private: priavatePost,
                 },
             });
+
+            if (priavatePost) {
+                await Socials.updateSocialsForUser(userId, diary.id);
+            }
+
             return data;
         } catch (error: any) {
             console.log(error.message);
