@@ -64,6 +64,16 @@ export class Socials extends User {
             if (!userId || !followerUserId || userId === followerUserId) {
                 throw new Error("userId or followerUserId is missing");
             }
+            const following = await Socials.getAllFollowing(followerUserId);
+            let isFollower: boolean = false;
+
+            following?.following.map((followingId) => {
+                if (userId === followingId) {
+                    isFollower = true;
+                }
+            });
+
+            if (isFollower) throw new Error("already following");
 
             const socials = await prisma.$transaction([
                 prisma.socials.update({
@@ -96,6 +106,17 @@ export class Socials extends User {
             if (!userId || !followerUserId || userId === followerUserId) {
                 throw new Error("userId or followerUserId is missing");
             }
+
+            const following = await Socials.getAllFollowing(followerUserId);
+            let isFollower: boolean = false;
+
+            following?.following.map((followingId) => {
+                if (userId === followingId) {
+                    isFollower = true;
+                }
+            });
+
+            if (!isFollower) throw new Error("You are not following");
 
             const updateUserResult = await prisma.socials.update({
                 where: { id: userId },
@@ -140,7 +161,6 @@ export class Socials extends User {
 
     static async getFeedForUser(userId: string, limit: number, offset: number) {
         try {
-            console.log(userId);
             const socials = await prisma.socials.findUnique({
                 where: {
                     id: userId,
@@ -188,6 +208,24 @@ export class Socials extends User {
             if (!user) return null;
 
             return user;
+        } catch (error) {
+            console.error("Error fetching user with details:", error);
+            return null;
+        }
+    }
+    static async getAllFollowing(userId: string) {
+        try {
+            console.log(userId);
+            const followers = await prisma.socials.findUnique({
+                where: {
+                    id: userId,
+                },
+                select: {
+                    following: true,
+                },
+            });
+
+            return followers;
         } catch (error) {
             console.error("Error fetching user with details:", error);
             return null;

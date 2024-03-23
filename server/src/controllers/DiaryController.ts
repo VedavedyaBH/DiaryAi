@@ -4,11 +4,11 @@ import { Status } from "../interfaces-enums/StatusCodes";
 
 export async function addDiaryEntry(req: Request, res: Response) {
     try {
-        const userId = req.header("userId") as string;
+        const { id } = req.user;
         const diaryData: Diary = req.body.today;
         const privatePost: boolean = req.body.private;
         const today = new Diary(diaryData);
-        const addedToday = await Diary.addday(today, userId, privatePost);
+        const addedToday = await Diary.addday(today, id, privatePost);
         if (addedToday !== null) {
             res.status(Status.Created).send(addedToday);
         } else {
@@ -37,18 +37,19 @@ export async function getDiaryEntry(req: Request, res: Response) {
 }
 
 export async function getDiaryEntries(req: Request, res: Response) {
-    const { userId, limit, page } = req.query;
+    const { limit, page } = req.query;
+    const { id } = req.user;
     try {
         const offset =
             (parseInt(page as string) - 1) * parseInt(limit as string);
 
         const days = await Diary.getAllChapters(
-            userId as string,
+            id as string,
             parseInt(limit as string),
             offset
         );
         days !== null
-            ? res.status(Status.OK).send({ days })
+            ? res.status(Status.OK).send(days)
             : res.status(Status.BadRequest).send("Could not get this day");
     } catch (error) {
         console.error(error);
@@ -60,7 +61,6 @@ export async function deleteDiaryEntry(req: Request, res: Response) {
     const diaryId = req.params.today;
     try {
         const isDeleted = await Diary.deleteDay(diaryId);
-        console.log(isDeleted);
         isDeleted
             ? res.status(Status.OK).send("deleted")
             : res.status(Status.BadRequest).send("could not delete");
@@ -104,5 +104,19 @@ export async function getPublicChapters(req: Request, res: Response) {
             : res.status(Status.BadRequest).send("Something went wrong");
     } catch (error: any) {
         res.status(Status.BadRequest).send("Something went wrong");
+    }
+}
+
+export async function getDiaryIdsofUser(req: Request, res: Response) {
+    const { id } = req.user;
+    console.log(req.user, "hi");
+    try {
+        const chapters = await Diary.getAllChaptersIds(id as string);
+        chapters !== null
+            ? res.status(Status.OK).send({ chapters })
+            : res.status(Status.BadRequest).send("Could not get this day");
+    } catch (error) {
+        console.error(error);
+        res.status(Status.Internal_Server_Error).send("Internal Server Error");
     }
 }

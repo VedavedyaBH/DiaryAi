@@ -5,20 +5,21 @@ import axios from "axios";
 import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ButtonSmall } from "../components/ButtonSmall";
 
 export function Editor() {
     const navigate = useNavigate();
     const [privatePost, setPrivatePost] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { user, token } = useAuth();
     const addContent = async () => {
+        setLoading(true);
         const today = {
             content: editor?.getHTML(),
             img: "",
         };
 
         try {
-            console.log(privatePost);
-
             if (today !== null) {
                 const res = await axios({
                     method: "post",
@@ -28,12 +29,12 @@ export function Editor() {
                         private: privatePost,
                     },
                     headers: {
-                        userId: user,
                         Authorization: `Bearer ${token}`,
                     },
                 });
 
                 if (res.status === 201) {
+                    setLoading(false);
                     navigate("/myDiary");
                 }
             }
@@ -86,25 +87,30 @@ export function Editor() {
                     </div>
                 </div>
             ) : (
-                <div className="relative lg:max-w-3xl mx-auto my-5 ">
-                    <button
-                        className="absolutemax-w-36 h-6  bg-black rounded-xl text-xs text-gray-200 text-center w-12"
-                        onClick={addContent}
-                    >
-                        Add
-                    </button>
-                    <button
-                        className="absolutemax-w-36 h-6 ml-2 bg-black rounded-xl text-xs text-gray-200 text-center w-12"
-                        onClick={() => {
-                            setPrivatePost(!privatePost);
-                        }}
-                    >
-                        {privatePost ? "Private" : "Public"}
-                    </button>
-                    <div>
-                        <EditorContent editor={editor}></EditorContent>
-                    </div>
-                </div>
+                <>
+                    {" "}
+                    {loading ? (
+                        <div className="text-center mt-12">Adding</div>
+                    ) : (
+                        <div className="relative lg:max-w-3xl mx-auto my-5 ">
+                            <ButtonSmall
+                                label={"Add"}
+                                onClick={addContent}
+                            ></ButtonSmall>
+                            <button
+                                className="absolutemax-w-36 h-6 ml-2 bg-black rounded-xl text-xs text-gray-200 text-center w-12"
+                                onClick={() => {
+                                    setPrivatePost(!privatePost);
+                                }}
+                            >
+                                {privatePost ? "Private" : "Public"}
+                            </button>
+                            <div>
+                                <EditorContent editor={editor}></EditorContent>
+                            </div>
+                        </div>
+                    )}
+                </>
             )}
         </>
     );

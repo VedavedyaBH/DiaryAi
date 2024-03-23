@@ -6,6 +6,10 @@ import { Request, Response, NextFunction } from "express";
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET || "Secret";
 
+interface AuthenticatedRequest extends Request {
+    user?: any; // Add the user property to the interface
+}
+
 export async function createToken(user: User) {
     try {
         console.log(user);
@@ -25,21 +29,37 @@ export async function verifyJWT(
     next: NextFunction
 ) {
     try {
-        const token = req.headers.authorization;
+        const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
             throw new Error("Please login");
         }
-        const words = token.split(" ");
-        const jwtToken = words[1];
-        const decodedToken = jwt.verify(jwtToken, JWT_SECRET);
+        // const words = token.split(" ");
+        // const jwtToken = words[1];
+        const decodedToken = jwt.verify(token, JWT_SECRET);
 
-        if (decodedToken) {
-            next();
-        } else {
-            res.status(403).json({
-                message: "You are not authorized",
-            });
+        // if (decodedToken) {
+        //     next();
+        // } else {
+        //     res.status(403).json({
+        //         message: "You are not authorized",
+        //     });
+        // }
+
+        if (!token) {
+            return res.status(401).json({ message: "No token provided" });
         }
+
+        jwt.verify(
+            token,
+            JWT_SECRET,
+            (err: jwt.VerifyErrors | null, decoded: any) => {
+                if (err) {
+                    return res.status(401).json({ message: "Invalid token" });
+                }
+                req.user = decoded;
+                next();
+            }
+        );
     } catch (error: any) {
         res.status(400).json({
             error: error.message,

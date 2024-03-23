@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../Context/UserContext";
 import SearchBar from "./SearchBar";
+import { ButtonSmall } from "./ButtonSmall";
+import { Header } from "./Hamburger";
 
 export function NavBar() {
     const navigate = useNavigate();
@@ -9,77 +11,76 @@ export function NavBar() {
     const { token, _logout } = useAuth();
 
     return (
-        <div className="bg-white border-b text-gray-500 text-lg flex max-w-3xl p-2 justify-between mx-auto">
-            <div className="flex justify-between item-center">
+        <div className="bg-white lg:max-w item-center border-b text-gray-500 lg:text-lg flex flex-col lg:flex-row lg:p-2 justify-between mx-auto">
+            {/* <div className="lg:ml-28 flex ml-2 lg:justify-start items-center lg:mb-0"> */}
+            <div className="flex text-xs lg:text-lg justify-evenly lg:ml-28 lg:justify-between items-center lg:mr-28 lg:flex-grow">
                 <button
+                    className="hidden sm:flex "
                     onClick={() => {
                         navigate("/feed");
                     }}
                 >
                     DiaryAI
                 </button>
-            </div>
-            <div className="flex justify-between item-center">
-                <div>
-                    <SearchBar></SearchBar>
+                {/* </div> */}
+                <div className="lg:ml-10 lg:mr-10 lg:mb-0">
+                    <SearchBar />
                 </div>
-                <div className="m-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12">
-                    {token !== "" ? (
-                        currentLoc.pathname === "/today" ? (
-                            <button
-                                onClick={async () => {
+                <Header></Header>
+                <div className="hidden sm:flex flex-col lg:flex-row justify-center lg:justify-between items-center space-y-4 lg:space-y-0 lg:space-x-8 lg:w-auto lg:ml-10 lg:mr-10">
+                    {token !== "" && (
+                        <ButtonSmall
+                            label={
+                                currentLoc.pathname === "/today"
+                                    ? "Diary"
+                                    : currentLoc.pathname === "/user"
+                                    ? "Logout"
+                                    : "Add"
+                            }
+                            onClick={async () => {
+                                if (currentLoc.pathname === "/today") {
                                     navigate("/myDiary");
-                                }}
-                            >
-                                Diary
-                            </button>
-                        ) : currentLoc.pathname !== "/chapter/:chapterId" ? (
-                            currentLoc.pathname === "/user" ? (
-                                <button
-                                    onClick={async () => {
-                                        _logout();
-                                    }}
-                                >
-                                    logout
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={async () => {
-                                        navigate("/today");
-                                    }}
-                                >
-                                    Add
-                                </button>
-                            )
-                        ) : null
-                    ) : currentLoc.pathname === "/signup" ? (
-                        <button
-                            onClick={() => {
-                                navigate("/login");
+                                } else if (currentLoc.pathname === "/user") {
+                                    _logout();
+                                } else {
+                                    navigate("/today");
+                                }
                             }}
-                        >
-                            LogIn
-                        </button>
-                    ) : (
-                        <button
+                        />
+                    )}
+                    {!token && (
+                        <ButtonSmall
+                            label={
+                                currentLoc.pathname === "/signup"
+                                    ? "LogIn"
+                                    : "SignUp"
+                            }
                             onClick={() => {
-                                navigate("/signup");
+                                navigate(
+                                    currentLoc.pathname === "/signup"
+                                        ? "/login"
+                                        : "/signup"
+                                );
                             }}
-                        >
-                            SignUp
-                        </button>
+                        />
+                    )}
+                    {currentLoc.pathname != "/mydiary" && (
+                        <ButtonSmall
+                            label={"Mydiary"}
+                            onClick={async () => {
+                                navigate("/mydiary");
+                            }}
+                        />
+                    )}
+                    {token && (
+                        <ButtonSmall
+                            label="Profile"
+                            onClick={() => {
+                                navigate("/user");
+                            }}
+                        />
                     )}
                 </div>
-                {token !== "" ? (
-                    <button
-                        onClick={() => {
-                            navigate("/user");
-                        }}
-                        className="m-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12"
-                    >
-                        Profile
-                    </button>
-                ) : null}
             </div>
         </div>
     );

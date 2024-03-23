@@ -7,6 +7,7 @@ import {
     generateResponse,
 } from "../gemini/TitleGen";
 import { Socials } from "./Socials";
+import { getUserObjById } from "../services/UserServices";
 
 const prisma = new PrismaClient();
 
@@ -94,6 +95,15 @@ export class Diary {
 
     static async getAllChapters(userId: string, limit: number, offset: number) {
         try {
+            const user = await getUserObjById(userId);
+
+            if (!user) {
+                console.log("User not found");
+                return null;
+            }
+
+            const username = user.username;
+
             const data = await prisma.diary.findMany({
                 where: {
                     userId: userId,
@@ -102,12 +112,14 @@ export class Diary {
                 skip: offset,
                 orderBy: { createdAt: "desc" },
             });
-            return data;
+
+            return { data, username };
         } catch (error: any) {
             console.log(error.message);
             return null;
         }
     }
+
     static async getPrivateChapters(
         userId: string,
         limit: number,
@@ -146,6 +158,23 @@ export class Diary {
                 orderBy: { createdAt: "desc" },
             });
             return data;
+        } catch (error: any) {
+            console.log(error.message);
+            return null;
+        }
+    }
+
+    static async getAllChaptersIds(userId: string) {
+        try {
+            console.log(userId);
+            const data = await prisma.diary.findMany({
+                where: {
+                    userId: userId,
+                },
+                orderBy: { createdAt: "desc" },
+            });
+            const chapterIds = data.map((diary) => diary.id);
+            return chapterIds;
         } catch (error: any) {
             console.log(error.message);
             return null;

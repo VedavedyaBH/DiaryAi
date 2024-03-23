@@ -78,7 +78,6 @@ function Profile() {
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        userId: user,
                     },
                 }
             );
@@ -111,105 +110,127 @@ function Profile() {
             ) : isLoading ? (
                 <div className="text-center">Loading...</div>
             ) : (
-                <div className="mt-6">
-                    <div className="max-w-3xl mx-auto bg-white pt-5 rounded-md">
-                        <div className="text-4xl font-bold">{`Hello ${userObj.username}!`}</div>
-                        <div className="flex justify-normal">
-                            <div className="mr-5 mt-2 text-sm p-1">
-                                Chapters {diariesCount}
+                <div className="lg:mt-6 lg:max-w-3xl mx-auto bg-white lg:p-6 rounded-md">
+                    <div className="flex flex-col lg:flex-row justify-around items-center lg:p-4">
+                        <div>
+                            <div className="lg:hidden justify-center items-center mt-12 text-center lg:mt-0">
+                                <div className="hidden text-center sm:hidden lg:inline-block lg:border lg:w-48 lg:h-48 "></div>
+                                <div className="mt-4 text-2xl font-bold">{`Hello ${userObj.username}!`}</div>
                             </div>
-                            <div className="mr-5 mt-2 text-sm p-1">
-                                Followers {followersCount}
+                            <div className="mt-5 mb-5 flex flex-col lg:flex-row justify-between items-center">
+                                <div className="flex justify-center lg:justify-start">
+                                    <div className="mr-5 text-lg text-sm">
+                                        <div>Chapters</div>
+                                        <div className="text-center lg:text-center text-2xl mt-2">
+                                            {diariesCount}
+                                        </div>
+                                    </div>
+                                    <div className="mr-5 text-lg text-sm">
+                                        <div>Followers</div>
+                                        <div className="text-center lg:text-center text-2xl mt-2">
+                                            {followersCount}
+                                        </div>
+                                    </div>
+                                    <div className="mr-5 text-lg text-sm">
+                                        <div>Following</div>
+                                        <div className="text-center lg:text-center text-2xl mt-2">
+                                            {followingCount}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="mr-5 mt-2 text-sm p-1">
-                                Following {followingCount}
-                            </div>
-                        </div>{" "}
-                        <form>
-                            <div className="mb-4 my-10 max-w-72">
-                                <label
-                                    htmlFor="username"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Username
-                                </label>
-                                <input
-                                    id="username"
-                                    type="text"
-                                    name="username"
-                                    value={updatedUserObj.username}
-                                    onChange={handleInputChange}
-                                    className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
-                                    placeholder={userObj.username}
-                                />
-                            </div>
-                            <div className="mb-4 max-w-72">
-                                <label
-                                    htmlFor="password"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    onClick={() => {
-                                        changePassword
-                                            ? setChangePassword(false)
-                                            : setChangePassword(true);
-                                    }}
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    value={updatedUserObj.password}
-                                    onChange={handleInputChange}
-                                    className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
-                                    placeholder="Enter new password"
-                                />
-                            </div>
-                            {changePassword ? (
-                                <div className="mb-4 max-w-72">
+                            <form className="mt-4 lg:mt-0">
+                                <div className="mb-4 my-10 max-w-72">
                                     <label
-                                        htmlFor="reenteredPassword"
+                                        htmlFor="username"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        Re-Enter the Password
+                                        Username
                                     </label>
                                     <input
-                                        id="reenteredPassword"
-                                        type="password"
-                                        name="reenteredPassword"
-                                        value={updatedUserObj.reenteredPassword}
+                                        id="username"
+                                        type="text"
+                                        name="username"
+                                        value={updatedUserObj.username}
                                         onChange={handleInputChange}
                                         className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
-                                        placeholder="Re-Enter the Password"
+                                        placeholder={userObj.username}
                                     />
                                 </div>
-                            ) : null}
-                            <div className="mb-4 max-w-72">
-                                <label
-                                    htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Email
-                                </label>
-                                <input
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    value={updatedUserObj.email}
-                                    onChange={handleInputChange}
-                                    className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
-                                    placeholder={userObj.email}
-                                />
-                            </div>
+                                <div className="mb-4 max-w-72">
+                                    <label
+                                        htmlFor="password"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Password
+                                    </label>
+                                    <input
+                                        onClick={() => {
+                                            changePassword
+                                                ? setChangePassword(false)
+                                                : setChangePassword(true);
+                                        }}
+                                        id="password"
+                                        type="password"
+                                        name="password"
+                                        value={updatedUserObj.password}
+                                        onChange={handleInputChange}
+                                        className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                        placeholder="Enter new password"
+                                    />
+                                </div>
+                                {changePassword ? (
+                                    <div className="mb-4 max-w-72">
+                                        <label
+                                            htmlFor="reenteredPassword"
+                                            className="block text-sm font-medium text-gray-700"
+                                        >
+                                            Re-Enter the Password
+                                        </label>
+                                        <input
+                                            id="reenteredPassword"
+                                            type="password"
+                                            name="reenteredPassword"
+                                            value={
+                                                updatedUserObj.reenteredPassword
+                                            }
+                                            onChange={handleInputChange}
+                                            className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                            placeholder="Re-Enter the Password"
+                                        />
+                                    </div>
+                                ) : null}
+                                <div className="mb-4 max-w-72">
+                                    <label
+                                        htmlFor="email"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Email
+                                    </label>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        name="email"
+                                        value={updatedUserObj.email}
+                                        onChange={handleInputChange}
+                                        className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                        placeholder={userObj.email}
+                                    />
+                                </div>
 
-                            <button
-                                onClick={updateUser}
-                                type="button"
-                                className="bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-24 h-8"
-                            >
-                                Update Profile
-                            </button>
-                        </form>
+                                <button
+                                    onClick={updateUser}
+                                    type="button"
+                                    className="bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-24 h-8"
+                                >
+                                    Update Profile
+                                </button>
+                            </form>
+                        </div>
+                        <div className="justify-center items-center mt-12 text-center lg:mt-0">
+                            <div className="hidden sm:hidden lg:inline-block lg:border lg:w-48 lg:h-48 "></div>
+                            <div className="hidden sm:flex ml-2 mt-4 text-4xl font-bold">{`Hello ${userObj.username}!`}</div>
+                        </div>
                     </div>
                 </div>
             )}

@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Kalam:wght@300;400;700&display=swap');
+
+
+.italiana-regular {
+    font-family: "Italiana", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .kalam-light {
+  font-family: "Kalam", cursive;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kalam-regular {
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kalam-bold {
+  font-family: "Kalam", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+  
 @layer base {
     h1 {
         @apply text-4xl m-2;
@@ -53,3 +82,6 @@
 }
 
 /* Add more breakpoints as needed */
+html {
+    @apply bg-zinc-50; /* Set the background color to Tailwind CSS white */
+}

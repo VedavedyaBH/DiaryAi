@@ -25,7 +25,6 @@ export function Feed() {
                 `http://localhost:8080/api/v1/socials/feed`,
                 {
                     params: {
-                        userId: user,
                         limit: NoOfChaptersPerPage,
                         page: page,
                     },
@@ -71,11 +70,10 @@ export function Feed() {
                 </div>
             ) : (
                 <div>
-                    <div className="max-w-3xl mx-auto text-left">
-                        <Heading label={"For you"} />
-                    </div>
-
-                    <div className="mx-auto py-8">
+                    <div className="bg-white max-w-3xl mx-auto m-2 p-4">
+                        <div className="text-gray-500 font-light border-b pb-4">
+                            For you
+                        </div>
                         <InfiniteScroll
                             dataLength={chapters.length}
                             next={fetchChapters}

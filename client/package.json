@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
     "@tiptap/extension-code-block-lowlight": "^2.2.4",
     "@tiptap/extension-color": "^2.2.4",
     "@tiptap/extension-image": "^2.2.4",
@@ -20,18 +21,24 @@
     "@tiptap/react": "^2.2.4",
     "@tiptap/starter-kit": "^2.2.4",
     "axios": "^1.6.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "lowlight": "^3.1.0",
+    "lucide-react": "^0.363.0",
     "npm": "^10.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.11.30",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
