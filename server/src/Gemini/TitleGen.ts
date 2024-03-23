@@ -26,7 +26,7 @@ export async function generateTags(content: string) {
     // For text-only input, use the gemini-pro model
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-    const prompt = `Give tags based on this ${content}.
+    const prompt = `Give comma separated tags based on this ${content}.
     Do not respond with anthing else. Just the tags. Maximum 3 tags. Minimum 1 tag.
     Should be a word. Should not be very long.
     For example, if the content has "sad" emotions, give sad as tag.

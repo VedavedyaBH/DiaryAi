@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSearch } from "../Context/SearchContext";
 import { useNavigate } from "react-router-dom";
+import { ButtonSmall } from "./ButtonSmall";
 
 function SearchBar() {
     const { setQuery } = useSearch();
@@ -21,16 +22,11 @@ function SearchBar() {
             <input
                 type="text"
                 placeholder="find people...."
-                className="rounded-xl text-xs p-1 m-4 border focus:outline-0"
+                className="rounded-xl text-xs p-1 lg:m-4 border focus:outline-0"
                 value={inputValue}
                 onChange={handleInputChange}
             />
-            <button
-                onClick={handleSearch}
-                className="m-4 bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-12"
-            >
-                Search
-            </button>
+            <ButtonSmall label={"Search"} onClick={handleSearch}></ButtonSmall>
         </>
     );
 }

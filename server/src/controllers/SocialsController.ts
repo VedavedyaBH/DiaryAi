@@ -4,8 +4,9 @@ import { Socials } from "../entities/Socials";
 
 export async function follow(req: Request, res: Response) {
     try {
-        const { userId, followerUserId } = req.body;
-        const success = await Socials.addFollowerToUser(userId, followerUserId);
+        const { toFollow } = req.body;
+        const { id } = req.user;
+        const success = await Socials.addFollowerToUser(toFollow, id);
         success
             ? res.status(Status.Created).send("done")
             : res.status(Status.BadRequest).send("Something went wrong");
@@ -16,11 +17,9 @@ export async function follow(req: Request, res: Response) {
 
 export async function unfollow(req: Request, res: Response) {
     try {
-        const { userId, followerUserId } = req.body;
-        const success = await Socials.removeFollowerToUser(
-            userId,
-            followerUserId
-        );
+        const { toFollow } = req.body;
+        const { id } = req.user;
+        const success = await Socials.removeFollowerToUser(toFollow, id);
         success
             ? res.status(Status.OK).send("done")
             : res.status(Status.BadRequest).send("Something went wrong");
@@ -30,12 +29,13 @@ export async function unfollow(req: Request, res: Response) {
 }
 export async function getFeedForUser(req: Request, res: Response) {
     try {
-        const { userId, limit, page } = req.query;
+        const { limit, page } = req.query;
+        const { id } = req.user;
         const offset =
             (parseInt(page as string) - 1) * parseInt(limit as string);
 
         const chapters = await Socials.getFeedForUser(
-            userId as string,
+            id as string,
             parseInt(limit as string),
             offset
         );

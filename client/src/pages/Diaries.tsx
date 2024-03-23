@@ -12,6 +12,7 @@ export function Diaries() {
     const navigate = useNavigate();
     const [chapters, setChapters] = useState<string[]>([]);
     const [page, setPage] = useState(1);
+    const [author, setAuthor] = useState("");
     const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
@@ -24,7 +25,6 @@ export function Diaries() {
                 `http://localhost:8080/api/v1/diaries`,
                 {
                     params: {
-                        userId: user,
                         limit: NoOfChaptersPerPage,
                         page: page,
                     },
@@ -35,8 +35,11 @@ export function Diaries() {
             );
 
             if (res.status === 200) {
-                const newChapters = res.data.days;
+                const newChapters = res.data.data;
+                const authorName = res.data.username;
+                console.log(res.data.data);
                 setChapters([...chapters, ...newChapters]);
+                setAuthor(authorName);
                 setPage(page + 1);
                 setHasMore(
                     newChapters.length === NoOfChaptersPerPage &&
@@ -81,7 +84,7 @@ export function Diaries() {
                             </p>
                         }
                     >
-                        <CardsList data={chapters} />
+                        <CardsList data={chapters} author={author} />
                     </InfiniteScroll>
                 </div>
             )}

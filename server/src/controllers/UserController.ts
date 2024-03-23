@@ -75,11 +75,11 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const updateProfile = async (req: Request, res: Response) => {
     const { user } = req.body;
-    const userId = req.header("userId") as string;
+    const { id } = req.user;
 
     try {
-        console.log(user, userId);
-        const data = await updateUser(user, userId);
+        console.log(user, id);
+        const data = await updateUser(user, id);
         if (data !== null) {
             res.status(Status.OK).send(data);
         }
@@ -102,10 +102,16 @@ export const getUserProfile = async (req: Request, res: Response) => {
 };
 
 export async function getUserObjByUsername(req: Request, res: Response) {
+    const { limit, page, query } = req.query;
+    const { id } = req.user;
     try {
-        const { query } = req.query;
-        console.log(query);
-        const users = await getUserObjByLetters(query as string);
+        const offset =
+            (parseInt(page as string) - 1) * parseInt(limit as string);
+        const users = await getUserObjByLetters(
+            query as string,
+            parseInt(limit as string),
+            offset
+        );
         users
             ? res.status(Status.OK).send(users)
             : res.status(Status.BadRequest).send("Something went wrong");
