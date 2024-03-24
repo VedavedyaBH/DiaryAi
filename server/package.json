@@ -7,9 +7,9 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon main",
         "start": "nodemon src/index.ts",
-        "build": "rimraf dist && tsc",
         "ts.check": "tsc --project tsconfig.json",
-        "add-build": "git add dist"
+        "vercel-biuld" : "echo hello"
+        
     },
     "keywords": [],
     "author": "",
