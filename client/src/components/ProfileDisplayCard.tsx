@@ -1,15 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useSearch } from "../Context/SearchContext";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export const Card = ({ data }: any) => {
-    const navigate = useNavigate();
-    const { token, user } = useAuth();
-    const { setQuery } = useSearch();
+    const { token } = useAuth();
     const [userId, setUserId] = useState("");
     const [username, setUsername] = useState("");
     const [chaptersCount, setChaptersCount] = useState(0);
@@ -28,7 +24,7 @@ export const Card = ({ data }: any) => {
 
     const handleFollowClick = async () => {
         try {
-            const res = await axios({
+            await axios({
                 method: "post",
                 url: `${BASE_URL}/api/v1/socials/follow`,
                 data: {
@@ -45,7 +41,7 @@ export const Card = ({ data }: any) => {
 
     const handleUnfollowClick = async () => {
         try {
-            const res = await axios({
+            await axios({
                 method: "delete",
                 url: `${BASE_URL}/api/v1/socials/follow`,
                 data: {

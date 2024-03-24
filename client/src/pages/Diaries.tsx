@@ -9,7 +9,7 @@ const NoOfChaptersPerPage = 5;
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function Diaries() {
-    const { token, user } = useAuth();
+    const { token } = useAuth();
     const navigate = useNavigate();
     const [chapters, setChapters] = useState<string[]>([]);
     const [page, setPage] = useState(1);

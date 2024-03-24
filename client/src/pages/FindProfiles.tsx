@@ -9,7 +9,7 @@ const NoOfChaptersPerPage = 5;
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 function FindProfiles() {
-    const { query, setQuery } = useSearch();
+    const { query } = useSearch();
     const { token } = useAuth();
     const [profile, setProfile] = useState<any>([]);
     const [page, setPage] = useState(1);

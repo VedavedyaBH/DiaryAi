@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 function ChapterCard() {
-    const { user } = useAuth();
     const { chapterId } = useParams();
     const [chapterContent, setChapterContent] = useState("");
     const [chapterTitle, setChapterTitle] = useState("");
