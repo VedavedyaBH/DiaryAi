@@ -6,7 +6,6 @@ import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const NoOfChaptersPerPage = 5;
-const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function Diaries() {
     const { token } = useAuth();
@@ -22,7 +21,7 @@ export function Diaries() {
 
     const fetchChapters = async () => {
         try {
-            const res = await axios.get(`${BASE_URL}/api/v1/diaries`, {
+            const res = await axios.get(`/api/v1/diaries`, {
                 params: {
                     limit: NoOfChaptersPerPage,
                     page: page,

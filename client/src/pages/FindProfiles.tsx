@@ -6,7 +6,6 @@ import { Card } from "../components/ProfileDisplayCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const NoOfChaptersPerPage = 5;
-const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 function FindProfiles() {
     const { query } = useSearch();
@@ -22,7 +21,7 @@ function FindProfiles() {
     const fetchProfiles = async () => {
         try {
             const res = await axios.get(
-                `${BASE_URL}/api/v1/socials/profile/users/find`,
+                `/api/v1/socials/profile/users/find`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
