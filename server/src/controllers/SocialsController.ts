@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Status } from "../interfaces-enums/StatusCodes";
 import { Socials } from "../entities/Socials";
 
-export async function follow(req: Request, res: Response) {
+export async function follow(req: any, res: Response) {
     try {
         const { toFollow } = req.body;
         const { id } = req.user;
@@ -15,7 +15,7 @@ export async function follow(req: Request, res: Response) {
     }
 }
 
-export async function unfollow(req: Request, res: Response) {
+export async function unfollow(req: any, res: Response) {
     try {
         const { toFollow } = req.body;
         const { id } = req.user;
@@ -27,7 +27,7 @@ export async function unfollow(req: Request, res: Response) {
         res.status(Status.BadRequest).send("Something went wrong");
     }
 }
-export async function getFeedForUser(req: Request, res: Response) {
+export async function getFeedForUser(req: any, res: Response) {
     try {
         const { limit, page } = req.query;
         const { id } = req.user;
