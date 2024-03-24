@@ -8,9 +8,8 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT || 8080;
 const corsOptions: cors.CorsOptions = {
-    origin: "https://diary-ai-five.vercel.app/",
+    origin: ["https://diary-ai-five.vercel.app/", "http://localhost:5173"],
     credentials: true,
-    optionsSuccessStatus: 200,
     optionsSuccessStatus: 200,
 };
 
