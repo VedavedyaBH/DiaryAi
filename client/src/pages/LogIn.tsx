@@ -39,7 +39,7 @@ export function LogIn() {
     async function addUser(user: User) {
         try {
             if (user !== null) {
-                const url = `/api/v1/login`;
+                const url = `diary-ai-server.vercel.app/api/v1/login`;
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
                     const token = res.data;
