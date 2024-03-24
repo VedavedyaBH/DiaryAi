@@ -23,9 +23,13 @@ import {
     getUserSocialProfile,
 } from "../controllers/SocialsController";
 import { verifyJWT, decodeJWT } from "../services/JwtServices";
+import { Request, Response } from "express";
 
 const router = express.Router();
 
+router.get("/", (_req: Request, res: Response) => {
+    return res.send("Hello");
+});
 router.delete("/api/v1/users", verifyJWT, deleteUser);
 router.get("/api/v1/users/auth", decodeJWT);
 router.get("/api/v1/users/profile/:id", verifyJWT, getUserProfile);
