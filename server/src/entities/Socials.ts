@@ -215,7 +215,6 @@ export class Socials extends User {
     }
     static async getAllFollowing(userId: string) {
         try {
-            console.log(userId);
             const followers = await prisma.socials.findUnique({
                 where: {
                     id: userId,

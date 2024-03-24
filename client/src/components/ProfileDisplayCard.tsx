@@ -4,6 +4,8 @@ import { useSearch } from "../Context/SearchContext";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
+
 export const Card = ({ data }: any) => {
     const navigate = useNavigate();
     const { token, user } = useAuth();
@@ -28,7 +30,7 @@ export const Card = ({ data }: any) => {
         try {
             const res = await axios({
                 method: "post",
-                url: "http://localhost:8080/api/v1/socials/follow",
+                url: `${BASE_URL}/api/v1/socials/follow`,
                 data: {
                     toFollow: userId,
                 },
@@ -45,7 +47,7 @@ export const Card = ({ data }: any) => {
         try {
             const res = await axios({
                 method: "delete",
-                url: "http://localhost:8080/api/v1/socials/follow",
+                url: `${BASE_URL}/api/v1/socials/follow`,
                 data: {
                     toFollow: userId,
                 },

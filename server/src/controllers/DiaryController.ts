@@ -109,7 +109,6 @@ export async function getPublicChapters(req: Request, res: Response) {
 
 export async function getDiaryIdsofUser(req: Request, res: Response) {
     const { id } = req.user;
-    console.log(req.user, "hi");
     try {
         const chapters = await Diary.getAllChaptersIds(id as string);
         chapters !== null

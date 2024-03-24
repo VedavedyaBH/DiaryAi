@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Heading } from "../components/Heading";
 
 const NoOfChaptersPerPage = 5;
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function Feed() {
     const { token, user } = useAuth();
@@ -21,18 +22,15 @@ export function Feed() {
 
     const fetchChapters = async () => {
         try {
-            const res = await axios.get(
-                `http://localhost:8080/api/v1/socials/feed`,
-                {
-                    params: {
-                        limit: NoOfChaptersPerPage,
-                        page: page,
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const res = await axios.get(`${BASE_URL}/api/v1/socials/feed`, {
+                params: {
+                    limit: NoOfChaptersPerPage,
+                    page: page,
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             if (res.status === 200) {
                 const newChapters = res.data;

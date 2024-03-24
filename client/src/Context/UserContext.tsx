@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext<any>(undefined);
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function AuthProvider({ children }: any) {
     const [user, setUser] = useState(localStorage.getItem("userId") || "");
@@ -13,12 +14,11 @@ export function AuthProvider({ children }: any) {
         try {
             const _user = await axios({
                 method: "get",
-                url: "http://localhost:8080/api/v1/users/auth",
+                url: `${BASE_URL}/api/v1/users/auth`,
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(_user);
 
             if (!user) {
                 console.log("Nothing received back");
