@@ -8,7 +8,6 @@
         "dev": "nodemon main",
         "start": "nodemon src/index.ts",
         "ts.check": "tsc --project tsconfig.json",
-        "vercel-build": "echo hello",
         "build": "rimraf dist && tsc",
         "add-build": "git add dist"
     },
