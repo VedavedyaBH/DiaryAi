@@ -10,7 +10,7 @@ const Card = ({ chapterId, title, author, content, tag }: any) => {
 
     const wrapContentInParagraphs = (htmlContent: string) => {
         const tagRegex = /<([^>]+)>/g;
-        const wrappedContent = htmlContent.replace(tagRegex, (match, group) => {
+        const wrappedContent = htmlContent.replace(tagRegex, (match) => {
             const content = match.replace(/<\/?[^>]+(>|$)/g, "");
             return `<p>${content}</p>`;
         });
