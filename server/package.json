@@ -8,7 +8,7 @@
         "dev": "nodemon main",
         "start": "nodemon src/index.ts",
         "ts.check": "tsc --project tsconfig.json",
-        "vercel-biuld" : "echo hello"
+        "vercel-build" : "echo hello"
         
     },
     "keywords": [],
