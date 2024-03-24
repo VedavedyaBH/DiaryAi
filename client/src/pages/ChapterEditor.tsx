@@ -13,7 +13,7 @@ export function Editor() {
     const navigate = useNavigate();
     const [privatePost, setPrivatePost] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { user, token } = useAuth();
+    const { token } = useAuth();
     const addContent = async () => {
         setLoading(true);
         const today = {

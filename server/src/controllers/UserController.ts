@@ -72,7 +72,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     }
 };
 
-export const updateProfile = async (req: Request, res: Response) => {
+export const updateProfile = async (req: any, res: Response) => {
     const { user } = req.body;
     const { id } = req.user;
 
@@ -99,7 +99,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
     }
 };
 
-export async function getUserObjByUsername(req: Request, res: Response) {
+export async function getUserObjByUsername(req: any, res: Response) {
     const { limit, page, query } = req.query;
     const { id } = req.user;
     try {

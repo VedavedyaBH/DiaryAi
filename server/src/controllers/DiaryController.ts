@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Diary } from "../entities/Diary";
 import { Status } from "../interfaces-enums/StatusCodes";
 
-export async function addDiaryEntry(req: Request, res: Response) {
+export async function addDiaryEntry(req: any, res: Response) {
     try {
         const { id } = req.user;
         const diaryData: Diary = req.body.today;
@@ -36,7 +36,7 @@ export async function getDiaryEntry(req: Request, res: Response) {
     }
 }
 
-export async function getDiaryEntries(req: Request, res: Response) {
+export async function getDiaryEntries(req: any, res: Response) {
     const { limit, page } = req.query;
     const { id } = req.user;
     try {
@@ -107,7 +107,7 @@ export async function getPublicChapters(req: Request, res: Response) {
     }
 }
 
-export async function getDiaryIdsofUser(req: Request, res: Response) {
+export async function getDiaryIdsofUser(req: any, res: Response) {
     const { id } = req.user;
     try {
         const chapters = await Diary.getAllChaptersIds(id as string);

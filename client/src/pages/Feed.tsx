@@ -4,13 +4,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CardsList from "../components/Card";
 import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { Heading } from "../components/Heading";
 
 const NoOfChaptersPerPage = 5;
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function Feed() {
-    const { token, user } = useAuth();
+    const { token } = useAuth();
     const navigate = useNavigate();
     const [chapters, setChapters] = useState<string[]>([]);
     const [page, setPage] = useState(1);

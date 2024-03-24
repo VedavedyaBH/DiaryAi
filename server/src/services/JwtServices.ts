@@ -20,11 +20,7 @@ export async function createToken(user: User) {
     }
 }
 
-export async function verifyJWT(
-    req: Request,
-    res: Response,
-    next: NextFunction
-) {
+export async function verifyJWT(req: any, res: Response, next: NextFunction) {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {

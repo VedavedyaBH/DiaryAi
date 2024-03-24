@@ -2,7 +2,6 @@ import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { InputBox } from "../components/InputBox";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../Context/UserContext";
 
@@ -44,7 +43,6 @@ export function LogIn() {
                 const url = `${BASE_URL}/api/v1/login`;
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
-                    console.log("inside");
                     const token = res.data;
                     navigate("/feed");
                     await _login({ token });
