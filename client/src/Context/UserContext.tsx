@@ -12,7 +12,7 @@ export function AuthProvider({ children }: any) {
         try {
             const _user = await axios({
                 method: "get",
-                url: `/api/v1/users/auth`,
+                url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/users/auth`,
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
