@@ -5,7 +5,11 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon main"
+        "dev": "nodemon main",
+        "start": "nodemon src/index.ts",
+        "build": "rimraf dist && tsc",
+        "ts.check": "tsc --project tsconfig.json",
+        "add-build": "git add dist"
     },
     "keywords": [],
     "author": "",
@@ -34,5 +38,10 @@
         "@types/uuid": "^9.0.8",
         "regenerator-runtime": "^0.14.1",
         "ts-node": "^10.9.2"
-    }
+    },
+    "pre-commit": [
+        "ts.check",
+        "build",
+        "add-build"
+    ]
 }
