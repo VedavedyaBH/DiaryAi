@@ -34,7 +34,6 @@ export async function createUser(req: Request, res: Response) {
 export async function loginUser(req: Request, res: Response) {
     try {
         const userData: User = req.body.user;
-        console.log(userData);
         const user = await userLogin(userData);
         if (user !== null) {
             res.status(Status.OK).send(user);
@@ -78,7 +77,6 @@ export const updateProfile = async (req: Request, res: Response) => {
     const { id } = req.user;
 
     try {
-        console.log(user, id);
         const data = await updateUser(user, id);
         if (data !== null) {
             res.status(Status.OK).send(data);

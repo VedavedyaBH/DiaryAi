@@ -11,7 +11,6 @@ import Profile from "./pages/Profile";
 import Feed from "./pages/Feed";
 import FindProfiles from "./pages/FindProfiles";
 import { SearchProvider } from "./Context/SearchContext";
-import SearchBar from "./components/SearchBar";
 
 function App() {
     return (

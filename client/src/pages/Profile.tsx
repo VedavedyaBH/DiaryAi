@@ -10,6 +10,7 @@ interface User {
     reenteredPassword: string;
     email: string;
 }
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 function Profile() {
     const { user, token } = useAuth();
@@ -44,7 +45,7 @@ function Profile() {
     const fetchUser = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/api/v1/socials/profile/${user}`,
+                `${BASE_URL}/api/v1/socials/profile/${user}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -73,7 +74,7 @@ function Profile() {
         try {
             console.log(updatedUserObj);
             const res = await axios.put(
-                `http://localhost:8080/api/v1/users/profile`,
+                `${BASE_URL}/api/v1/users/profile`,
                 { user: updatedUserObj },
                 {
                     headers: {

@@ -11,11 +11,11 @@ interface User {
     email?: string;
     password: string;
 }
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function LogIn() {
     const navigate = useNavigate();
     const { _login } = useAuth();
-    const [user, setUser] = useState<User | null>(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,19 +35,18 @@ export function LogIn() {
                 password: formData.get("password") as string,
             };
         }
-
-        setUser(userFormData);
-        await addUser();
+        addUser(userFormData);
     };
 
-    async function addUser() {
+    async function addUser(user: User) {
         try {
             if (user !== null) {
-                console.log(user);
-                const url = "http://localhost:8080/api/v1/login";
+                const url = `${BASE_URL}/api/v1/login`;
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
+                    console.log("inside");
                     const token = res.data;
+                    navigate("/feed");
                     await _login({ token });
                     navigate("/feed");
                     window.location.reload();

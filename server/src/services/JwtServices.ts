@@ -12,10 +12,7 @@ interface AuthenticatedRequest extends Request {
 
 export async function createToken(user: User) {
     try {
-        console.log(user);
-
         const SignUpJWT = jwt.sign(user, JWT_SECRET);
-
         return SignUpJWT;
     } catch (error: any) {
         console.log(error.message);

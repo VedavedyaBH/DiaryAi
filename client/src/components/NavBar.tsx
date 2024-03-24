@@ -66,7 +66,7 @@ export function NavBar() {
                     )}
                     {currentLoc.pathname != "/mydiary" && (
                         <ButtonSmall
-                            label={"Mydiary"}
+                            label={"Diary"}
                             onClick={async () => {
                                 navigate("/mydiary");
                             }}
