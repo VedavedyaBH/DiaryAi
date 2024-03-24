@@ -21,7 +21,7 @@ function FindProfiles() {
     const fetchProfiles = async () => {
         try {
             const res = await axios.get(
-                `/api/v1/socials/profile/users/find`,
+                `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/profile/users/find`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

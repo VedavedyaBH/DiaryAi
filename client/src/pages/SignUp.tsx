@@ -44,7 +44,7 @@ export function SignUp() {
     async function addUser() {
         try {
             if (user !== null) {
-                const url = `/api/v1/signup`;
+                const url = `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/signup`;
                 const res = await axios.post(url, { user });
 
                 if (res.status === 201) {

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ButtonSmall } from "../components/ButtonSmall";
 
-
 export function Editor() {
     const navigate = useNavigate();
     const [privatePost, setPrivatePost] = useState(false);
@@ -16,7 +15,7 @@ export function Editor() {
     const addContent = async () => {
         setLoading(true);
         const today = {
-            content: editor?.getHTML(),
+            content: <EditorContent editor={editor} />,
             img: "",
         };
 
@@ -24,7 +23,7 @@ export function Editor() {
             if (today !== null) {
                 const res = await axios({
                     method: "post",
-                    url: `/api/v1/diaries`,
+                    url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/diaries`,
                     data: {
                         today: today,
                         private: privatePost,

@@ -21,7 +21,7 @@ export function Diaries() {
 
     const fetchChapters = async () => {
         try {
-            const res = await axios.get(`/api/v1/diaries`, {
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/diaries`, {
                 params: {
                     limit: NoOfChaptersPerPage,
                     page: page,

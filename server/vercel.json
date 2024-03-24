@@ -5,5 +5,15 @@
             "source": "/(.*)",
             "destination": "/api"
         }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+        },
+        {
+            "source": "/diary-ai-five.vercel.app/(.*)",
+            "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+        }
     ]
 }

@@ -17,11 +17,14 @@ function ChapterCard() {
     }, []);
     const isOwnerCheck = async () => {
         try {
-            const res = await axios.get(`/api/v1/all/diaries`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const res = await axios.get(
+                `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/all/diaries`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             if (res.status === 200) {
                 const chapterIds = res.data.chapters;
@@ -34,14 +37,11 @@ function ChapterCard() {
     };
     const fetchChapter = async () => {
         try {
-            const res = await axios.get(
-                `/api/v1/diaries/${chapterId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/diaries/${chapterId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             if (res.status === 200) {
                 const chapterRes = res.data;
