@@ -6,10 +6,14 @@ import cors from "cors";
 
 dotenv.config();
 const port = process.env.PORT || 8080;
-
+const corsOptions = {
+    origin: "https://diary-ai-five.vercel.app/",
+    credentials: true,
+    optionSuccessStatus: 200,
+};
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(routes);
 
 app.listen(port, async () => {
