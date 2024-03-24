@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ButtonSmall } from "../components/ButtonSmall";
 
-const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function Editor() {
     const navigate = useNavigate();
@@ -25,7 +24,7 @@ export function Editor() {
             if (today !== null) {
                 const res = await axios({
                     method: "post",
-                    url: `${BASE_URL}/api/v1/diaries`,
+                    url: `/api/v1/diaries`,
                     data: {
                         today: today,
                         private: privatePost,

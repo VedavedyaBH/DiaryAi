@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
-
 export const Card = ({ data }: any) => {
     const { token } = useAuth();
     const [userId, setUserId] = useState("");
@@ -26,7 +24,7 @@ export const Card = ({ data }: any) => {
         try {
             await axios({
                 method: "post",
-                url: `${BASE_URL}/api/v1/socials/follow`,
+                url: `/api/v1/socials/follow`,
                 data: {
                     toFollow: userId,
                 },
@@ -43,7 +41,7 @@ export const Card = ({ data }: any) => {
         try {
             await axios({
                 method: "delete",
-                url: `${BASE_URL}/api/v1/socials/follow`,
+                url: `/api/v1/socials/follow`,
                 data: {
                     toFollow: userId,
                 },

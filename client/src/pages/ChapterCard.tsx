@@ -3,8 +3,6 @@ import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
-
 function ChapterCard() {
     const { chapterId } = useParams();
     const [chapterContent, setChapterContent] = useState("");
@@ -19,14 +17,11 @@ function ChapterCard() {
     }, []);
     const isOwnerCheck = async () => {
         try {
-            const res = await axios.get(
-                `${BASE_URL}/api/v1/all/diaries`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const res = await axios.get(`/api/v1/all/diaries`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             if (res.status === 200) {
                 const chapterIds = res.data.chapters;
@@ -40,7 +35,7 @@ function ChapterCard() {
     const fetchChapter = async () => {
         try {
             const res = await axios.get(
-                `${BASE_URL}/api/v1/diaries/${chapterId}`,
+                `/api/v1/diaries/${chapterId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

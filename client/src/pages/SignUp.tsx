@@ -12,7 +12,6 @@ interface User {
     email: string;
     password: string;
 }
-const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function SignUp() {
     const navigate = useNavigate();
@@ -45,7 +44,7 @@ export function SignUp() {
     async function addUser() {
         try {
             if (user !== null) {
-                const url = `${BASE_URL}/api/v1/signup`;
+                const url = `/api/v1/signup`;
                 const res = await axios.post(url, { user });
 
                 if (res.status === 201) {

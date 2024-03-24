@@ -10,7 +10,6 @@ interface User {
     email?: string;
     password: string;
 }
-const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export function LogIn() {
     const navigate = useNavigate();
@@ -40,7 +39,7 @@ export function LogIn() {
     async function addUser(user: User) {
         try {
             if (user !== null) {
-                const url = `${BASE_URL}/api/v1/login`;
+                const url = `/api/v1/login`;
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
                     const token = res.data;
