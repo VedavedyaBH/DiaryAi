@@ -20,7 +20,7 @@ export function Feed() {
 
     const fetchChapters = async () => {
         try {
-            const res = await axios.get(`/api/v1/socials/feed`, {
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/feed`, {
                 params: {
                     limit: NoOfChaptersPerPage,
                     page: page,

@@ -44,7 +44,7 @@ function Profile() {
     const fetchUser = async () => {
         try {
             const res = await axios.get(
-                `/api/v1/socials/profile/${user}`,
+                `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/profile/${user}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ function Profile() {
         try {
             console.log(updatedUserObj);
             const res = await axios.put(
-                `/api/v1/users/profile`,
+                `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/users/profile`,
                 { user: updatedUserObj },
                 {
                     headers: {
