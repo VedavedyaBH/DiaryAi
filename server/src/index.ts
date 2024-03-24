@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 
+const app = express();
 dotenv.config();
 const port = process.env.PORT || 8080;
 const corsOptions = {
@@ -11,7 +12,6 @@ const corsOptions = {
     credentials: true,
     optionSuccessStatus: 200,
 };
-const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(routes);
@@ -19,3 +19,5 @@ app.use(routes);
 app.listen(port, async () => {
     console.log(`The server is running on port ${port}`);
 });
+
+export default app;
