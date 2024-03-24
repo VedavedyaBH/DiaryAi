@@ -11,6 +11,7 @@ const corsOptions: cors.CorsOptions = {
     origin: "https://diary-ai-five.vercel.app/",
     credentials: true,
     optionsSuccessStatus: 200,
+    optionsSuccessStatus: 200,
 };
 
 app.use((req: any, res: any, next: any) => {
