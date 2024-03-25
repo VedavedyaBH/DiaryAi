@@ -24,7 +24,7 @@ export const Card = ({ data }: any) => {
         try {
             await axios({
                 method: "post",
-                url: `/api/v1/socials/follow`,
+                url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/follow`,
                 data: {
                     toFollow: userId,
                 },
@@ -41,7 +41,7 @@ export const Card = ({ data }: any) => {
         try {
             await axios({
                 method: "delete",
-                url: `/api/v1/socials/follow`,
+                url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/follow`,
                 data: {
                     toFollow: userId,
                 },

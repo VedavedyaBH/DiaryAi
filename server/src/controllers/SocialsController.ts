@@ -6,6 +6,7 @@ export async function follow(req: any, res: Response) {
     try {
         const { toFollow } = req.body;
         const { id } = req.user;
+        console.log(id)
         const success = await Socials.addFollowerToUser(toFollow, id);
         success
             ? res.status(Status.Created).send("done")

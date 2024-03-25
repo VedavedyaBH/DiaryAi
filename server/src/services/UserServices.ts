@@ -116,21 +116,25 @@ export async function getUserObjByLetters(
     offset: number
 ): Promise<User[]> {
     try {
+        console.log(limit, offset);
         const users = await prisma.user.findMany({
             where: {
                 username: {
                     startsWith: username,
                 },
             },
-            take: limit,
-            skip: offset,
+
             include: {
                 diaries: true,
                 socials: true,
             },
+            // take: limit,
+            // skip: offset,
         });
+        console.log(users);
         return users;
-    } catch (error: any) {
-        throw new Error(error.message);
+    } catch (error) {
+        console.error("Error retrieving users:", error);
+        throw new Error("Failed to retrieve users");
     }
 }
