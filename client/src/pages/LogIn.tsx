@@ -77,6 +77,7 @@ export function LogIn() {
                             placeholder={"Username or EmailId"}
                         ></InputBox>
                         <InputBox
+                            type={"password"}
                             name={"password"}
                             placeholder={"Password"}
                         ></InputBox>

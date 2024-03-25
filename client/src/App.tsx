@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Feed from "./pages/Feed";
 import FindProfiles from "./pages/FindProfiles";
 import { SearchProvider } from "./Context/SearchContext";
+import { Home } from "./pages/Home";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                             <BrowserRouter>
                                 <NavBar></NavBar>
                                 <Routes>
+                                    <Route path="/" element={<Home />} />
                                     <Route path="/login" element={<LogIn />} />
                                     <Route
                                         path="/signup"
