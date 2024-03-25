@@ -91,10 +91,12 @@ export function SignUp() {
                             placeholder={"Last Name"}
                         ></InputBox>
                         <InputBox
+                            type={"password"}
                             name={"password"}
                             placeholder={"Password"}
                         ></InputBox>
                         <InputBox
+                            type={"password"}
                             placeholder={"Re-enter the password"}
                             onChange={(e: any) => {
                                 setPasswordCheck(e.target.value);

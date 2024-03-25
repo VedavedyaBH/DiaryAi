@@ -15,7 +15,7 @@ export function Editor() {
     const addContent = async () => {
         setLoading(true);
         const today = {
-            content: <EditorContent editor={editor} />,
+            content: editor?.getHTML(),
             img: "",
         };
 
