@@ -101,7 +101,6 @@ export const getUserProfile = async (req: Request, res: Response) => {
 
 export async function getUserObjByUsername(req: any, res: Response) {
     const { limit, page, query } = req.query;
-    const { id } = req.user;
     try {
         const offset =
             (parseInt(page as string) - 1) * parseInt(limit as string);
