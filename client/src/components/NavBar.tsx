@@ -15,7 +15,7 @@ export function NavBar() {
             {/* <div className="lg:ml-28 flex ml-2 lg:justify-start items-center lg:mb-0"> */}
             <div className="flex text-xs lg:text-lg justify-evenly lg:ml-28 lg:justify-between items-center lg:mr-28 lg:flex-grow">
                 <button
-                    className="hidden sm:flex "
+                    className=""
                     onClick={() => {
                         navigate("/feed");
                     }}

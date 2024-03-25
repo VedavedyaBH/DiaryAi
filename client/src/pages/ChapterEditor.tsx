@@ -5,7 +5,6 @@ import axios from "axios";
 import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { ButtonSmall } from "../components/ButtonSmall";
 
 export function Editor() {
     const navigate = useNavigate();
@@ -90,13 +89,15 @@ export function Editor() {
                 <>
                     {" "}
                     {loading ? (
-                        <div className="text-center mt-12">Adding</div>
+                        <div className="text-center mt-12">Adding...</div>
                     ) : (
-                        <div className="relative lg:max-w-3xl mx-auto my-5 ">
-                            <ButtonSmall
-                                label={"Add"}
+                        <div className="relative lg:max-w-3xl mx-auto my-5">
+                            <button
+                                className="absolutemax-w-36 h-6 ml-2 bg-black rounded-xl text-xs text-gray-200 text-center w-12"
                                 onClick={addContent}
-                            ></ButtonSmall>
+                            >
+                                Add
+                            </button>
                             <button
                                 className="absolutemax-w-36 h-6 ml-2 bg-black rounded-xl text-xs text-gray-200 text-center w-12"
                                 onClick={() => {
