@@ -50,6 +50,11 @@ export function Header() {
                                         </a>
                                     </button>
                                     <button className="border-b border-gray-400 my-8">
+                                        <a href="/today" className="nav-link">
+                                            Add a Chapter
+                                        </a>
+                                    </button>
+                                    <button className="border-b border-gray-400 my-8">
                                         <a href="/myDiary" className="nav-link">
                                             MyDiary
                                         </a>

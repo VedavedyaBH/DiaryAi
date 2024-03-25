@@ -55,30 +55,28 @@ export const Card = ({ data }: any) => {
     };
 
     return (
-        <div className="bg-white shadow-sm mb-2 mt-2 rounded-md shadow-sm p-2 lg:p-4">
+        <div className="bg-white shadow-sm mb-2 mt-2 rounded-md p-2 lg:p-4">
             <div className="lg:flex border-gray-200 items-center justify-between lg:m-4">
-                <div className="flex text-center items-center justify-center">
-                    <button className="bg-white lg:text-lg w-24 h-24 border shadow-sm font-bold">
+                <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-center">
+                    <button className="bg-white lg:text-lg w-24 h-24 border shadow-sm font-bold mb-2 lg:mb-0 lg:mr-4">
                         {username}
                     </button>
-                    <div className="lg:text-sm text-gray-500 ml-4">
-                        Followers {followersCount}
-                    </div>
-                    <div className="text-sm text-gray-500 ml-4">
-                        Chapters {chaptersCount}
+                    <div className="lg:text-sm text-gray-500 text-center lg:text-left">
+                        <div>Followers {followersCount}</div>
+                        <div>Chapters {chaptersCount}</div>
                     </div>
                 </div>
 
-                <div className="flex items-center mt-4 lg:mt-0 space-x-2">
+                <div className="flex justify-center mt-4 lg:mt-0 lg:space-x-2">
                     <button
                         onClick={handleFollowClick}
-                        className="bg-black rounded-xl text-xs text-gray-200  text-center h-6 w-12 lg:h-6 lg:w-14"
+                        className="bg-black rounded-xl text-xs text-gray-200 text-center h-6 w-12 lg:h-6 lg:w-14 mr-2"
                     >
                         Follow
                     </button>
                     <button
                         onClick={handleUnfollowClick}
-                        className="bg-black rounded-xl text-xs text-gray-200  text-center h-6 w-12 lg:h-6 lg:w-14"
+                        className="bg-black rounded-xl text-xs text-gray-200 text-center h-6 w-12 lg:h-6 lg:w-14 ml-2"
                     >
                         Unfollow
                     </button>

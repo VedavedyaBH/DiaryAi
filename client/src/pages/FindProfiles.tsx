@@ -13,6 +13,7 @@ function FindProfiles() {
     const [profile, setProfile] = useState<any>([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchProfiles();
@@ -20,6 +21,7 @@ function FindProfiles() {
 
     const fetchProfiles = async () => {
         try {
+            setLoading(true);
             const res = await axios.get(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/profile/users/find`,
                 {
@@ -34,9 +36,8 @@ function FindProfiles() {
                 }
             );
             if (res.status === 200) {
+                setLoading(false);
                 const newProfiles = res.data;
-                console.log(newProfiles);
-
                 newProfiles.length > 0
                     ? setProfile([...profile, ...newProfiles])
                     : setHasMore(false);
@@ -53,7 +54,9 @@ function FindProfiles() {
 
     return (
         <div>
-            {profile.length === 0 ? (
+            {loading ? (
+                <div className="text-center p-4">Loading...</div>
+            ) : profile.length === 0 ? (
                 <div className="text-center p-4">
                     No user found for the entered username
                 </div>
