@@ -1,20 +1,15 @@
-import React, { useState } from "react";
-import { useSearch } from "../Context/SearchContext";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { ButtonSmall } from "./ButtonSmall";
 
-function SearchBar() {
-    const { setQuery } = useSearch();
-    const [inputValue, setInputValue] = useState("");
-    const navigate = useNavigate();
+interface Props {
+    handleSearch: () => void;
+    handleInputChange: (value: string) => void;
+    inputValue: string;
+}
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value);
-    };
-
-    const handleSearch = () => {
-        setQuery(inputValue);
-        navigate("/findPeople");
+function SearchBar({ handleSearch, handleInputChange, inputValue }: Props) {
+    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        handleInputChange(event.target.value);
     };
 
     return (
@@ -22,9 +17,9 @@ function SearchBar() {
             <input
                 type="text"
                 placeholder="find people...."
-                className="rounded-xl text-xs p-1 lg:m-4 border focus:outline-0"
+                className="rounded-xl text-xs p-1 lg:mx-4 border focus:outline-0"
                 value={inputValue}
-                onChange={handleInputChange}
+                onChange={handleInput}
             />
             <ButtonSmall label={"Search"} onClick={handleSearch}></ButtonSmall>
         </>

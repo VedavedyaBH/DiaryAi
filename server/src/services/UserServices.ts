@@ -123,13 +123,12 @@ export async function getUserObjByLetters(
                     startsWith: username,
                 },
             },
-
             include: {
                 diaries: true,
                 socials: true,
             },
-            // take: limit,
-            // skip: offset,
+            take: limit,
+            skip: offset,
         });
         console.log(users);
         return users;
