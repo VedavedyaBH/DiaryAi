@@ -1,49 +1,112 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { useSearch } from "../Context/SearchContext";
+import { useState } from "react";
 import { useAuth } from "../Context/UserContext";
 import { Card } from "../components/ProfileDisplayCard";
+import InfiniteScroll from "react-infinite-scroll-component";
+import SearchBar from "../components/SearchBar";
+
+const NoOfProfilesPerPage = 5;
+
+let page: number;
+let entered = true;
 
 function FindProfiles() {
-    const { query } = useSearch();
     const { token } = useAuth();
-    const [profile, setProfile] = useState<any>([]);
-
-    useEffect(() => {
-        fetchProfiles();
-    }, [query]);
+    const [profile, setProfile] = useState<any[]>([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [inputValue, setInputValue] = useState("");
 
     const fetchProfiles = async () => {
         try {
-            const res = await axios.get(
+            setLoading(true);
+            const res = await axios.get<any[]>(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/profile/users/find`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                     params: {
-                        query: query,
+                        limit: NoOfProfilesPerPage,
+                        page: page,
+                        query: inputValue,
                     },
                 }
             );
-            const usersData = res.data;
-            setProfile(usersData);
+            if (res.status === 200) {
+                setLoading(false);
+                const newProfiles = res.data;
+                if (newProfiles.length === 0) {
+                    setHasMore(false);
+                } else {
+                    setProfile((prevProfile: any) => [
+                        ...prevProfile,
+                        ...newProfiles,
+                    ]);
+                    page++;
+                }
+            }
         } catch (error: any) {
             console.error(error.message);
         }
     };
 
+    const handleInputChange = (value: string) => {
+        setInputValue(value);
+    };
+
+    const handleSearch = () => {
+        entered = false;
+        page = 0;
+        page++;
+        setProfile([]);
+        fetchProfiles();
+    };
+
     return (
         <div>
-            {profile.length === 0 ? (
-                <div className="text-center p-4">
-                    No user found for the entered username
-                </div>
+            <div className="flex justify-center lg:m-4">
+                <SearchBar
+                    handleSearch={handleSearch}
+                    handleInputChange={handleInputChange}
+                    inputValue={inputValue}
+                />
+            </div>
+            {entered ? (
+                <div className="text-center p-4">Search users</div>
             ) : (
-                <div className="max-w-3xl m-auto justify-center">
-                    {profile.map((data: any) => (
-                        <Card key={data.id} data={data} />
-                    ))}
+                <div>
+                    {loading && profile.length === 0 ? (
+                        <div className="text-center p-4">Loading...</div>
+                    ) : profile.length === 0 ? (
+                        <div className="text-center p-4">
+                            No user found for the entered username
+                        </div>
+                    ) : (
+                        <div>
+                            <div className="lg:max-w-lg m-auto justify-center">
+                                <InfiniteScroll
+                                    dataLength={profile.length}
+                                    next={fetchProfiles}
+                                    hasMore={hasMore}
+                                    loader={
+                                        <h4 className="text-center text-xs">
+                                            Loading...
+                                        </h4>
+                                    }
+                                    endMessage={
+                                        <p className="text-center text-xs">
+                                            You have reached the end
+                                        </p>
+                                    }
+                                >
+                                    {profile.map((data: any, index: number) => (
+                                        <Card key={index} data={data} />
+                                    ))}
+                                </InfiniteScroll>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

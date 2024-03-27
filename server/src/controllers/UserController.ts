@@ -104,6 +104,7 @@ export async function getUserObjByUsername(req: any, res: Response) {
     try {
         const offset =
             (parseInt(page as string) - 1) * parseInt(limit as string);
+        console.log(query, parseInt(limit as string), offset);
         const users = await getUserObjByLetters(
             query as string,
             parseInt(limit as string),
