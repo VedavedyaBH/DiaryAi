@@ -21,7 +21,10 @@ export function NavBar() {
                 >
                     DiaryAI
                 </button>
-                <div className="lg:hidden">
+                <div
+                    onClick={() => navigate("/findPeople")}
+                    className="lg:hidden"
+                >
                     {" "}
                     <img className="h-5 lg:h-6" src={searchIcon}></img>{" "}
                 </div>
