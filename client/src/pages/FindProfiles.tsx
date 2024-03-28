@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../Context/UserContext";
 import { Card } from "../components/ProfileDisplayCard";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -16,6 +16,12 @@ function FindProfiles() {
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
     const [inputValue, setInputValue] = useState("");
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
 
     const fetchProfiles = async () => {
         try {
@@ -64,18 +70,20 @@ function FindProfiles() {
     };
 
     return (
-        <div>
-            <div className="flex justify-center lg:m-4">
+        <div
+            className={`item-center text-center ${
+                isLoaded ? "animate-fade-in" : ""
+            }`}
+        >
+            <div className={`flex justify-center my-4`}>
                 <SearchBar
                     handleSearch={handleSearch}
                     handleInputChange={handleInputChange}
                     inputValue={inputValue}
                 />
             </div>
-            {entered ? (
-                <div className="text-center p-4">Search users</div>
-            ) : (
-                <div>
+            {!entered && (
+                <div className="mt-12">
                     {loading && profile.length === 0 ? (
                         <div className="text-center p-4">Loading...</div>
                     ) : profile.length === 0 ? (

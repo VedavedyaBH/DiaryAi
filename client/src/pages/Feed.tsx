@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CardsList from "../components/Card";
+import Card from "../components/ChapterCard";
 import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-
+import add from "../assets/add.png";
 const NoOfChaptersPerPage = 5;
 
 export function Feed() {
@@ -20,15 +20,18 @@ export function Feed() {
 
     const fetchChapters = async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/feed`, {
-                params: {
-                    limit: NoOfChaptersPerPage,
-                    page: page,
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const res = await axios.get(
+                `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/feed`,
+                {
+                    params: {
+                        limit: NoOfChaptersPerPage,
+                        page: page,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             if (res.status === 200) {
                 const newChapters = res.data;
@@ -66,10 +69,18 @@ export function Feed() {
                 </div>
             ) : (
                 <div>
-                    <div className="bg-white max-w-3xl mx-auto m-2 p-4">
-                        <div className="text-gray-500 font-light border-b pb-4">
-                            For you
+                    <div className="max-w-3xl mx-auto m-2 p-4">
+                        <div className="flex justify-between">
+                            <div className="text-gray-500 font-light pb-4">
+                                For you
+                            </div>
+                            <img
+                                onClick={() => navigate("/today")}
+                                className="h-6 hover:h-7 duration-300 ease-in-out"
+                                src={add}
+                            ></img>
                         </div>
+
                         <InfiniteScroll
                             dataLength={chapters.length}
                             next={fetchChapters}
@@ -85,7 +96,16 @@ export function Feed() {
                                 </p>
                             }
                         >
-                            <CardsList data={chapters} />
+                            {chapters.map((item: any, index: any) => (
+                                <Card
+                                    chapterId={item.id}
+                                    title={item.title}
+                                    author={item.author}
+                                    tag={item.tag}
+                                    content={item.content}
+                                    key={index}
+                                />
+                            ))}
                         </InfiniteScroll>
                     </div>
                 </div>

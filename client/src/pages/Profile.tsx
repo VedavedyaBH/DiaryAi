@@ -3,6 +3,7 @@ import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ButtonSmall } from "../components/ButtonSmall";
 
 interface User {
     username: string;
@@ -23,6 +24,7 @@ function Profile() {
     const [followingCount, setFollowingCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [diariesCount, setDiariesCount] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const [updatedUserObj, setUpdatedUserObj] = useState<User>({
         username: "",
@@ -33,6 +35,7 @@ function Profile() {
 
     useEffect(() => {
         fetchUser();
+        setIsLoaded(true);
     }, []);
 
     useEffect(() => {
@@ -110,7 +113,11 @@ function Profile() {
             ) : isLoading ? (
                 <div className="text-center">Loading...</div>
             ) : (
-                <div className="lg:mt-6 lg:max-w-3xl mx-auto bg-white lg:p-6 rounded-md">
+                <div
+                    className={`bg-sky-50 text-sky-900 lg:mt-6 lg:max-w-3xl mx-auto lg:p-6 rounded-md ${
+                        isLoaded ? "animate-fade-in" : ""
+                    }`}
+                >
                     <div className="flex flex-col lg:flex-row justify-around items-center lg:p-4">
                         <div>
                             <div className="lg:hidden justify-center items-center mt-12 text-center lg:mt-0">
@@ -218,13 +225,12 @@ function Profile() {
                                     />
                                 </div>
 
-                                <button
+                                <ButtonSmall
                                     onClick={updateUser}
                                     type="button"
+                                    label={"Update Profile"}
                                     className="bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-24 h-8"
-                                >
-                                    Update Profile
-                                </button>
+                                ></ButtonSmall>
                             </form>
                         </div>
                         <div className="justify-center items-center mt-12 text-center lg:mt-0">

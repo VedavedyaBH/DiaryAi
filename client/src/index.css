@@ -52,15 +52,28 @@
       margin-top: 0.75em;
     }
   }
-  .tiptap p.is-empty::before {
-    height: 0;
-    color: #8a8f94;
-    content: attr(data-placeholder);
-    float: left;
-    pointer-events: none;
-    font-size: xx-large; /* Default font size */
-    font-family: 'Courier New', Courier, monospace;
-}
+  @media (min-width: 769px) {
+    .tiptap p.is-empty::before {
+        height: 0;
+        color: #8a8f94; 
+        content: attr(data-placeholder);
+        float: left;
+        pointer-events: none;
+        font-size: xx-large; /* Default font size */
+        font-family: 'Courier New', Courier, monospace;
+    }
+  }
+  @media (max-width: 640px) {
+    .tiptap p.is-empty::before {
+        height: 0;
+        color: #8a8f94; 
+        content: attr(data-placeholder);
+        float: left;
+        pointer-events: none;
+        font-size: x-large; /* Default font size */
+        font-family: 'Courier New', Courier, monospace;
+    }
+  }
 
 /* Tailwind CSS responsive font sizes */
 @media (max-width: 640px) {
@@ -83,5 +96,18 @@
 
 /* Add more breakpoints as needed */
 html {
-    @apply bg-zinc-50; /* Set the background color to Tailwind CSS white */
+    @apply bg-sky-50; /* Set the background color to Tailwind CSS white */
+}
+
+@keyframes fade-in {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-in-out;
 }

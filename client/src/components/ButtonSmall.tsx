@@ -3,7 +3,9 @@ export function ButtonSmall({ label, onClick, type }: any) {
         <button
             onClick={onClick}
             type={type}
-            className="bg-black rounded-md rounded-xl text-xs text-gray-200 lg:p-1 text-center h-6 w-10 lg:h-6 lg:w-12"
+            className="bg-sky-900 hover:bg-sky-100  rounded-xl hover:rounded-lg
+            text-xs text-gray-200 hover:text-black lg:p-1 text-center ease-in-out
+            duration-300 hover:h-9 hover:shadow-xl hover:w-15 h-8 w-12 lg:h-8 lg:w-14"
         >
             {label}
         </button>

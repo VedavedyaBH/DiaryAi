@@ -4,13 +4,20 @@ import StarterKit from "@tiptap/starter-kit";
 import axios from "axios";
 import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ButtonSmall } from "../components/ButtonSmall";
 
 export function Editor() {
     const navigate = useNavigate();
     const [privatePost, setPrivatePost] = useState(false);
     const [loading, setLoading] = useState(false);
     const { token } = useAuth();
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
+
     const addContent = async () => {
         setLoading(true);
         const today = {
@@ -91,22 +98,31 @@ export function Editor() {
                     {loading ? (
                         <div className="text-center mt-12">Adding...</div>
                     ) : (
-                        <div className="relative lg:max-w-3xl mx-auto my-5">
-                            <button
-                                className="absolutemax-w-36 h-6 ml-2 bg-black rounded-xl text-xs text-gray-200 text-center w-12"
-                                onClick={addContent}
-                            >
-                                Add
-                            </button>
-                            <button
-                                className="absolutemax-w-36 h-6 ml-2 bg-black rounded-xl text-xs text-gray-200 text-center w-12"
-                                onClick={() => {
-                                    setPrivatePost(!privatePost);
-                                }}
-                            >
-                                {privatePost ? "Private" : "Public"}
-                            </button>
-                            <div>
+                        <div
+                            className={`lg:max-w-3xl mx-auto mt-5 ${
+                                isLoaded ? "animate-fade-in" : ""
+                            }`}
+                        >
+                            <div className="flex">
+                                <div className="mr-2">
+                                    <ButtonSmall
+                                        onClick={addContent}
+                                        label={"Add"}
+                                    ></ButtonSmall>
+                                </div>
+                                <div>
+                                    <ButtonSmall
+                                        onClick={() => {
+                                            setPrivatePost(!privatePost);
+                                        }}
+                                        label={
+                                            privatePost ? "Private" : "Public"
+                                        }
+                                    ></ButtonSmall>
+                                </div>
+                            </div>
+
+                            <div className="">
                                 <EditorContent editor={editor}></EditorContent>
                             </div>
                         </div>
