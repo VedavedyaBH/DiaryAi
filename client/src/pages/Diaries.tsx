@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CardsList from "../components/Card";
+import Card from "../components/ChapterCard";
 import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -21,15 +21,18 @@ export function Diaries() {
 
     const fetchChapters = async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/diaries`, {
-                params: {
-                    limit: NoOfChaptersPerPage,
-                    page: page,
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const res = await axios.get(
+                `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/diaries`,
+                {
+                    params: {
+                        limit: NoOfChaptersPerPage,
+                        page: page,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             if (res.status === 200) {
                 const newChapters = res.data.data;
@@ -66,7 +69,10 @@ export function Diaries() {
                     </div>
                 </div>
             ) : (
-                <div className="container mx-auto py-8">
+                <div className="max-w-3xl mx-auto m-2 p-4">
+                    <div className="text-gray-500 font-light pb-4">
+                        My Chapters
+                    </div>
                     <InfiniteScroll
                         dataLength={chapters.length}
                         next={fetchChapters}
@@ -80,7 +86,16 @@ export function Diaries() {
                             </p>
                         }
                     >
-                        <CardsList data={chapters} author={author} />
+                        {chapters.map((item: any) => (
+                            <Card
+                                chapterId={item.id}
+                                title={item.title}
+                                author={author}
+                                tag={item.tag}
+                                content={item.content}
+                                key={item.id}
+                            />
+                        ))}
                     </InfiniteScroll>
                 </div>
             )}

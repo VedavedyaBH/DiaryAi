@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
+import { ButtonSmall } from "./ButtonSmall";
+import check from "../assets/check.svg";
 
 export const Card = ({ data }: any) => {
     const { token } = useAuth();
@@ -8,9 +10,13 @@ export const Card = ({ data }: any) => {
     const [username, setUsername] = useState("");
     const [chaptersCount, setChaptersCount] = useState(0);
     const [followersCount, setFollowersCount] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [followed, setFollowed] = useState(false);
+    const [unfollowed, setUnFollowed] = useState(false);
 
     useEffect(() => {
         setData();
+        setIsLoaded(true);
     }, [data]);
 
     const setData = () => {
@@ -22,7 +28,7 @@ export const Card = ({ data }: any) => {
 
     const handleFollowClick = async () => {
         try {
-            await axios({
+            const res = await axios({
                 method: "post",
                 url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/follow`,
                 data: {
@@ -32,6 +38,10 @@ export const Card = ({ data }: any) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            if (res.status == 201) {
+                setFollowed(true);
+                setUnFollowed(false);
+            }
         } catch (error: any) {
             console.log(error.message);
         }
@@ -39,7 +49,7 @@ export const Card = ({ data }: any) => {
 
     const handleUnfollowClick = async () => {
         try {
-            await axios({
+            const res = await axios({
                 method: "delete",
                 url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/socials/follow`,
                 data: {
@@ -49,39 +59,72 @@ export const Card = ({ data }: any) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            if (res.status == 200) {
+                setUnFollowed(true);
+                setFollowed(false);
+            }
         } catch (error: any) {
             console.log(error.message);
         }
     };
 
     return (
-        <div className="bg-white shadow-sm mb-2 mt-2 rounded-md p-2 lg:p-4">
-            <div className="lg:flex border-gray-200 items-center justify-between lg:m-4">
-                <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-center">
-                    <button className="bg-white lg:text-lg w-24 h-24 border shadow-sm font-bold mb-2 lg:mb-0 lg:mr-4">
-                        {username}
-                    </button>
-                    <div className="lg:text-sm text-gray-500 text-center lg:text-left">
-                        <div>Followers {followersCount}</div>
-                        <div>Chapters {chaptersCount}</div>
+        <>
+            <div
+                className={`flex justify-between text-sky-900 text-sm md:text-md mb-4 p-4 bg-sky-100
+            hover:shadow-lg shadow-sky-900 item-center ease-in-out duration-300
+            h-52 lg:h-52 lg:text-base rounded-lg border ${
+                isLoaded ? "animate-fade-in" : ""
+            }`}
+            >
+                <div className="border-2 border-sky-50 w-1/2 flex items-center justify-center text-center">
+                    {username}
+                </div>
+                <div className="w-1/2 grid  justify-center p-2 items-center text-center ">
+                    <div>
+                        <div>
+                            Followers{" "}
+                            <span className="font-bold">{followersCount}</span>{" "}
+                        </div>
+                        <div>
+                            Chapters{" "}
+                            <span className="font-bold">{chaptersCount}</span>
+                        </div>
+                    </div>
+                    <div className="flex justify-between">
+                        <div className="mx-2">
+                            <ButtonSmall
+                                onClick={handleFollowClick}
+                                label={
+                                    followed ? (
+                                        <img
+                                            className="h-4 ml-3"
+                                            src={check}
+                                        ></img>
+                                    ) : (
+                                        "Follow"
+                                    )
+                                }
+                            ></ButtonSmall>
+                        </div>
+                        <div>
+                            <ButtonSmall
+                                onClick={handleUnfollowClick}
+                                label={
+                                    unfollowed ? (
+                                        <img
+                                            className="h-4 ml-3"
+                                            src={check}
+                                        ></img>
+                                    ) : (
+                                        "UnFollow"
+                                    )
+                                }
+                            ></ButtonSmall>
+                        </div>
                     </div>
                 </div>
-
-                <div className="flex justify-center mt-4 lg:mt-0 lg:space-x-2">
-                    <button
-                        onClick={handleFollowClick}
-                        className="bg-black rounded-xl text-xs text-gray-200 text-center h-6 w-12 lg:h-6 lg:w-14 mr-2"
-                    >
-                        Follow
-                    </button>
-                    <button
-                        onClick={handleUnfollowClick}
-                        className="bg-black rounded-xl text-xs text-gray-200 text-center h-6 w-12 lg:h-6 lg:w-14 ml-2"
-                    >
-                        Unfollow
-                    </button>
-                </div>
             </div>
-        </div>
+        </>
     );
 };
