@@ -1,5 +1,3 @@
-import React from "react";
-
 function InputBar({ value, onChange, onClick, palceholder, type }: any) {
     onClick = { onClick };
 
