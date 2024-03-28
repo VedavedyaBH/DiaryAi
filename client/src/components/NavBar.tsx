@@ -12,8 +12,8 @@ export function NavBar() {
 
     return (
         <div
-            className="flex text-xs bg-sky-50 border-b p-4 h-14
-        shadow-sm item-center text-gray-500
+            className="flex text-xs bg-slate-700  p-4 h-14
+        shadow-sm item-center text-gray-100
         justify-between mx-auto
         lg:justify-between lg:text-lg lg:h-16
         lg:text-lg"
@@ -30,7 +30,7 @@ export function NavBar() {
                 onClick={() => navigate("/findPeople")}
                 className="lg:hidden item-center"
             >
-                <img className="ml-3 h-5 lg:h-6" src={searchIcon}></img>
+                <img className="ml-44 h-5 lg:h-6" src={searchIcon}></img>
             </div>
             <div className="lg:hidden item-center h-14">
                 <Header></Header>
