@@ -70,57 +70,66 @@ export const Card = ({ data }: any) => {
 
     return (
         <>
-            <div
-                className={`flex justify-between text-sky-900 text-sm md:text-md mb-4 p-4 bg-sky-100
-            hover:shadow-lg shadow-sky-900 item-center ease-in-out duration-300
-            h-52 lg:h-52 lg:text-base rounded-lg border ${
+            <div className="lg:max-w-4xl mx-auto mx-2 p-4">
+                <div
+                    className={`flex justify-between text-sky-900 text-sm md:text-md bg-stone-100
+            hover:shadow-lg item-center ease-in-out duration-300
+            h-52 lg:h-52 lg:text-base rounded-lg ${
                 isLoaded ? "animate-fade-in" : ""
             }`}
-            >
-                <div className="border-2 border-sky-50 w-1/2 flex items-center justify-center text-center">
-                    {username}
-                </div>
-                <div className="w-1/2 grid  justify-center p-2 items-center text-center ">
-                    <div>
-                        <div>
-                            Followers{" "}
-                            <span className="font-bold">{followersCount}</span>{" "}
-                        </div>
-                        <div>
-                            Chapters{" "}
-                            <span className="font-bold">{chaptersCount}</span>
-                        </div>
+                >
+                    <div
+                        className="w-1/2 flex items-center justify-center
+                    text-center"
+                    >
+                        {username}
                     </div>
-                    <div className="flex justify-between">
-                        <div className="mx-2">
-                            <ButtonSmall
-                                onClick={handleFollowClick}
-                                label={
-                                    followed ? (
-                                        <img
-                                            className="h-4 ml-3"
-                                            src={check}
-                                        ></img>
-                                    ) : (
-                                        "Follow"
-                                    )
-                                }
-                            ></ButtonSmall>
-                        </div>
+                    <div className="w-1/2 grid justify-center p-2 items-center text-center ">
                         <div>
-                            <ButtonSmall
-                                onClick={handleUnfollowClick}
-                                label={
-                                    unfollowed ? (
-                                        <img
-                                            className="h-4 ml-3"
-                                            src={check}
-                                        ></img>
-                                    ) : (
-                                        "UnFollow"
-                                    )
-                                }
-                            ></ButtonSmall>
+                            <div>
+                                Followers{" "}
+                                <span className="font-bold">
+                                    {followersCount}
+                                </span>{" "}
+                            </div>
+                            <div>
+                                Chapters{" "}
+                                <span className="font-bold">
+                                    {chaptersCount}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="flex justify-between">
+                            <div className="mx-2">
+                                <ButtonSmall
+                                    onClick={handleFollowClick}
+                                    label={
+                                        followed ? (
+                                            <img
+                                                className="h-4 ml-3"
+                                                src={check}
+                                            ></img>
+                                        ) : (
+                                            "Follow"
+                                        )
+                                    }
+                                ></ButtonSmall>
+                            </div>
+                            <div>
+                                <ButtonSmall
+                                    onClick={handleUnfollowClick}
+                                    label={
+                                        unfollowed ? (
+                                            <img
+                                                className="h-4 ml-3"
+                                                src={check}
+                                            ></img>
+                                        ) : (
+                                            "UnFollow"
+                                        )
+                                    }
+                                ></ButtonSmall>
+                            </div>
                         </div>
                     </div>
                 </div>

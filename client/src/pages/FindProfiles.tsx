@@ -85,9 +85,9 @@ function FindProfiles() {
             {!entered && (
                 <div className="mt-12">
                     {loading && profile.length === 0 ? (
-                        <div className="text-center p-4">Loading...</div>
+                        <div className="text-center text-stone-100 p-4">Loading...</div>
                     ) : profile.length === 0 ? (
-                        <div className="text-center p-4">
+                        <div className="text-center text-stone-100 p-4">
                             No user found for the entered username
                         </div>
                     ) : (

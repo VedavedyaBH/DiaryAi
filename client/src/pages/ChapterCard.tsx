@@ -59,32 +59,34 @@ function ChapterCard() {
         }
     };
     return (
-        <div
-            className={`text-sm md:text-md mb-4 p-4 bg-sky-100 max-w-4xl mx-auto mt-4 mb-4
-            hover:shadow-lg shadow-sky-900 item-center ease-in-out duration-300
+        <div className="lg:max-w-4xl mx-auto m-2 p-4">
+            <div
+                className={`text-sm md:text-md mb-4 p-4 bg-slate-100 mt-4 mb-4
+            hover:shadow-lg item-center ease-in-out duration-300 w-4xl
             lg:text-base rounded-lg border ${
                 isLoaded ? "animate-fade-in" : ""
             }`}
-        >
-            <div className="text-left text-sky-900 font-bold pb-8 text-xl lg:text-4xl">
-                {chapterTitle}
-            </div>
-            <div
-                className="font-Kalam mb-10 text-sky-900"
-                dangerouslySetInnerHTML={{
-                    __html: chapterContent,
-                }}
-            />
-            {isOwner ? (
-                <div>
-                    <div className="bg-sky-900 text-white rounded-lg p-5 mt-10 lg:text-xl  font-bold ">
-                        Hello there!
-                    </div>
-                    <div className="mt-3 text-base text-sky-900 leading-relaxed mb-4">
-                        {response}
-                    </div>
+            >
+                <div className="text-left text-stone-900 font-bold pb-8 text-xl lg:text-4xl">
+                    {chapterTitle}
                 </div>
-            ) : null}
+                <div
+                    className="font-Kalam mb-10 text-stone-900"
+                    dangerouslySetInnerHTML={{
+                        __html: chapterContent,
+                    }}
+                />
+                {isOwner ? (
+                    <div>
+                        <div className="bg-slate-800 text-white rounded-lg p-5 mt-10 lg:text-xl  font-bold ">
+                            Hello there!
+                        </div>
+                        <div className="mt-3 text-base text-stone-900 leading-relaxed mb-4">
+                            {response}
+                        </div>
+                    </div>
+                ) : null}
+            </div>
         </div>
     );
 }

@@ -34,22 +34,22 @@ function Card({ chapterId, title, author, content, tag }: any) {
 
     return (
         <div
-            className={`text-sm md:text-md mb-4 p-4 overflow-hidden bg-sky-100
-            hover:shadow-lg shadow-sky-900 item-center ease-in-out duration-300
+            className={`text-sm md:text-md mb-4 p-4 overflow-hidden bg-stone-100
+            hover:shadow-lg item-center ease-in-out duration-300
             h-52 lg:h-52 lg:text-base rounded-lg border ${
                 isLoaded ? "animate-fade-in" : ""
             }`}
         >
-            <div className="h-28 ">
+            <div className="h-28">
                 <div>
                     <button
                         onClick={handleCardClick}
-                        className="text-md text-sky-900 lg:text-xl text-left font-bold"
+                        className="text-md text-stone-900 lg:text-xl text-left font-bold"
                     >
                         {title}
                     </button>
                     <div
-                        className="line-clamp-3 mt-2 text-sky-800 font-light text-sm"
+                        className="line-clamp-3 mt-2 text-stone-700 font-light text-sm"
                         dangerouslySetInnerHTML={{
                             __html: wrapContentInParagraphs(content),
                         }}
@@ -65,7 +65,7 @@ function Card({ chapterId, title, author, content, tag }: any) {
                     ))}
                 </div>
                 <ButtonSmall
-                        className="lg:text-lg"
+                    className="lg:text-lg"
                     label={author}
                 ></ButtonSmall>
             </div>

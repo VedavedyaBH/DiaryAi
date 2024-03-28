@@ -74,6 +74,9 @@
         font-family: 'Courier New', Courier, monospace;
     }
   }
+  .custom-text p {
+    color: #fafaf9; 
+  }
 
 /* Tailwind CSS responsive font sizes */
 @media (max-width: 640px) {
@@ -96,7 +99,7 @@
 
 /* Add more breakpoints as needed */
 html {
-    @apply bg-sky-50; /* Set the background color to Tailwind CSS white */
+    @apply bg-slate-800; /* Set the background color to Tailwind CSS white */
 }
 
 @keyframes fade-in {

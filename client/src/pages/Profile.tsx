@@ -114,7 +114,7 @@ function Profile() {
                 <div className="text-center">Loading...</div>
             ) : (
                 <div
-                    className={`bg-sky-50 text-sky-900 lg:mt-6 lg:max-w-3xl mx-auto lg:p-6 rounded-md ${
+                    className={`bg-slate-700 text-stone-50 lg:mt-6 lg:max-w-3xl mx-auto lg:p-6 rounded-md ${
                         isLoaded ? "animate-fade-in" : ""
                     }`}
                 >
@@ -150,7 +150,7 @@ function Profile() {
                                 <div className="mb-4 my-10 max-w-72">
                                     <label
                                         htmlFor="username"
-                                        className="block text-sm font-medium text-gray-700"
+                                        className="block text-sm font-medium text-stone-50"
                                     >
                                         Username
                                     </label>
@@ -160,14 +160,14 @@ function Profile() {
                                         name="username"
                                         value={updatedUserObj.username}
                                         onChange={handleInputChange}
-                                        className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                        className="mt-1 p-2 border-b border-stone-50 rounded-md w-full focus:outline-none"
                                         placeholder={userObj.username}
                                     />
                                 </div>
                                 <div className="mb-4 max-w-72">
                                     <label
                                         htmlFor="password"
-                                        className="block text-sm font-medium text-gray-700"
+                                        className="block text-sm font-medium text-stone-50"
                                     >
                                         Password
                                     </label>
@@ -182,7 +182,7 @@ function Profile() {
                                         name="password"
                                         value={updatedUserObj.password}
                                         onChange={handleInputChange}
-                                        className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                        className="mt-1 p-2 border-b border-stone-50 rounded-md w-full focus:outline-none"
                                         placeholder="Enter new password"
                                     />
                                 </div>
@@ -190,7 +190,7 @@ function Profile() {
                                     <div className="mb-4 max-w-72">
                                         <label
                                             htmlFor="reenteredPassword"
-                                            className="block text-sm font-medium text-gray-700"
+                                            className="block text-sm font-medium text-stone-50"
                                         >
                                             Re-Enter the Password
                                         </label>
@@ -202,7 +202,7 @@ function Profile() {
                                                 updatedUserObj.reenteredPassword
                                             }
                                             onChange={handleInputChange}
-                                            className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                            className="mt-1 p-2 border-b border-stone-50 rounded-md w-full focus:outline-none"
                                             placeholder="Re-Enter the Password"
                                         />
                                     </div>
@@ -210,7 +210,7 @@ function Profile() {
                                 <div className="mb-4 max-w-72">
                                     <label
                                         htmlFor="email"
-                                        className="block text-sm font-medium text-gray-700"
+                                        className="block text-sm font-medium text-stone-50"
                                     >
                                         Email
                                     </label>
@@ -220,7 +220,7 @@ function Profile() {
                                         name="email"
                                         value={updatedUserObj.email}
                                         onChange={handleInputChange}
-                                        className="mt-1 p-2 border-b border-gray-300 rounded-md w-full focus:outline-none"
+                                        className="mt-1 p-2 border-b border-stone-50 rounded-md w-full focus:outline-none"
                                         placeholder={userObj.email}
                                     />
                                 </div>
@@ -228,8 +228,8 @@ function Profile() {
                                 <ButtonSmall
                                     onClick={updateUser}
                                     type="button"
-                                    label={"Update Profile"}
-                                    className="bg-black rounded-xl text-xs text-gray-200 p-1 text-center w-24 h-8"
+                                    label={"Update"}
+                                    className="bg-black rounded-xl text-xs text-stone-50 p-1 text-center w-24 h-8"
                                 ></ButtonSmall>
                             </form>
                         </div>
