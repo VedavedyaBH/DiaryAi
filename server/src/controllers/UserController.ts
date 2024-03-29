@@ -14,7 +14,7 @@ export async function createUser(req: Request, res: Response) {
         const userData: User = req.body.user;
         const user = new User(userData);
         const newUser = await User.addUser(user);
-        newUser ? new Socials(newUser) : null;
+        newUser ? Socials.createSocialsForUser(newUser) : null;
         if (newUser !== null) {
             res.status(Status.Created).send(newUser);
         }
@@ -104,7 +104,6 @@ export async function getUserObjByUsername(req: any, res: Response) {
     try {
         const offset =
             (parseInt(page as string) - 1) * parseInt(limit as string);
-        console.log(query, parseInt(limit as string), offset);
         const users = await getUserObjByLetters(
             query as string,
             parseInt(limit as string),

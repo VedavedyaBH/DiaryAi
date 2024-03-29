@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Heading } from "../components/Heading";
 import { InputBox } from "../components/InputBox";
 import axios from "axios";
@@ -18,7 +18,14 @@ export function SignUp() {
     const [user, setUser] = useState<User | null>(null);
     const [PasswordCheck, setPasswordCheck] = useState<string | null>("");
 
+    useEffect(() => {
+        if (user !== null) {
+            addUser();
+        }
+    }, [user]);
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        console.log("button cliked");
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
 
@@ -37,12 +44,13 @@ export function SignUp() {
             };
 
             setUser(userFormData);
-            await addUser();
         }
     };
 
     async function addUser() {
         try {
+            console.log("called");
+
             if (user !== null) {
                 const url = `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/signup`;
                 const res = await axios.post(url, { user });
@@ -128,7 +136,10 @@ export function SignUp() {
                         </div> */}
 
                         <div className="pt-4 pb-4">
-                            <ButtonSmall type={"submit"} label={"SignUp"}></ButtonSmall>
+                            <ButtonSmall
+                                type={"submit"}
+                                label={"SignUp"}
+                            ></ButtonSmall>
                         </div>
                     </form>
                 </div>
