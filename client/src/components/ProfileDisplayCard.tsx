@@ -103,7 +103,7 @@ export const Card = ({ data }: any) => {
                                     label={
                                         followed ? (
                                             <img
-                                                className="h-4"
+                                                className="ml-4 lg:ml-0 h-4"
                                                 src={check}
                                                 alt="check-mark"
                                             />
@@ -119,7 +119,7 @@ export const Card = ({ data }: any) => {
                                     label={
                                         unfollowed ? (
                                             <img
-                                                className="h-4"
+                                                className="ml-2 lg:ml-0 h-4"
                                                 src={check}
                                                 alt="check-mark"
                                             />

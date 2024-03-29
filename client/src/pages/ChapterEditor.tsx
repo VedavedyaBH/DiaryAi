@@ -6,6 +6,7 @@ import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ButtonSmall } from "../components/ButtonSmall";
+import Modal from "../components/Modal";
 
 export function Editor() {
     const navigate = useNavigate();
@@ -13,10 +14,23 @@ export function Editor() {
     const [loading, setLoading] = useState(false);
     const { token } = useAuth();
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [warningTitle, setWarningTitle] = useState("");
+    const [warningMessage, setWarningMessage] = useState("");
 
     useEffect(() => {
         setIsLoaded(true);
     }, []);
+
+    const openModal = (title: string, message: string) => {
+        setWarningTitle(title);
+        setWarningMessage(message);
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
 
     const addContent = async () => {
         const today = {
@@ -24,11 +38,15 @@ export function Editor() {
             img: "",
         };
         if (
-            today.content == "<p></p>" ||
             !today.content ||
-            today.content.trim() === ""
+            today.content?.length <= 100 ||
+            today.content == "<p></p>"
         ) {
-            alert("Cannot add empty content");
+            if (today.content == "<p></p>") {
+                openModal("Empty!", "Please add something");
+            } else {
+                openModal("Tell a little more about your day!", "(min 100)");
+            }
         } else {
             setLoading(true);
             try {
@@ -86,7 +104,7 @@ export function Editor() {
             {token === "" ? (
                 <div
                     className="flex justify-center items-center \
-                                justify-center flex item-center mt-20"
+                                    justify-center flex item-center mt-20"
                 >
                     <div className="font-bold text-gray-200 text-4xl">
                         Please Login
@@ -103,7 +121,6 @@ export function Editor() {
                 </div>
             ) : (
                 <>
-                    {" "}
                     {loading ? (
                         <div className="text-center text-gray-400 mt-12">
                             Adding...
@@ -139,6 +156,14 @@ export function Editor() {
                         </div>
                     )}
                 </>
+            )}
+            {isOpen && (
+                <Modal
+                    title={warningTitle}
+                    message={warningMessage}
+                    onClose={closeModal}
+                    isOpen={isOpen}
+                />
             )}
         </>
     );

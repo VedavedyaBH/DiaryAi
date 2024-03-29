@@ -3,26 +3,12 @@ import { User } from "./User";
 
 const prisma = new PrismaClient();
 
-export class Socials extends User {
-    id: string;
-    diaryId: string[];
-    followers: string[];
-    following: string[];
-
-    constructor(user: User) {
-        super(user);
-        this.id = user.id;
-        this.diaryId = [];
-        this.followers = [];
-        this.following = [];
-        this.createSocialsForUser();
-    }
-
-    async createSocialsForUser() {
+export class Socials {
+    static async createSocialsForUser(user: User) {
         try {
             await prisma.socials.create({
                 data: {
-                    id: this.id,
+                    id: user.id,
                     diaryId: [],
                     followers: [],
                     following: [],
