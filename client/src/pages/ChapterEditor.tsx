@@ -19,41 +19,48 @@ export function Editor() {
     }, []);
 
     const addContent = async () => {
-        setLoading(true);
         const today = {
             content: editor?.getHTML(),
             img: "",
         };
+        if (
+            today.content == "<p></p>" ||
+            !today.content ||
+            today.content.trim() === ""
+        ) {
+            alert("Cannot add empty content");
+        } else {
+            setLoading(true);
+            try {
+                if (today !== null) {
+                    const res = await axios({
+                        method: "post",
+                        url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/diaries`,
+                        data: {
+                            today: today,
+                            private: privatePost,
+                        },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
 
-        try {
-            if (today !== null) {
-                const res = await axios({
-                    method: "post",
-                    url: `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/diaries`,
-                    data: {
-                        today: today,
-                        private: privatePost,
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                if (res.status === 201) {
-                    setLoading(false);
-                    navigate("/myDiary");
+                    if (res.status === 201) {
+                        setLoading(false);
+                        navigate("/myDiary");
+                    }
                 }
-            }
-        } catch (error: any) {
-            console.log(error.message);
-            if (error.response && error.response.status === 400) {
-                if (
-                    error.response.data.includes("Username") ||
-                    error.response.data.includes("EmailId")
-                ) {
-                    alert(error.response.data);
-                } else {
-                    alert("Something went wrong");
+            } catch (error: any) {
+                console.log(error.message);
+                if (error.response && error.response.status === 400) {
+                    if (
+                        error.response.data.includes("Username") ||
+                        error.response.data.includes("EmailId")
+                    ) {
+                        alert(error.response.data);
+                    } else {
+                        alert("Something went wrong");
+                    }
                 }
             }
         }
@@ -94,10 +101,12 @@ export function Editor() {
                 <>
                     {" "}
                     {loading ? (
-                        <div className="text-center text-gray-400 mt-12">Adding...</div>
+                        <div className="text-center text-gray-400 mt-12">
+                            Adding...
+                        </div>
                     ) : (
                         <div
-                            className={`lg:max-w-3xl mx-auto mt-5 ${
+                            className={`lg:max-w-3xl mx-auto mt-5  p-4 ${
                                 isLoaded ? "animate-fade-in" : ""
                             }`}
                         >
@@ -120,7 +129,7 @@ export function Editor() {
                                 </div>
                             </div>
 
-                            <div className="">
+                            <div className="pt-5">
                                 <EditorContent editor={editor}></EditorContent>
                             </div>
                         </div>
