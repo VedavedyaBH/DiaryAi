@@ -7,12 +7,12 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET || "Secret";
 
 interface AuthenticatedRequest extends Request {
-    user?: any; // Add the user property to the interface
+    user?: any;
 }
 
 export async function createToken(user: User) {
     try {
-        const SignUpJWT = jwt.sign(user, JWT_SECRET);
+        const SignUpJWT = jwt.sign(user, JWT_SECRET, { expiresIn: "10h" });
         return SignUpJWT;
     } catch (error: any) {
         console.log(error.message);

@@ -86,12 +86,12 @@ export function Feed() {
                             next={fetchChapters}
                             hasMore={hasMore}
                             loader={
-                                <h4 className="text-center text-xs">
+                                <h4 className="text-center text-gray-400 text-xs">
                                     Loading...
                                 </h4>
                             }
                             endMessage={
-                                <p className="text-center text-xs">
+                                <p className="text-center text-gray-400 text-xs">
                                     You have reached the end
                                 </p>
                             }
