@@ -78,13 +78,10 @@ export const Card = ({ data }: any) => {
                 isLoaded ? "animate-fade-in" : ""
             }`}
                 >
-                    <div
-                        className="w-1/2 border rounded-lg  flex items-center justify-center
-                    text-center"
-                    >
+                    <div className="w-1/2 border rounded-lg flex items-center justify-center text-center">
                         {username}
                     </div>
-                    <div className="w-1/2 grid justify-center p-2 items-center text-center ">
+                    <div className="w-1/2 grid justify-center p-2 items-center text-center">
                         <div>
                             <div>
                                 Followers{" "}
@@ -99,36 +96,38 @@ export const Card = ({ data }: any) => {
                                 </span>
                             </div>
                         </div>
-                        <div className="flex justify-between">
-                            <div className="mx-2">
+                        <div className="flex flex-col lg:flex-row justify-center lg:justify-between w-full">
+                            <div className="mx-2 mb-2 lg:mb-0 lg:mr-2">
                                 <ButtonSmall
                                     onClick={handleFollowClick}
                                     label={
                                         followed ? (
                                             <img
-                                                className="h-4 ml-4"
+                                                className="h-4"
                                                 src={check}
-                                            ></img>
+                                                alt="check-mark"
+                                            />
                                         ) : (
                                             "Follow"
                                         )
                                     }
-                                ></ButtonSmall>
+                                />
                             </div>
-                            <div>
+                            <div className="mx-2 lg:ml-2">
                                 <ButtonSmall
                                     onClick={handleUnfollowClick}
                                     label={
                                         unfollowed ? (
                                             <img
-                                                className="h-4 ml-4"
+                                                className="h-4"
                                                 src={check}
-                                            ></img>
+                                                alt="check-mark"
+                                            />
                                         ) : (
                                             "UnFollow"
                                         )
                                     }
-                                ></ButtonSmall>
+                                />
                             </div>
                         </div>
                     </div>
