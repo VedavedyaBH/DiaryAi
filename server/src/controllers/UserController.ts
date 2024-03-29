@@ -14,7 +14,7 @@ export async function createUser(req: Request, res: Response) {
         const userData: User = req.body.user;
         const user = new User(userData);
         const newUser = await User.addUser(user);
-        newUser ? Socials.createSocialsForUser(newUser) : null;
+        newUser ? await Socials.createSocialsForUser(newUser) : null;
         if (newUser !== null) {
             res.status(Status.Created).send(newUser);
         }
