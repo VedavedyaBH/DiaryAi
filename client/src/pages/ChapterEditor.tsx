@@ -81,14 +81,12 @@ export function Editor() {
                     <div className="flex justify-center items-center">
                         <div className="font-bold text-4xl">Please Login</div>
                         <div>
-                            <button
+                            <ButtonSmall
                                 onClick={() => {
                                     navigate("/login");
                                 }}
-                                className="bg-black text-white rounded-lg w-12 h-8 ml-4"
-                            >
-                                Login
-                            </button>
+                                label={"Login"}
+                            ></ButtonSmall>
                         </div>
                     </div>
                 </div>
@@ -96,7 +94,7 @@ export function Editor() {
                 <>
                     {" "}
                     {loading ? (
-                        <div className="text-center mt-12">Adding...</div>
+                        <div className="text-center text-gray-400 mt-12">Adding...</div>
                     ) : (
                         <div
                             className={`lg:max-w-3xl mx-auto mt-5 ${

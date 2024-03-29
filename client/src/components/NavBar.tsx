@@ -12,7 +12,7 @@ export function NavBar() {
 
     return (
         <div
-            className="flex text-xs bg-slate-700  p-4 h-14
+            className="flex text-xs bg-neutral-800  p-4 h-14
         shadow-sm item-center text-gray-100
         justify-between mx-auto
         lg:justify-between lg:text-lg lg:h-16

@@ -6,7 +6,7 @@ import { SignUp } from "./pages/SignUp";
 import { AuthProvider } from "./Context/UserContext";
 import { Diaries } from "./pages/Diaries";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ChapterCard from "./pages/ChapterCard";
+import ChapterCard from "./pages/Chapter";
 import Profile from "./pages/Profile";
 import Feed from "./pages/Feed";
 import FindProfiles from "./pages/FindProfiles";

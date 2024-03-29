@@ -102,7 +102,7 @@ export function Header() {
                     height: 100vh;
                     top: 0;
                     left: 0;
-                    background: #1e293b;
+                    background: #181818;
                     z-index: 10;
                     display: flex;
                     flex-direction: column;
