@@ -114,7 +114,7 @@ function Profile() {
                 <div className="text-center">Loading...</div>
             ) : (
                 <div
-                    className={`bg-slate-700 text-stone-50 lg:mt-6 lg:max-w-3xl mx-auto lg:p-6 rounded-md ${
+                    className={`bg-neutral-800 text-gray-200 lg:mt-6 lg:max-w-3xl mx-auto lg:p-6 rounded-md ${
                         isLoaded ? "animate-fade-in" : ""
                     }`}
                 >

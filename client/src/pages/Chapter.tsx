@@ -59,29 +59,31 @@ function ChapterCard() {
         }
     };
     return (
-        <div className="lg:max-w-4xl mx-auto m-2 p-4">
-            <div
-                className={`text-sm md:text-md mb-4 p-4 bg-slate-100 mt-4 mb-4
-            hover:shadow-lg item-center ease-in-out duration-300 w-4xl
-            lg:text-base rounded-lg border ${
+        <div
+            className={`lg:max-w-4xl mx-auto m-2 p-4 ${
                 isLoaded ? "animate-fade-in" : ""
             }`}
+        >
+            <div
+                className={`text-sm md:text-md mb-4 p-4 bg-neutral-800 mt-4 mb-4
+            hover:shadow-lg item-center ease-in-out duration-300 w-4xl
+            lg:text-base rounded-lg`}
             >
-                <div className="text-left text-stone-900 font-bold pb-8 text-xl lg:text-4xl">
+                <div className="text-left text-gray-200 font-bold pb-8 text-xl lg:text-4xl">
                     {chapterTitle}
                 </div>
                 <div
-                    className="font-Kalam mb-10 text-stone-900"
+                    className="font-Kalam mb-10 text-gray-300"
                     dangerouslySetInnerHTML={{
                         __html: chapterContent,
                     }}
                 />
                 {isOwner ? (
                     <div>
-                        <div className="bg-slate-800 text-white rounded-lg p-5 mt-10 lg:text-xl  font-bold ">
+                        <div className="bg-neutral-900 text-white rounded-lg p-5 mt-10 lg:text-xl  font-bold ">
                             Hello there!
                         </div>
-                        <div className="mt-3 text-base text-stone-900 leading-relaxed mb-4">
+                        <div className="mt-3 text-base text-gray-300 leading-relaxed mb-4">
                             {response}
                         </div>
                     </div>

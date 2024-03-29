@@ -72,14 +72,14 @@ export const Card = ({ data }: any) => {
         <>
             <div className="lg:max-w-4xl mx-auto mx-2 p-4">
                 <div
-                    className={`flex justify-between text-sky-900 text-sm md:text-md bg-stone-100
-            hover:shadow-lg item-center ease-in-out duration-300
+                    className={`flex justify-between text-gray-200 text-sm md:text-md bg-neutral-800
+            hover:shadow-sm hover:shadow-gray-100 item-center ease-in-out duration-300
             h-52 lg:h-52 lg:text-base rounded-lg ${
                 isLoaded ? "animate-fade-in" : ""
             }`}
                 >
                     <div
-                        className="w-1/2 flex items-center justify-center
+                        className="w-1/2 border rounded-lg  flex items-center justify-center
                     text-center"
                     >
                         {username}
@@ -106,7 +106,7 @@ export const Card = ({ data }: any) => {
                                     label={
                                         followed ? (
                                             <img
-                                                className="h-4 ml-3"
+                                                className="h-4 ml-4"
                                                 src={check}
                                             ></img>
                                         ) : (
@@ -121,7 +121,7 @@ export const Card = ({ data }: any) => {
                                     label={
                                         unfollowed ? (
                                             <img
-                                                className="h-4 ml-3"
+                                                className="h-4 ml-4"
                                                 src={check}
                                             ></img>
                                         ) : (
