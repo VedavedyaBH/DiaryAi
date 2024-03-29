@@ -120,7 +120,8 @@ export async function getUserObjByLetters(
         const users = await prisma.user.findMany({
             where: {
                 username: {
-                    startsWith: username,
+                    startsWith: username.toLowerCase(),
+                    mode: "insensitive",
                 },
             },
             include: {

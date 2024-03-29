@@ -38,59 +38,72 @@ export function NavBar() {
 
             <div className="hidden sm:flex flex-col lg:flex-row justify-center lg:justify-between items-center space-y-4 lg:space-y-0 lg:space-x-8 lg:w-auto lg:ml-10 lg:mr-10">
                 <div onClick={() => navigate("/findPeople")}>
-                    <img className="h-5 lg:h-6" src={searchIcon}></img>{" "}
+                    <img className="h-max w-5" src={searchIcon}></img>{" "}
                 </div>
                 {token !== "" && (
-                    <ButtonSmall
-                        label={
-                            currentLoc.pathname === "/today"
-                                ? "Diary"
-                                : currentLoc.pathname === "/feed"
-                                ? "Logout"
-                                : "Add"
-                        }
-                        onClick={async () => {
-                            if (currentLoc.pathname === "/today") {
-                                navigate("/myDiary");
-                            } else if (currentLoc.pathname === "/user") {
-                                _logout();
-                            } else {
-                                navigate("/today");
+                    <div>
+                        <ButtonSmall
+                            label={
+                                currentLoc.pathname === "/today"
+                                    ? "Diary"
+                                    : currentLoc.pathname === "/user" ||
+                                      currentLoc.pathname === "/feed"
+                                    ? "Logout"
+                                    : "Add"
                             }
-                        }}
-                    />
+                            onClick={async () => {
+                                if (currentLoc.pathname === "/today") {
+                                    navigate("/myDiary");
+                                } else if (
+                                    currentLoc.pathname === "/user" ||
+                                    currentLoc.pathname === "/feed"
+                                ) {
+                                    _logout();
+                                } else {
+                                    navigate("/today");
+                                }
+                            }}
+                        />
+                    </div>
                 )}
+
                 {!token && (
-                    <ButtonSmall
-                        label={
-                            currentLoc.pathname === "/signup"
-                                ? "LogIn"
-                                : "SignUp"
-                        }
-                        onClick={() => {
-                            navigate(
+                    <div>
+                        <ButtonSmall
+                            label={
                                 currentLoc.pathname === "/signup"
-                                    ? "/login"
-                                    : "/signup"
-                            );
-                        }}
-                    />
+                                    ? "LogIn"
+                                    : "SignUp"
+                            }
+                            onClick={() => {
+                                navigate(
+                                    currentLoc.pathname === "/signup"
+                                        ? "/login"
+                                        : "/signup"
+                                );
+                            }}
+                        />
+                    </div>
                 )}
                 {currentLoc.pathname != "/mydiary" && (
-                    <ButtonSmall
-                        label={"Diary"}
-                        onClick={async () => {
-                            navigate("/mydiary");
-                        }}
-                    />
+                    <div>
+                        <ButtonSmall
+                            label={"Diary"}
+                            onClick={async () => {
+                                navigate("/mydiary");
+                            }}
+                        />
+                    </div>
                 )}
                 {token && (
-                    <ButtonSmall
-                        label="Profile"
-                        onClick={() => {
-                            navigate("/user");
-                        }}
-                    />
+                    <div>
+                        <ButtonSmall
+                            label="Profile"
+                            onClick={() => {
+                                navigate("/user");
+                            }}
+                        />
+                    </div>
                 )}
             </div>
         </div>

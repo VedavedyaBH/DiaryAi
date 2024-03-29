@@ -74,7 +74,6 @@ function Profile() {
 
     const updateUser = async () => {
         try {
-            console.log(updatedUserObj);
             const res = await axios.put(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/users/profile`,
                 { user: updatedUserObj },
@@ -95,18 +94,20 @@ function Profile() {
     return (
         <>
             {token === "" ? (
-                <div className="justify-center flex item-center mt-20 ">
-                    <div className="flex justify-center items-center">
-                        <div className="font-bold text-4xl">Please Login</div>
+                <div
+                    className="flex justify-center items-center \
+                                justify-center flex item-center mt-20"
+                >
+                    <div className="font-bold text-gray-200 text-4xl">
+                        Please Login
                         <div>
-                            <button
+                            <ButtonSmall
+                                label={"Login"}
                                 onClick={() => {
                                     navigate("/login");
                                 }}
                                 className="bg-black text-white rounded-lg w-12 h-8 ml-4"
-                            >
-                                Login
-                            </button>
+                            ></ButtonSmall>
                         </div>
                     </div>
                 </div>
@@ -224,13 +225,14 @@ function Profile() {
                                         placeholder={userObj.email}
                                     />
                                 </div>
-
-                                <ButtonSmall
-                                    onClick={updateUser}
-                                    type="button"
-                                    label={"Update"}
-                                    className="bg-black rounded-xl text-xs text-stone-50 p-1 text-center w-24 h-8"
-                                ></ButtonSmall>
+                                <div className="h-6">
+                                    <ButtonSmall
+                                        onClick={updateUser}
+                                        type="button"
+                                        label={"Update"}
+                                        className="bg-black rounded-xl text-xs text-stone-50 p-1 text-center w-24 h-8"
+                                    ></ButtonSmall>
+                                </div>
                             </form>
                         </div>
                         <div className="justify-center items-center mt-12 text-center lg:mt-0">
