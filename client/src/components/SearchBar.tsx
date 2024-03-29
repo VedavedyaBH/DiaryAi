@@ -15,14 +15,18 @@ function SearchBar({ handleSearch, handleInputChange, inputValue }: Props) {
     return (
         <>
             <div className="absolute flex justify-between item-center">
-                <input
-                    type="text"
-                    placeholder="find people...."
-                    className="rounded-xl focus:rounded-lg mr-4 text-sm p-1 border focus:outline-0
-                    focus:w-64 focus:shadow-xl ease-in-out duration-300 h-8 w-48 lg:h-8 lg:w-48"
-                    value={inputValue}
-                    onChange={handleInput}
-                />
+                <div className="">
+                    {" "}
+                    <input
+                        type="text"
+                        placeholder="find people...."
+                        className="px-5 py-2.5 rounded-lg focus:rounded-lg
+                        mr-4 text-sm border focus:outline-0
+                        focus:shadow-xl ease-in-out duration-300 transform focus:scale-110"
+                        value={inputValue}
+                        onChange={handleInput}
+                    />
+                </div>
                 <ButtonSmall
                     label={"Search"}
                     onClick={handleSearch}

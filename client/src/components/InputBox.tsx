@@ -15,7 +15,8 @@ export function InputBox({
                 onChange={onChange}
                 placeholder={placeholder}
                 id={id}
-                className="w-full px-2 py-2 border rounded-md border-slate-200 focus:outline-none"
+                className="w-full transform focus:scale-105 duration-300 ease-in-out 
+                px-2 py-2 bg-neutral-900 rounded-md border-slate-200 focus:outline-none"
             />
         </div>
     );

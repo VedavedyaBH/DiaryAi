@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { InputBox } from "../components/InputBox";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ButtonSmall } from "../components/ButtonSmall";
 
 interface User {
     username: string;
@@ -69,7 +69,7 @@ export function SignUp() {
     return (
         <>
             <div className="flex justify-center mt-24">
-                <div className="p-6 border-2 rounded-lg w-96">
+                <div className="p-6 text-gray-100 bg-neutral-700 rounded-lg w-96">
                     <form onSubmit={handleSubmit}>
                         <div>
                             <Heading label={"SignUp to DiaryAi"}></Heading>
@@ -127,8 +127,8 @@ export function SignUp() {
                             />
                         </div> */}
 
-                        <div className="pt-4">
-                            <Button type={"submit"} label={"SignUp"}></Button>
+                        <div className="pt-4 pb-4">
+                            <ButtonSmall type={"submit"} label={"SignUp"}></ButtonSmall>
                         </div>
                     </form>
                 </div>

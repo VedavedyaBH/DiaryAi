@@ -6,6 +6,7 @@ import { useAuth } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import add from "../assets/add.png";
 const NoOfChaptersPerPage = 5;
+import { ButtonSmall } from "../components/ButtonSmall";
 
 export function Feed() {
     const { token } = useAuth();
@@ -52,18 +53,20 @@ export function Feed() {
     return (
         <>
             {token === "" ? (
-                <div className="justify-center flex item-center mt-20">
-                    <div className="flex justify-center items-center">
-                        <div className="font-bold text-4xl">Please Login</div>
+                <div
+                    className="flex justify-center items-center \
+                                justify-center flex item-center mt-20"
+                >
+                    <div className="font-bold text-gray-200 text-4xl">
+                        Please Login
                         <div>
-                            <button
+                            <ButtonSmall
+                                label={"Login"}
                                 onClick={() => {
                                     navigate("/login");
                                 }}
                                 className="bg-black text-white rounded-lg w-12 h-8 ml-4"
-                            >
-                                Login
-                            </button>
+                            ></ButtonSmall>
                         </div>
                     </div>
                 </div>

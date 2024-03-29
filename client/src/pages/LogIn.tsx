@@ -1,9 +1,9 @@
-import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { InputBox } from "../components/InputBox";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../Context/UserContext";
+import { ButtonSmall } from "../components/ButtonSmall";
 
 interface User {
     username?: string;
@@ -68,7 +68,7 @@ export function LogIn() {
         <>
             <div className="flex justify-center h-screen mt-36">
                 <form onSubmit={handleSubmit}>
-                    <div className="p-6 border-2 rounded-lg w-96">
+                    <div className="p-6 text-gray-100 bg-neutral-700 rounded-lg w-96">
                         <div className="">
                             <Heading label={"Login to DiaryAi"}></Heading>
                         </div>
@@ -81,8 +81,8 @@ export function LogIn() {
                             name={"password"}
                             placeholder={"Password"}
                         ></InputBox>
-                        <div className="pt-4">
-                            <Button type={"submit"} label={"Login"}></Button>
+                        <div className="pt-4 pb-4">
+                            <ButtonSmall type={"submit"} label={"Login"}></ButtonSmall  >
                         </div>
                     </div>
                 </form>

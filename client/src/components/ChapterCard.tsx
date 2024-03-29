@@ -64,10 +64,12 @@ function Card({ chapterId, title, author, content, tag }: any) {
                         </div>
                     ))}
                 </div>
-                <ButtonSmall
-                    className="lg:text-lg"
-                    label={author}
-                ></ButtonSmall>
+                <div>
+                    <ButtonSmall
+                        className="lg:text-lg"
+                        label={author}
+                    ></ButtonSmall>
+                </div>
             </div>
         </div>
     );
