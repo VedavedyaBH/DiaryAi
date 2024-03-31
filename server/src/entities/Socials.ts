@@ -161,12 +161,19 @@ export class Socials {
             }
 
             const followedUserIds = socials.following;
-            const chapters = await prisma.diary.findMany({
+            const userChapters = await prisma.user.findMany({
                 where: {
-                    userId: {
+                    id: {
                         in: followedUserIds,
                     },
-                    private: false,
+                },
+                select: {
+                    username: true,
+                    diaries: {
+                        where: {
+                            private: false,
+                        },
+                    },
                 },
                 take: limit,
                 skip: offset,
@@ -174,7 +181,7 @@ export class Socials {
                     createdAt: "desc",
                 },
             });
-            return chapters;
+            return userChapters;
         } catch (error: any) {
             console.log(error.message);
             return null;

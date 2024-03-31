@@ -76,7 +76,7 @@ export function SignUp() {
 
     return (
         <>
-            <div className="flex justify-center mt-24">
+            <div className="flex justify-center scale-75 lg:scale-100 lg:mt-36">
                 <div className="p-6 text-gray-100 bg-neutral-700 rounded-lg w-96">
                     <form onSubmit={handleSubmit}>
                         <div>

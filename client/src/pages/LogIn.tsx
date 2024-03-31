@@ -33,7 +33,7 @@ export function LogIn() {
                 password: formData.get("password") as string,
             };
         }
-        addUser(userFormData);
+        await addUser(userFormData);
     };
 
     async function addUser(user: User) {
@@ -43,7 +43,6 @@ export function LogIn() {
                 const res = await axios.post(url, { user });
                 if (res.status === 200) {
                     const token = res.data;
-                    navigate("/feed");
                     await _login({ token });
                     navigate("/feed");
                     window.location.reload();
@@ -66,7 +65,7 @@ export function LogIn() {
 
     return (
         <>
-            <div className="flex justify-center h-screen mt-36">
+            <div className="flex justify-center h-screen scale-75 lg:scale-100 lg:mt-36">
                 <form onSubmit={handleSubmit}>
                     <div className="p-6 text-gray-100 bg-neutral-700 rounded-lg w-96">
                         <div className="">
@@ -82,7 +81,10 @@ export function LogIn() {
                             placeholder={"Password"}
                         ></InputBox>
                         <div className="pt-4 pb-4">
-                            <ButtonSmall type={"submit"} label={"Login"}></ButtonSmall  >
+                            <ButtonSmall
+                                type={"submit"}
+                                label={"Login"}
+                            ></ButtonSmall>
                         </div>
                     </div>
                 </form>
