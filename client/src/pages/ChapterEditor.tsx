@@ -103,7 +103,7 @@ export function Editor() {
         <>
             {token === "" ? (
                 <div
-                    className="flex justify-center items-center \
+                    className="flex justify-center items-center
                                     justify-center flex item-center mt-20"
                 >
                     <div className="font-bold text-gray-200 text-4xl">
@@ -122,7 +122,7 @@ export function Editor() {
             ) : (
                 <>
                     {loading ? (
-                        <div className="text-center text-gray-400 mt-12">
+                        <div className="text-center text-gray-100 mt-12">
                             Adding...
                         </div>
                     ) : (

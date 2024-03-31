@@ -34,13 +34,13 @@ export async function getFeedForUser(req: any, res: Response) {
         const offset =
             (parseInt(page as string) - 1) * parseInt(limit as string);
 
-        const chapters = await Socials.getFeedForUser(
+        const userChapters = await Socials.getFeedForUser(
             id as string,
             parseInt(limit as string),
             offset
         );
-        chapters
-            ? res.status(Status.OK).send(chapters)
+        userChapters
+            ? res.status(Status.OK).send(userChapters)
             : res.status(Status.BadRequest).send("Something went wrong");
     } catch (error: any) {
         res.status(Status.BadRequest).send("Something went wrong");

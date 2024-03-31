@@ -34,8 +34,8 @@ function Profile() {
     });
 
     useEffect(() => {
-        fetchUser();
         setIsLoaded(true);
+        fetchUser();
     }, []);
 
     useEffect(() => {

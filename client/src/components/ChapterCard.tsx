@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ButtonSmall } from "./ButtonSmall";
+import BagroundForTags from "./BagroundForTags";
 
 function Card({ chapterId, title, author, content, tag }: any) {
     const navigate = useNavigate();
@@ -57,21 +58,15 @@ function Card({ chapterId, title, author, content, tag }: any) {
                 </div>
             </div>
             <div className="flex justify-between items-center mt-2 lg:mt-5">
-                <div className="flex justify-normal">
-                    <div
-                        className="flex justify-between"
-                        style={{ marginLeft: "-1.3em" }}
-                    >
-                        {tags.map((each: any, index: number) => (
-                            <div
-                                key={index}
-                                className="flex mt-2 mb-2 scale-50"
-                                style={{ marginRight: "-2rem" }}
-                            >
-                                <ButtonSmall label={each}></ButtonSmall>
-                            </div>
-                        ))}
-                    </div>
+                <div className="flex " style={{ marginLeft: "-0.5em" }}>
+                    {tags.map((each: any, index: number) => (
+                        <div
+                            key={index}
+                            className="flex justify-between mt-2 mb-2 scale-75 max-w-24 overflow-hidden"
+                        >
+                            <BagroundForTags label={each}></BagroundForTags>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="scale-50">
