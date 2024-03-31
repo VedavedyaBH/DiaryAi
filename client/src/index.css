@@ -114,3 +114,34 @@ html {
 .animate-fade-in {
   animation: fade-in 0.5s ease-in-out;
 }
+.scrollable-feed {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 64px); 
+}
+.scrollable-feed::-webkit-scrollbar {
+  width: 0; 
+  background: transparent; 
+}
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: -250px; 
+  width: 250px;
+  height: 100vh; 
+  background-color:  rgb(38 38 38); 
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5); 
+  transition: left 0.3s ease;
+  z-index: 999; 
+} 
+
+.sidebar-container.open {
+  left: 0; 
+}
+
+.toggle-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+}
