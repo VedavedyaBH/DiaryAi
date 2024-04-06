@@ -10,6 +10,7 @@ import { Socials } from "./Socials";
 import { getUserObjById } from "../services/UserServices";
 
 const prisma = new PrismaClient();
+const today = new Date();
 
 export class Diary {
     id: string;
@@ -38,27 +39,53 @@ export class Diary {
         priavatePost: boolean
     ): Promise<Diary | null> {
         try {
-            const data = await prisma.diary.create({
-                data: {
-                    id: diary.id,
-                    title: await generateTitle(diary.content),
-                    tag: await generateTags(diary.content),
-                    aiResponse: await generateResponse(diary.content),
-                    content: diary.content,
-                    img: diary.img,
+            const today = new Date();
+
+            const startOfDay = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate()
+            );
+            const endOfDay = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate() + 1
+            );
+
+            const exists = await prisma.diary.findFirst({
+                where: {
+                    createdAt: {
+                        gte: startOfDay,
+                        lt: endOfDay,
+                    },
                     userId: userId,
-                    private: priavatePost,
                 },
             });
 
-            if (priavatePost) {
-                await Socials.updateSocialsForUser(userId, diary.id);
+            if (exists) {
+                throw new Error(
+                    "A diary entry has already been added for today."
+                );
+            } else {
+                const data = await prisma.diary.create({
+                    data: {
+                        id: diary.id,
+                        title: await generateTitle(diary.content),
+                        tag: await generateTags(diary.content),
+                        aiResponse: await generateResponse(diary.content),
+                        content: diary.content,
+                        img: diary.img,
+                        userId: userId,
+                        private: priavatePost,
+                    },
+                });
+                if (priavatePost) {
+                    await Socials.updateSocialsForUser(userId, diary.id);
+                }
+                return data;
             }
-
-            return data;
         } catch (error: any) {
-            console.log(error.message);
-            return null;
+            throw error.message;
         }
     }
 

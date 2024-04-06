@@ -14,7 +14,7 @@ function SearchBar({ handleSearch, handleInputChange, inputValue }: Props) {
 
     return (
         <>
-            <div className="absolute flex justify-between item-center">
+            <div className="flex justify-between item-center">
                 <div className="">
                     {" "}
                     <input

@@ -19,6 +19,7 @@ export function Editor() {
     const [warningMessage, setWarningMessage] = useState("");
 
     useEffect(() => {
+        openModal("Hello!", "You can add one chapter a day!");
         setIsLoaded(true);
     }, []);
 
@@ -62,23 +63,22 @@ export function Editor() {
                             Authorization: `Bearer ${token}`,
                         },
                     });
-
                     if (res.status === 201) {
                         setLoading(false);
                         navigate("/myDiary");
                     }
                 }
             } catch (error: any) {
-                console.log(error.message);
-                if (error.response && error.response.status === 400) {
-                    if (
-                        error.response.data.includes("Username") ||
-                        error.response.data.includes("EmailId")
-                    ) {
-                        alert(error.response.data);
-                    } else {
-                        alert("Something went wrong");
-                    }
+                if (
+                    error.response.data.includes(
+                        "A diary entry has already been added for today."
+                    )
+                ) {
+                    setLoading(false);
+                    openModal(
+                        "One Chapter a Day!",
+                        "You have already made an entry for today! Come back tomorrow"
+                    );
                 }
             }
         }
@@ -138,7 +138,7 @@ export function Editor() {
                                         label={"Add"}
                                     ></ButtonSmall>
                                 </div>
-                                <div>
+                                <div className="mr-2">
                                     <ButtonSmall
                                         onClick={() => {
                                             setPrivatePost(!privatePost);
@@ -146,6 +146,12 @@ export function Editor() {
                                         label={
                                             privatePost ? "Private" : "Public"
                                         }
+                                    ></ButtonSmall>
+                                </div>
+                                <div>
+                                    <ButtonSmall
+                                        onClick={() => navigate("/myDiary")}
+                                        label={"My Chapters"}
                                     ></ButtonSmall>
                                 </div>
                             </div>

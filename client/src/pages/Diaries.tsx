@@ -81,10 +81,12 @@ export function Diaries() {
                         next={fetchChapters}
                         hasMore={hasMore}
                         loader={
-                            <h4 className="text-center text-xs">Loading...</h4>
+                            <h4 className="text-center text-gray-200 text-xs">
+                                Loading...
+                            </h4>
                         }
                         endMessage={
-                            <p className="text-center text-xs">
+                            <p className="text-center text-gray-200 text-xs">
                                 You have reached the end
                             </p>
                         }
