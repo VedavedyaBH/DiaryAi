@@ -75,7 +75,7 @@ function FindProfiles() {
                 isLoaded ? "animate-fade-in" : ""
             }`}
         >
-            <div className={`flex justify-center my-4`}>
+            <div className={`flex justify-center my-8`}>
                 <SearchBar
                     handleSearch={handleSearch}
                     handleInputChange={handleInputChange}
@@ -83,36 +83,36 @@ function FindProfiles() {
                 />
             </div>
             {!entered && (
-                <div className="mt-12">
+                <div className="mt-8">
                     {loading && profile.length === 0 ? (
-                        <div className="text-center text-stone-100 p-4">Loading...</div>
+                        <div className="text-center text-stone-100 p-4">
+                            Loading...
+                        </div>
                     ) : profile.length === 0 ? (
                         <div className="text-center text-gray-200 p-4">
                             No user found for the entered username
                         </div>
                     ) : (
-                        <div>
-                            <div className="lg:max-w-lg m-auto justify-center">
-                                <InfiniteScroll
-                                    dataLength={profile.length}
-                                    next={fetchProfiles}
-                                    hasMore={hasMore}
-                                    loader={
-                                        <h4 className="text-center text-xs">
-                                            Loading...
-                                        </h4>
-                                    }
-                                    endMessage={
-                                        <p className="text-center text-xs">
-                                            You have reached the end
-                                        </p>
-                                    }
-                                >
-                                    {profile.map((data: any, index: number) => (
-                                        <Card key={index} data={data} />
-                                    ))}
-                                </InfiniteScroll>
-                            </div>
+                        <div className="lg:max-w-lg m-auto justify-center">
+                            <InfiniteScroll
+                                dataLength={profile.length}
+                                next={fetchProfiles}
+                                hasMore={hasMore}
+                                loader={
+                                    <h4 className="text-center text-xs">
+                                        Loading...
+                                    </h4>
+                                }
+                                endMessage={
+                                    <p className="text-center text-gray-200 mb-4 text-xs">
+                                        You have reached the end
+                                    </p>
+                                }
+                            >
+                                {profile.map((data: any, index: number) => (
+                                    <Card key={index} data={data} />
+                                ))}
+                            </InfiniteScroll>
                         </div>
                     )}
                 </div>

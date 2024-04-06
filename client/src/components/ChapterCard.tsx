@@ -57,19 +57,22 @@ function Card({ chapterId, title, author, content, tag }: any) {
                     />
                 </div>
             </div>
-            <div className="flex justify-between items-center mt-2 lg:mt-5">
-                <div className="flex " style={{ marginLeft: "-0.5em" }}>
+            <div className="flex items-center mt-2 lg:mt-5">
+                <div
+                    className="flex justify-start"
+                    style={{ marginRight: "auto" }}
+                >
                     {tags.map((each: any, index: number) => (
                         <div
                             key={index}
-                            className="flex justify-between mt-2 mb-2 scale-75 max-w-24 overflow-hidden"
+                            className="flex justify-between mt-2 mb-2 scale-75 max-w-16"
                         >
                             <BagroundForTags label={each}></BagroundForTags>
                         </div>
                     ))}
                 </div>
 
-                <div className="scale-50">
+                <div className="flex scale-50 justify-end">
                     <ButtonSmall
                         className="lg:text-lg"
                         label={author}

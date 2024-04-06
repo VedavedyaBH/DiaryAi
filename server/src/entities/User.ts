@@ -13,17 +13,6 @@ export class User {
     password: string;
     profilePicture: string;
 
-    constructor(user: User) {
-        this.id = uuidv4();
-        this.username = user.username;
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
-        this.email = user.email;
-        this.password = user.password;
-        this.profilePicture = user.profilePicture || "";
-        this.password = user.password;
-    }
-
     static async setPassword(password: string) {
         return (password = await bcrypt.hash(password, 10));
     }
@@ -42,13 +31,13 @@ export class User {
 
             const data = await prisma.user.create({
                 data: {
-                    id: user.id,
+                    id: uuidv4(),
                     email: user.email,
                     username: user.username,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     password: await this.setPassword(user.password),
-                    profilePicture: user.profilePicture,
+                    profilePicture: "",
                 },
             });
             return data;

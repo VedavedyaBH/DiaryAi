@@ -8,15 +8,25 @@ import {
 } from "../services/UserServices";
 import { Socials } from "../entities/Socials";
 import { Status } from "../interfaces-enums/StatusCodes";
+import { userSchema } from "../utils/ZodValidation";
 
 export async function createUser(req: Request, res: Response) {
     try {
         const userData: User = req.body.user;
-        const user = new User(userData);
-        const newUser = await User.addUser(user);
-        newUser ? await Socials.createSocialsForUser(newUser) : null;
-        if (newUser !== null) {
-            res.status(Status.Created).send(newUser);
+
+        const validUser = userSchema.parse({
+            username: userData.username,
+            email: userData.email,
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+        });
+
+        let user: User;
+        validUser ? (user = await User.addUser(userData)) : null;
+        user ? await Socials.createSocialsForUser(user) : null;
+        if (user !== null) {
+            res.status(Status.Created).send(user);
         }
     } catch (error: any) {
         console.error(error.message);
@@ -26,7 +36,7 @@ export async function createUser(req: Request, res: Response) {
         ) {
             res.status(Status.BadRequest).send(error.message);
         } else {
-            res.status(Status.BadRequest).send("Something went wrong");
+            res.status(Status.BadRequest).send(error);
         }
     }
 }

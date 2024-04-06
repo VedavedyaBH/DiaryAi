@@ -18,34 +18,34 @@ export function NavBar() {
     };
 
     return (
-        <div>
-            {" "}
-            <div
-                className="flex justify-around text-xs bg-neutral-800 p-4 h-14 shadow-sm item-center
-    text-gray-100 mx-auto  lg:text-lg lg:h-16 lg:text-lg"
-            >
-                <div className="flex space-x-2">
-                    <Bars3Icon
-                        className="h-5 lg:h-8 pt-1 lg:pt-0"
-                        onClick={toggleSideBar}
-                    />
-                    <button
-                        className="lg:ml-14"
-                        onClick={() => navigate("/feed")}
-                    >
-                        DiaryAI
-                    </button>
+        <div className="w-screen fixed top-0 z-10 bg-neutral-800">
+            <div className="max-w-7xl mx-auto">
+                <div
+                    className="flex justify-around text-xs p-4 h-14 shadow-sm item-center
+                           text-gray-100 mx-auto  lg:text-lg lg:h-16 lg:text-lg"
+                >
+                    <div className="flex space-x-2">
+                        <Bars3Icon
+                            className="h-5 lg:h-8 pt-1 lg:pt-0"
+                            onClick={toggleSideBar}
+                        />
+                        <button
+                            className="lg:ml-14"
+                            onClick={() => navigate("/feed")}
+                        >
+                            DiaryAI
+                        </button>
+                    </div>
+                    <div onClick={() => navigate("/findPeople")}>
+                        <img
+                            className="ml-44 hover:scale-110 duration-300 ease-in-out h-5 pt-1 lg:h-7"
+                            src={searchIcon}
+                            alt="search icon"
+                        />
+                    </div>
                 </div>
-
-                <div className="" onClick={() => navigate("/findPeople")}>
-                    <img
-                        className="ml-44 h-5 lg:h-6"
-                        src={searchIcon}
-                        alt="search icon"
-                    />
-                </div>
+                <SideBar isOpen={isOpen} onClose={onClose} />
             </div>
-            <SideBar isOpen={isOpen} onClose={onClose} />
         </div>
     );
 }

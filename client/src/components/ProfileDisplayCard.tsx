@@ -3,6 +3,7 @@ import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 import { ButtonSmall } from "./ButtonSmall";
 import check from "../assets/check.svg";
+import { useNavigate } from "react-router-dom";
 
 export const Card = ({ data }: any) => {
     const { token } = useAuth();
@@ -13,7 +14,7 @@ export const Card = ({ data }: any) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [followed, setFollowed] = useState(false);
     const [unfollowed, setUnFollowed] = useState(false);
-
+    const navigate = useNavigate();
     useEffect(() => {
         setData();
         setIsLoaded(true);
@@ -67,10 +68,15 @@ export const Card = ({ data }: any) => {
             console.log(error.message);
         }
     };
-
+    const handleCardClick = () => {
+        navigate(`/profile/${userId}`);
+    };
     return (
         <>
-            <div className="lg:max-w-4xl mx-auto mx-2 p-4">
+            <div
+                onClick={handleCardClick}
+                className="lg:max-w-4xl mx-auto mx-2 p-4"
+            >
                 <div
                     className={`flex justify-between text-gray-200 text-sm md:text-md bg-neutral-800
             hover:shadow-sm hover:shadow-gray-100 item-center ease-in-out duration-300

@@ -9,18 +9,10 @@ export async function addDiaryEntry(req: any, res: Response) {
         const privatePost: boolean = req.body.private;
         const today = new Diary(diaryData);
         const addedToday = await Diary.addday(today, id, privatePost);
-        if (addedToday !== null) {
-            res.status(Status.Created).send(addedToday);
-        } else {
-            res.status(Status.BadRequest).send("Could not add");
-        }
+        console.log(addedToday);
+        addedToday != null && res.status(Status.Created).send(addedToday);
     } catch (error: any) {
-        console.error(error.message);
-        if (ReferenceError !== null) {
-            res.status(Status.BadRequest).send(error.message);
-        } else {
-            res.status(Status.BadRequest).send("Something went wrong");
-        }
+        res.status(Status.BadRequest).send(error);
     }
 }
 

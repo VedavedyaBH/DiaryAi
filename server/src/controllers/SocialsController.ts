@@ -47,10 +47,11 @@ export async function getFeedForUser(req: any, res: Response) {
     }
 }
 
-export async function getUserSocialProfile(req: Request, res: Response) {
+export async function getUserSocialProfile(req: any, res: Response) {
     try {
         const { userId } = req.params;
-        const user = await Socials.getUserSocialProfile(userId as string);
+        const { id } = req.user;
+        const user = await Socials.getUserSocialProfile(userId as string, id);
         user
             ? res.status(Status.OK).send(user)
             : res.status(Status.BadRequest).send("Something went wrong");

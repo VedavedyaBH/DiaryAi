@@ -188,16 +188,31 @@ export class Socials {
         }
     }
 
-    static async getUserSocialProfile(userId: string) {
+    static async getUserSocialProfile(userId: string, id: string) {
         try {
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                include: {
-                    diaries: true,
-                    socials: true,
-                },
-            });
-
+            let user;
+            if (userId == id) {
+                user = await prisma.user.findUnique({
+                    where: { id: userId },
+                    include: {
+                        diaries: true,
+                        socials: true,
+                    },
+                });
+            } else {
+                user = await prisma.user.findUnique({
+                    where: { id: userId },
+                    select: {
+                        username: true,
+                        socials: true,
+                        diaries: {
+                            where: {
+                                private: false,
+                            },
+                        },
+                    },
+                });
+            }
             if (!user) return null;
 
             return user;
@@ -206,6 +221,7 @@ export class Socials {
             return null;
         }
     }
+
     static async getAllFollowing(userId: string) {
         try {
             const followers = await prisma.socials.findUnique({

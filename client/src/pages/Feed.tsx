@@ -71,7 +71,7 @@ export function Feed() {
 
     return (
         <>
-            <div className="col-span-3 lg:col-span-5 flex flex-col">
+            <div>
                 {token === "" ? (
                     <div className="flex justify-center items-center justify-center flex item-center mt-20">
                         <div className="font-bold text-gray-200 text-4xl">
@@ -96,7 +96,7 @@ export function Feed() {
                                 </div>
                                 <img
                                     onClick={() => navigate("/today")}
-                                    className="h-6 hover:h-7 duration-300 ease-in-out"
+                                    className="h-6 hover:scale-110 duration-300 ease-in-out"
                                     src={add}
                                 ></img>
                             </div>
@@ -106,12 +106,12 @@ export function Feed() {
                                 next={fetchChapters}
                                 hasMore={hasMore}
                                 loader={
-                                    <h4 className="text-center text-gray-400 text-xs">
+                                    <h4 className="text-center text-gray-200 text-xs">
                                         Loading...
                                     </h4>
                                 }
                                 endMessage={
-                                    <p className="text-center text-gray-400 text-xs">
+                                    <p className="text-center text-gray-200 text-xs">
                                         You have reached the end
                                     </p>
                                 }
