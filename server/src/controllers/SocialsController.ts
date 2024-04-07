@@ -59,3 +59,20 @@ export async function getUserSocialProfile(req: any, res: Response) {
         res.status(Status.BadRequest).send("Something went wrong");
     }
 }
+export async function getFeedPublic(req: any, res: Response) {
+    try {
+        const { limit, page } = req.query;
+        const offset =
+            (parseInt(page as string) - 1) * parseInt(limit as string);
+
+        const userChapters = await Socials.getFeedForPublic(
+            parseInt(limit as string),
+            offset
+        );
+        userChapters
+            ? res.status(Status.OK).send(userChapters)
+            : res.status(Status.BadRequest).send("Something went wrong");
+    } catch (error: any) {
+        res.status(Status.BadRequest).send("Something went wrong");
+    }
+}

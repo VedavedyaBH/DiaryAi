@@ -4,6 +4,7 @@ import { InputBox } from "../components/InputBox";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { ButtonSmall } from "../components/ButtonSmall";
+import { BottomWarning } from "../components/BottomWarning";
 
 interface User {
     username: string;
@@ -203,6 +204,11 @@ export function SignUp() {
                                 type={"submit"}
                                 label={"SignUp"}
                             ></ButtonSmall>
+                            <BottomWarning
+                                label={"Already an user? "}
+                                buttonText={"Login"}
+                                to={"/login"}
+                            ></BottomWarning>
                         </div>
                     </form>
                 </div>
