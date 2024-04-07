@@ -205,7 +205,7 @@ export function SignUp() {
                                 label={"SignUp"}
                             ></ButtonSmall>
                             <BottomWarning
-                                label={"Already an user? "}
+                                label={"Already a user? "}
                                 buttonText={"Login"}
                                 to={"/login"}
                             ></BottomWarning>
