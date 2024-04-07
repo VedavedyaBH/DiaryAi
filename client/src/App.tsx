@@ -22,7 +22,7 @@ function App() {
                         <NavBar />
                     </div>
                     <main>
-                        <div className="pt-12 scrollable">
+                        <div className="pt-12 mt-5 scrollable">
                             <Routes>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/login" element={<LogIn />} />

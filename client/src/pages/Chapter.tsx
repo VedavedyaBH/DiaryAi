@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { ButtonSmall } from "../components/ButtonSmall";
+import { useNavigate } from "react-router-dom";
 
 function ChapterCard() {
     const { chapterId } = useParams();
@@ -10,13 +12,15 @@ function ChapterCard() {
     const [response, setResponse] = useState("");
     const [isOwner, setIsOwner] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const navigate = useNavigate();
 
     const { token } = useAuth();
 
     useEffect(() => {
-        isOwnerCheck();
+        token !== "" && isOwnerCheck();
         setIsLoaded(true);
     }, []);
+
     const isOwnerCheck = async () => {
         try {
             const res = await axios.get(
@@ -59,37 +63,59 @@ function ChapterCard() {
         }
     };
     return (
-        <div
-            className={`lg:max-w-4xl mx-auto m-2 p-4 ${
-                isLoaded ? "animate-fade-in" : ""
-            }`}
-        >
-            <div
-                className={`text-sm md:text-md mb-4 p-4 bg-neutral-800 mt-4 mb-4
-            hover:shadow-lg item-center ease-in-out duration-300 w-4xl
-            lg:text-base rounded-lg`}
-            >
-                <div className="text-left text-gray-200 font-bold pb-8 text-xl lg:text-4xl">
-                    {chapterTitle}
-                </div>
+        <>
+            {token === "" ? (
                 <div
-                    className="font-Kalam mb-10 text-gray-300"
-                    dangerouslySetInnerHTML={{
-                        __html: chapterContent,
-                    }}
-                />
-                {isOwner ? (
-                    <div>
-                        <div className="bg-neutral-900 text-white rounded-lg p-5 mt-10 lg:text-xl  font-bold ">
-                            Hello there!
-                        </div>
-                        <div className="mt-3 text-base text-gray-300 leading-relaxed mb-4">
-                            {response}
+                    className="flex justify-center items-center
+                                    justify-center flex item-center mt-20"
+                >
+                    <div className="font-bold text-gray-200 text-4xl">
+                        Login to read
+                        <div>
+                            <ButtonSmall
+                                label={"Login"}
+                                onClick={() => {
+                                    navigate("/login");
+                                }}
+                                className="bg-black text-white rounded-lg w-12 h-8 ml-4"
+                            ></ButtonSmall>
                         </div>
                     </div>
-                ) : null}
-            </div>
-        </div>
+                </div>
+            ) : (
+                <div
+                    className={`lg:max-w-4xl mx-auto m-2 p-4 ${
+                        isLoaded ? "animate-fade-in" : ""
+                    }`}
+                >
+                    <div
+                        className={`text-sm md:text-md mb-4 p-4 bg-neutral-800 mt-4 mb-4
+                                hover:shadow-lg item-center ease-in-out duration-300 w-4xl
+                                lg:text-base rounded-lg`}
+                    >
+                        <div className="text-left text-gray-200 font-bold pb-8 text-xl lg:text-4xl">
+                            {chapterTitle}
+                        </div>
+                        <div
+                            className="font-Kalam mb-10 text-gray-300"
+                            dangerouslySetInnerHTML={{
+                                __html: chapterContent,
+                            }}
+                        />
+                        {isOwner ? (
+                            <div>
+                                <div className="bg-neutral-900 text-white rounded-lg p-5 mt-10 lg:text-xl  font-bold ">
+                                    Hello there!
+                                </div>
+                                <div className="mt-3 text-base text-gray-300 leading-relaxed mb-4">
+                                    {response}
+                                </div>
+                            </div>
+                        ) : null}
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
 

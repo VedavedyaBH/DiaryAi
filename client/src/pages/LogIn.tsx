@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../Context/UserContext";
 import { ButtonSmall } from "../components/ButtonSmall";
+import { BottomWarning } from "../components/BottomWarning";
 
 interface User {
     username?: string;
@@ -85,6 +86,11 @@ export function LogIn() {
                                 type={"submit"}
                                 label={"Login"}
                             ></ButtonSmall>
+                            <BottomWarning
+                                label={"Not an user? "}
+                                buttonText={"Signup"}
+                                to={"/signup"}
+                            ></BottomWarning>
                         </div>
                     </div>
                 </form>

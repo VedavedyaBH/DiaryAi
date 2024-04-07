@@ -239,4 +239,27 @@ export class Socials {
             return null;
         }
     }
+    static async getFeedForPublic(limit: number, offset: number) {
+        try {
+            const userChapters = await prisma.user.findMany({
+                select: {
+                    username: true,
+                    diaries: {
+                        where: {
+                            private: false,
+                        },
+                    },
+                },
+                take: limit,
+                skip: offset,
+                orderBy: {
+                    createdAt: "desc",
+                },
+            });
+            return userChapters;
+        } catch (error: any) {
+            console.log(error.message);
+            return null;
+        }
+    }
 }

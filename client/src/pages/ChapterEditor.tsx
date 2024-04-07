@@ -19,7 +19,7 @@ export function Editor() {
     const [warningMessage, setWarningMessage] = useState("");
 
     useEffect(() => {
-        openModal("Hello!", "You can add one chapter a day!");
+        token !== "" && openModal("Hello!", "You can add one chapter a day!");
         setIsLoaded(true);
     }, []);
 

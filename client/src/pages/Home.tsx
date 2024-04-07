@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { ButtonSmall } from "../components/ButtonSmall";
+import { useAuth } from "../Context/UserContext";
 
 export function Home() {
     const navigate = useNavigate();
+    const { token } = useAuth();
     return (
         <div className="flex flex-col justify-center items-center">
             <h1 className="text-4xl font-bold mb-8 text-center text-gray-200">
@@ -16,15 +18,55 @@ export function Home() {
                 favorite diaries, explore trending topics, and connect with
                 like-minded individuals.
             </p>
+            <div className="text-lg max-w-3xl m-4 text-gray-300 bg-neutral-800 p-4 rounded-xl text-sm">
+                <h1 className="text-2xl font-bold text-gray-200">
+                    Current features
+                </h1>
+                <div className="p-2 text-xs">
+                    <li className="mb-2">You can add one chapter a day</li>
+                    <li className="mb-2">
+                        You can follow people and read their public chapters
+                    </li>
+                    <li className="mb-2">
+                        When you add a chapter, you will receive a reply from
+                        AI. This reply cannot be seen by others even if they
+                        follow you
+                    </li>
+                    <li className="mb-2">
+                        You can decorate texts as well. It is a rich text
+                        editor. Use keyboard shortcuts
+                    </li>
+                </div>
+            </div>
             <p className="text-lg text-center max-w-3xl m-4 text-gray-300">
                 Whether you're looking to organize your thoughts, reflect on
                 your day, or simply express yourself, Diary AI provides a safe
                 and supportive space for you to do so.
             </p>
-            <ButtonSmall
-                onClick={() => navigate("/signup")}
-                label={"Signup"}
-            ></ButtonSmall>
+            <div className="flex">
+                {token === "" && (
+                    <div className="mr-2">
+                        <ButtonSmall
+                            onClick={() => navigate("/signup")}
+                            label={"Signup"}
+                        ></ButtonSmall>
+                    </div>
+                )}
+                {token === "" && (
+                    <div className="mr-2">
+                        <ButtonSmall
+                            onClick={() => navigate("/login")}
+                            label={"Login"}
+                        ></ButtonSmall>
+                    </div>
+                )}
+                <div>
+                    <ButtonSmall
+                        onClick={() => navigate("/feed")}
+                        label={"Explore"}
+                    ></ButtonSmall>
+                </div>
+            </div>
             <p className="text-lg text-center m-4 max-w-3xl text-gray-300">
                 Join us today and start your journey towards self-discovery and
                 personal growth.

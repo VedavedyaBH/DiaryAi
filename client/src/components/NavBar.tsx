@@ -31,7 +31,7 @@ export function NavBar() {
                         />
                         <button
                             className="lg:ml-14"
-                            onClick={() => navigate("/feed")}
+                            onClick={() => navigate("/")}
                         >
                             DiaryAI
                         </button>

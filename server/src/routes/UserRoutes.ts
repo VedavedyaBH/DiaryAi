@@ -20,7 +20,7 @@ import {
     follow,
     unfollow,
     getFeedForUser,
-    getUserSocialProfile,
+    getUserSocialProfile,getFeedPublic
 } from "../controllers/SocialsController";
 import { verifyJWT, decodeJWT } from "../services/JwtServices";
 import { Request, Response } from "express";
@@ -46,6 +46,7 @@ router.get("/api/v1/diaries/public/:userId", verifyJWT, getPublicChapters);
 
 router.post("/api/v1/socials/follow", verifyJWT, follow);
 router.delete("/api/v1/socials/follow", verifyJWT, unfollow);
+router.get("/api/v1/socials/public/feed", getFeedPublic);
 router.get("/api/v1/socials/feed", verifyJWT, getFeedForUser);
 router.get("/api/v1/socials/profile/:userId", verifyJWT, getUserSocialProfile);
 router.get(
