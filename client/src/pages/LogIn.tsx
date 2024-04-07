@@ -87,7 +87,7 @@ export function LogIn() {
                                 label={"Login"}
                             ></ButtonSmall>
                             <BottomWarning
-                                label={"Not an user? "}
+                                label={"Not a user? "}
                                 buttonText={"Signup"}
                                 to={"/signup"}
                             ></BottomWarning>
